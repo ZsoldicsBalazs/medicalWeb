@@ -1,0 +1,49 @@
+<!-- <div class="login-container">
+    <h2>Autentificare</h2>
+    <form (ngSubmit)="onLogin()">
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" [(ngModel)]="email" name="email" required>
+      </div>
+      <div>
+        <label for="password">Parolă:</label>
+        <input type="password" [(ngModel)]="password" name="password" required>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+    <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
+  </div> -->
+
+
+  <div class="container d-flex align-items-center justify-content-center vh-100">
+    <div class="login-card col-md-8 col-lg-5">
+      <div class="card">
+        <div class="card-header">
+          Medical App Login
+        </div>
+        <div class="card-body">
+          <!-- Formularul de login -->
+          <form (ngSubmit)="onLogin()">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="email" placeholder="name@example.com" [(ngModel)]="email" name="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Enter your password" [(ngModel)]="password" name="password" required>
+            </div>
+            <div class="d-grid mb-3">
+              <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
+          </form>
+          <hr />
+          <!-- Link pentru înregistrare -->
+          <div class="text-center">
+            <p>Don't have an account? <a routerLink="/register">Register here</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

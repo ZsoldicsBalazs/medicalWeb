@@ -1,0 +1,24 @@
+/* Imagine de fundal medicală - setează imaginea dorită */
+:host {
+    display: block;
+    background: url('https://source.unsplash.com/1600x900/?medical') no-repeat center center fixed;
+    background-size: cover;
+  }
+  
+  /* Stil pentru card-ul de login */
+  .login-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Card header transparent */
+  .card-header {
+    background-color: transparent;
+    border-bottom: none;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
