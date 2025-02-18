@@ -11,7 +11,7 @@ export const roleGuard: CanActivateFn = (route, state) => {
   
     const role = authService.getRoleFromToken();
     console.log(role);
-    if (role && (role === 'ROLE_MEDIC' || role === 'ROLE_PACIENT' || role === 'ROLE_ADMIN')) {
+    if (role && (role === 'ROLE_MEDIC' || role === 'ROLE_PATIENT' || role === 'ROLE_ADMIN' || role === 'ROLE_SECRETARY')) {
       return true;
     } else {
      

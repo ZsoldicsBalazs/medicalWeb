@@ -16,7 +16,7 @@ ngOnInit(): void {
   debugger;
   if (role === 'ROLE_MEDIC' || role === 'ROLE_ADMIN') {
     this.router.navigate(['doctor'], { relativeTo: this.activatedRoute });
-  } else if (role === 'ROLE_PACIENT') {
+  } else if (role === 'ROLE_PATIENT') {
     this.router.navigate(['patient'], { relativeTo: this.activatedRoute });
   } else {
     this.router.navigate(['/login']);
