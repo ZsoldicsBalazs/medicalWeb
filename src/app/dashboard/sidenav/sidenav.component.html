@@ -1,0 +1,50 @@
+<div id="wrapper" [class.toggled]="isSidebarOpen">
+    <!-- Overlay: click pe el pentru a închide sidebar-ul -->
+    <div class="overlay" (click)="toggleSidebar()"></div>
+    
+    <!-- Sidebar -->
+    <nav id="sidebar-wrapper">
+      <ul class="nav sidebar-nav">
+        <div class="sidebar-header">
+          <div class="sidebar-brand"><a href="#">Brand</a></div>
+        </div>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#team">Team</a></li>
+        <li class="dropdown">
+          <a href="#works" (click)="toggleDropdown($event)">Works <span class="caret"></span></a>
+          <ul class="dropdown-menu animated fadeInLeft" [class.show]="isDropdownOpen">
+            <div class="dropdown-header">Dropdown heading</div>
+            <li><a href="#pictures">Pictures</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#books">Books</a></li>
+            <li><a href="#art">Art</a></li>
+            <li><a href="#awards">Awards</a></li>
+          </ul>
+        </li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#followme">Follow me</a></li>
+      </ul>
+    </nav>
+    
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <button class="hamburger" (click)="toggleSidebar()">
+        <span class="hamb-top"></span>
+        <span class="hamb-middle"></span>
+        <span class="hamb-bottom"></span>
+      </button>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <h1>Fancy Toggle Sidebar Navigation</h1>
+            <p>Bacon ipsum dolor sit amet...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

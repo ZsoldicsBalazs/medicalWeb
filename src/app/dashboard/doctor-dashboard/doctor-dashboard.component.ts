@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth-service.service';
+import { SidenavComponent } from '../sidenav/sidenav.component';
 
 @Component({
   selector: 'app-doctor-dashboard',

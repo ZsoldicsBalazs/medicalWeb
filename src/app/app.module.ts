@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth-service.service';
 import { PatientDashboardComponent } from './dashboard/patient-dashboard/patient-dashboard.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SidenavComponent } from './dashboard/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     DoctorDashboardComponent,
     PatientDashboardComponent,
-    DashboardComponent
+    DashboardComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
