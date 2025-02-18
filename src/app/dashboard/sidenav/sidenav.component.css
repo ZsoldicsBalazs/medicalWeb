@@ -72,7 +72,7 @@ body {
   
   /* Hover effect */
   .sidebar-nav li:hover {
-    background: skyblue !important;
+    background: rgb(75, 103, 114) !important;
     border-radius: 10px;
     margin-left: 10px;
     margin-right: 10px;
@@ -110,10 +110,31 @@ body {
     margin: 0;
     background-color: #222;
     display: none;
+    transition: all 1s ease-in-out;
+    overflow: hidden;
   }
+
+  /* .dropdown-menu {
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+  } */
+  
+  .dropdown > a .caret {
+    transition: transform 0.3s ease;
+  }
+  .dropdown.open > a .caret,
+.dropdown > a.open .caret {
+  transform: rotate(180deg);
+}
   
   .dropdown-menu.show {
     display: block;
+    opacity: 1;
+    max-height: 500px;
   }
   
   .dropdown-header {

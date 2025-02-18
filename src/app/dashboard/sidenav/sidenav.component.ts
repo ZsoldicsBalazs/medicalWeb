@@ -1,4 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AuthService } from '../../services/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
@@ -7,6 +9,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 })
 export class SidenavComponent {
  
+  constructor (private authService: AuthService, private router: Router){}
 
   isSidebarOpen = false;
   isDropdownOpen = false;
@@ -19,5 +22,10 @@ export class SidenavComponent {
   toggleDropdown(event: Event) {
     event.preventDefault();
     this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['/login'])
   }
 }

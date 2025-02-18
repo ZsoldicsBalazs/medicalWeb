@@ -16,16 +16,16 @@
           <a href="#works" (click)="toggleDropdown($event)">Works <span class="caret"></span></a>
           <ul class="dropdown-menu animated fadeInLeft" [class.show]="isDropdownOpen">
             <div class="dropdown-header">Dropdown heading</div>
-            <li><a href="#pictures">Pictures</a></li>
-            <li><a href="#videos">Videos</a></li>
-            <li><a href="#books">Books</a></li>
-            <li><a href="#art">Art</a></li>
-            <li><a href="#awards">Awards</a></li>
+            <li><a href="#">Pictures</a></li>
+            <li><a href="#">Videos</a></li>
+            <li><a href="#">Books</a></li>
+            <li><a href="#">Art</a></li>
+            <li><a href="#">Awards</a></li>
           </ul>
         </li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#followme">Follow me</a></li>
+        <li><a href="">Services</a></li>
+        <li><a href="">Contact</a></li>
+        <li><a style="cursor: pointer;" (click)="logout()">Log Out</a></li>
       </ul>
     </nav>
     
@@ -37,14 +37,7 @@
         <span class="hamb-bottom"></span>
       </button>
       
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2">
-            <h1>Fancy Toggle Sidebar Navigation</h1>
-            <p>Bacon ipsum dolor sit amet...</p>
-          </div>
-        </div>
-      </div>
+      <router-outlet></router-outlet>
     </div>
   </div>
   
