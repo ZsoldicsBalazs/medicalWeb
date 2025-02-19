@@ -8,12 +8,10 @@
         <div class="sidebar-header">
           <div class="sidebar-brand"><a href="#">Brand</a></div>
         </div>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#events">Events</a></li>
-        <li><a href="#team">Team</a></li>
-        <li class="dropdown">
-          <a href="#works" (click)="toggleDropdown($event)">Works <span class="caret"></span></a>
+        <li><a routerLink="home">Home</a></li>
+        <li><a href="#about">NewsBoard</a></li>
+        <li class="dropdown"  >
+          <a href="#works" (click)="toggleDropdown($event)" [class.open]="isDropdownOpen">Pacienți <span class="caret"><img src="/assets/down-arrow.png" alt="helo"></span></a>
           <ul class="dropdown-menu animated fadeInLeft" [class.show]="isDropdownOpen">
             <div class="dropdown-header">Dropdown heading</div>
             <li><a href="#">Pictures</a></li>
@@ -23,7 +21,7 @@
             <li><a href="#">Awards</a></li>
           </ul>
         </li>
-        <li><a href="">Services</a></li>
+        <li><a routerLink="patients">Patients List</a></li>
         <li><a href="">Contact</a></li>
         <li><a style="cursor: pointer;" (click)="logout()">Log Out</a></li>
       </ul>
