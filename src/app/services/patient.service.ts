@@ -14,4 +14,8 @@ private patientsUrl = "http://localhost:1212/api/v1/admin/patients"
     return this.http.get<Patient[]>(this.patientsUrl)
   }
 
+  getPatientById(id: number): Observable<Patient>{
+    return this.http.get<Patient>(`http://localhost:1212/api/v1/admin/patients/${id}`)
+  }
+
 }

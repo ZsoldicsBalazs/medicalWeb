@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth-service.service';
 import { SidenavComponent } from '../sidenav/sidenav.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-doctor-dashboard',
@@ -10,16 +11,10 @@ import { SidenavComponent } from '../sidenav/sidenav.component';
 export class DoctorDashboardComponent {
   // userRole: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    // const token = this.authService.getToken();
-    // if (token) {
-    //   // Decodificăm payload-ul JWT pentru a extrage rolul
-    //   const payload = JSON.parse(atob(token.split('.')[1]));
-    //   // Se presupune că în payload se află o proprietate "role"
-    //   this.userRole = payload.role;
-    // }
+    
   }
 
   logout(): void {

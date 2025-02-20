@@ -37,7 +37,7 @@ body {
   /* Page content styling */
   #page-content-wrapper {
     transition: margin-left 0.5s ease;
-    margin-left: 0;
+    margin-left: 100px;
   }
   
   /* When toggled, shift the content to the right */

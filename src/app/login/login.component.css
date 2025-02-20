@@ -1,7 +1,7 @@
 /* Imagine de fundal medicală - setează imaginea dorită */
 :host {
     display: block;
-    background: url('https://source.unsplash.com/1600x900/?medical') no-repeat center center fixed;
+    background: url('/assets/medicalBackground.jpg') no-repeat center center fixed;
     background-size: cover;
   }
   

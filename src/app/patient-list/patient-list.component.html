@@ -7,12 +7,6 @@
         <td mat-cell *matCellDef="let patient"> {{ patient.CNP }} </td>
       </ng-container>
   
-      <!-- Username Column -->
-      <ng-container matColumnDef="username">
-        <th mat-header-cell *matHeaderCellDef> Username </th>
-        <td mat-cell *matCellDef="let patient"> {{ patient.username }} </td>
-      </ng-container>
-  
       <!-- Email Column -->
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef> Email </th>
@@ -35,6 +29,16 @@
       <ng-container matColumnDef="lastName">
         <th mat-header-cell *matHeaderCellDef> Last Name </th>
         <td mat-cell *matCellDef="let patient"> {{ patient.lastName }} </td>
+      </ng-container>
+
+      <!-- Buton pentru navigare la detalii -->
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let patient">
+          <button mat-button (click)="goToPatientDetails(patient.id)" color="primary">
+            View Details
+          </button>
+        </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

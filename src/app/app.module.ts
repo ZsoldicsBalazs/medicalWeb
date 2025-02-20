@@ -17,6 +17,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { PatientDetailsComponent } from './patient-details/patient-details.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     DashboardComponent,
     SidenavComponent,
     HomeComponent,
-    PatientListComponent
+    PatientListComponent,
+    PatientDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     HttpClientModule,
     AppRoutingModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTabsModule
     
   ],
   providers: [

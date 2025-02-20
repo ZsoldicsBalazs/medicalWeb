@@ -1,0 +1,48 @@
+
+
+  <mat-tab-group>
+    <mat-tab label="Personal details"> 
+        
+        <div *ngIf="patient">
+            <h2>Patient Details</h2>
+            <p><strong>CNP:</strong> {{ patient.CNP }}</p>
+            <p><strong>First Name:</strong> {{ patient.firstName }}</p>
+            <p><strong>Last Name:</strong> {{ patient.lastName }}</p>
+            <p><strong>Email:</strong> {{ patient.email }}</p>
+            <p><strong>Phone:</strong> {{ patient.phone }}</p>
+          </div>
+          
+          <div *ngIf="!patient">
+            <p>Patient not found!</p>
+          </div>
+        
+    
+    
+    </mat-tab>
+    <mat-tab label="Consultations"> Content 2 
+
+        <div *ngIf="patient2">
+            <h2>Patient Details</h2>
+            <p><strong>CNP:</strong> {{ patient2.CNP }}</p>
+            <p><strong>First Name:</strong> {{ patient2.firstName }}</p>
+            <p><strong>Last Name:</strong> {{ patient2.lastName }}</p>
+            <p><strong>Email:</strong> {{ patient2.email }}</p>
+            <p><strong>Phone:</strong> {{ patient2.phone }}</p>
+          </div>
+          
+          <div *ngIf="!patient">
+            <p>Patient not found!</p>
+          </div>
+        
+
+
+    </mat-tab>
+    <mat-tab label="Analize"> Content 3 
+
+
+      <h2>Analize:</h2>
+    
+
+
+    </mat-tab>
+  </mat-tab-group>

@@ -8,22 +8,23 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { roleGuard } from './auth-guard/role.guard';
 import { HomeComponent } from './home/home.component';
 import { PatientListComponent } from './patient-list/patient-list.component';
+import { PatientDetailsComponent } from './patient-details/patient-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard',
     component: DashboardComponent,
-  
       children: [
+          { path: 'doctor', component: DoctorDashboardComponent,  canActivate: [AuthGuard,roleGuard], 
+            children:[
+                {path: 'home', component: HomeComponent},
+                {path:'patients', component: PatientListComponent},
+                {path: 'patients/:id', component: PatientDetailsComponent}
+            ]
+          },
+          { path: 'patient', component: PatientDashboardComponent, canActivate: [AuthGuard, roleGuard] },
         
-        { path: 'doctor', component: DoctorDashboardComponent,  canActivate: [AuthGuard,roleGuard], children:[
-
-            {path: 'home', component: HomeComponent},
-            {path:'patients', component: PatientListComponent}
-        ]},
-        { path: 'patient', component: PatientDashboardComponent, canActivate: [AuthGuard, roleGuard] },
-      
       ] },
   { path: '**', redirectTo: '/login' }
 

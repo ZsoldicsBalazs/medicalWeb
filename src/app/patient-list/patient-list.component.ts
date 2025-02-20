@@ -3,6 +3,7 @@ import { Patient } from '../domain/patient.model';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { PatientService } from '../services/patient.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patient-list',
@@ -10,12 +11,12 @@ import { PatientService } from '../services/patient.service';
   styleUrl: './patient-list.component.css'
 })
 export class PatientListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['CNP', 'username', 'email', 'phone', 'firstName', 'lastName'];
+  displayedColumns: string[] = ['CNP', 'email', 'phone', 'firstName', 'lastName', 'actions'];
   dataSource = new MatTableDataSource<Patient>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private patientService: PatientService) { }
+  constructor(private patientService: PatientService, private router: Router) { }
 
   ngOnInit(): void {
     this.patientService.getPatients().subscribe(
@@ -30,5 +31,9 @@ export class PatientListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  goToPatientDetails(patientId: number){
+    this.router.navigate([`/dashboard/doctor/patients/${patientId}`]);
   }
 }
