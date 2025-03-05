@@ -3,36 +3,91 @@
   <mat-tab-group>
     <mat-tab label="Personal details"> 
         
-        <div *ngIf="patient">
-            <h2>Patient Details</h2>
-            <p><strong>CNP:</strong> {{ patient.CNP }}</p>
-            <p><strong>First Name:</strong> {{ patient.firstName }}</p>
-            <p><strong>Last Name:</strong> {{ patient.lastName }}</p>
-            <p><strong>Email:</strong> {{ patient.email }}</p>
-            <p><strong>Phone:</strong> {{ patient.phone }}</p>
-          </div>
+      <div *ngIf="loading" class="loading-container">
+        <mat-spinner></mat-spinner>
+      </div>
+      
+      <div *ngIf="!loading">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Detalii Pacient</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <form [formGroup]="patientForm" (ngSubmit)="onSave()">
+              <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>CNP</mat-label>
+                  <input matInput formControlName="CNP" placeholder="CNP">
+                  <mat-error *ngIf="patientForm?.get('CNP')?.hasError('required')">CNP este obligatoriu</mat-error>
+                </mat-form-field>
+              </div>
+              
+              <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="email" placeholder="Email" true>
+                  <mat-error *ngIf="patientForm?.get('email')?.hasError('email')">Email invalid</mat-error>
+                </mat-form-field>
+              </div>
+              
+              <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Telefon</mat-label>
+                  <input matInput formControlName="phone" placeholder="Telefon">
+                  <mat-error *ngIf="patientForm?.get('phone')?.hasError('required')">Telefonul este obligatoriu</mat-error>
+                </mat-form-field>
+              </div>
+              
+              <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Prenume</mat-label>
+                  <input matInput formControlName="firstName" placeholder="Prenume">
+                  <mat-error *ngIf="patientForm?.get('firstName')?.hasError('required')">Prenumele este obligatoriu</mat-error>
+                </mat-form-field>
+              </div>
+              
+              <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Nume</mat-label>
+                  <input matInput formControlName="lastName" placeholder="Nume">
+                  <mat-error *ngIf="patientForm?.get('lastName')?.hasError('required')">Numele este obligatoriu</mat-error>
+                </mat-form-field>
+              </div>
+              
+              <div class="button-container">
+                <button mat-raised-button color="primary" type="submit" [disabled]="patientForm.invalid">
+                  Salvează
+                </button>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      
+      <div *ngIf="errorMessage" class="error-message">
+        <mat-error>{{ errorMessage }}</mat-error>
+      </div>
           
           <div *ngIf="!patient">
             <p>Patient not found!</p>
           </div>
         
-    
-    
     </mat-tab>
     <mat-tab label="Consultations"> Content 2 
 
-        <div *ngIf="patient2">
+        <!-- <div *ngIf="patient2">
             <h2>Patient Details</h2>
             <p><strong>CNP:</strong> {{ patient2.CNP }}</p>
             <p><strong>First Name:</strong> {{ patient2.firstName }}</p>
             <p><strong>Last Name:</strong> {{ patient2.lastName }}</p>
             <p><strong>Email:</strong> {{ patient2.email }}</p>
             <p><strong>Phone:</strong> {{ patient2.phone }}</p>
-          </div>
+          </div> -->
           
           <div *ngIf="!patient">
             <p>Patient not found!</p>
           </div>
+          <p>aici vine lista consultatii pacient</p>
         
 
 

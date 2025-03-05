@@ -19,6 +19,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +37,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     SidenavComponent,
     HomeComponent,
     PatientListComponent,
-    PatientDetailsComponent
+    PatientDetailsComponent,
+    MyAppointmentsComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +48,15 @@ import {MatTabsModule} from '@angular/material/tabs';
     AppRoutingModule,
     MatTableModule,
     MatPaginatorModule,
-    MatTabsModule
+    MatTabsModule,
+    MatFormField,
+    MatLabel,
+    MatError,
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule
     
   ],
   providers: [

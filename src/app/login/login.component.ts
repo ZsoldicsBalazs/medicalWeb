@@ -19,10 +19,33 @@ export class LoginComponent {
     this.authService.login(this.email,this.password).subscribe(
       (response: any) => {
         this.authService.setToken(response.token);
-        console.log("before navigation")
-        this.router.navigate(['/dashboard']);
-        console.log("after navigation");
-        debugger;
+        this.authService.setProfileID(response.profileId);
+        const role = this.authService.getRoleFromToken();
+        console.log(role);
+        
+        if (role) {
+          switch (role) {
+            case 'ROLE_MEDIC': 
+             this.router.navigate(['/dashboard/doctor/home']);
+             break;
+            case 'ROLE_PATIENT': 
+               this.router.navigate(['/dashboard/patient']);
+               break;
+            case 'ROLE_ADMIN': 
+               this.router.navigate(['/dashboard/doctor/home']);
+              break;
+            case 'ROLE_SECRETARY':
+              // De exemplu, poți avea o pagină dedicată pentru secretare
+               this.router.navigate(['/dashboard/secretary']);
+               break;
+            default:
+               this.router.navigate(['/login']);
+              break;
+          }
+        } else {
+           this.router.navigate(['/login']);
+        }
+        
       },
       (error) => {
         this.errorMessage = error || "Login failed verifica datele";

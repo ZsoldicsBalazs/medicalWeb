@@ -1,25 +1,34 @@
 import { inject } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth-service.service';
-import { Observable } from 'rxjs';
+
 
 export const roleGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
   
+  const role = authService.getRoleFromToken();
+  console.log(role);
   
-  
-    const role = authService.getRoleFromToken();
-    console.log(role);
-    if (role && (role === 'ROLE_MEDIC' || role === 'ROLE_PATIENT' || role === 'ROLE_ADMIN' || role === 'ROLE_SECRETARY')) {
-      return true;
-    } else {
-     
-      router.navigate(['/login']);
-      debugger;
-      return false;
-    }
-  
-  
+  if (!role) {
+    // Dacă nu este autentificat, redirecționează la login
+    console.log("nueste autentificat")
+    return router.createUrlTree(['/login']);
+  }
 
+  // Dacă ruta începe cu '/doctor' și utilizatorul este pacient, nu permite accesul
+  if (state.url.startsWith('/dashboard/doctor') && role === 'ROLE_PATIENT') {
+    // Redirecționează spre dashboard-ul pacientului
+    console.log("nu ai voie sa intri la doctor")
+    return router.createUrlTree(['dashboard/patient']);
+  }
+
+  // Dacă ruta începe cu '/patient' și utilizatorul este doctor, nu permite accesul
+  if (state.url.startsWith('/dashboard/patient') && role === 'ROLE_ADMIN') {
+    // Redirecționează spre dashboard-ul doctorului
+    console.log("nu ai voie sa intri la pacient")
+    return router.createUrlTree(['dashboard/doctor/home']);
+  }
+
+  return true;
 };

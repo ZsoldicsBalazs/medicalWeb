@@ -32,6 +32,9 @@ export class AuthService {
   setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
   }
+  setProfileID(profileID: string){
+    localStorage.setItem("profileID",profileID);
+  }
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }

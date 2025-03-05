@@ -9,23 +9,37 @@ import { roleGuard } from './auth-guard/role.guard';
 import { HomeComponent } from './home/home.component';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
+import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  // {path: 'rezervation', component: rezervationComponent} TODO:
   { path: 'dashboard',
     component: DashboardComponent,
       children: [
-          { path: 'doctor', component: DoctorDashboardComponent,  canActivate: [AuthGuard,roleGuard], 
+          { path: 'doctor', 
+            component: DoctorDashboardComponent,  
+            canActivate: [AuthGuard,roleGuard],
             children:[
                 {path: 'home', component: HomeComponent},
                 {path:'patients', component: PatientListComponent},
-                {path: 'patients/:id', component: PatientDetailsComponent}
+                {path: 'patients/:id', component: PatientDetailsComponent},
+                {path: '', redirectTo: 'home', pathMatch: 'full'}
+              ]
+          },
+          { path: 'patient', 
+            component: PatientDashboardComponent, 
+            canActivate: [AuthGuard,roleGuard],
+            children: 
+            [{path:'aboutMe', component: PatientDetailsComponent},
+              {path: 'myAppointments', component: MyAppointmentsComponent}
+
             ]
           },
-          { path: 'patient', component: PatientDashboardComponent, canActivate: [AuthGuard, roleGuard] },
         
       ] },
+    
   { path: '**', redirectTo: '/login' }
 
 ];

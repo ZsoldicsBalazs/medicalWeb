@@ -36,4 +36,5 @@ export class PatientListComponent implements OnInit, AfterViewInit {
   goToPatientDetails(patientId: number){
     this.router.navigate([`/dashboard/doctor/patients/${patientId}`]);
   }
+  
 }

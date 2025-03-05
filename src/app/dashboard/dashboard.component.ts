@@ -12,14 +12,14 @@ export class DashboardComponent implements OnInit {
 constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute){}
 
 ngOnInit(): void {
-  const role = this.authService.getRoleFromToken();
-  debugger;
-  if (role === 'ROLE_MEDIC' || role === 'ROLE_ADMIN') {
-    this.router.navigate(['doctor'], { relativeTo: this.activatedRoute });
-  } else if (role === 'ROLE_PATIENT') {
-    this.router.navigate(['patient'], { relativeTo: this.activatedRoute });
-  } else {
-    this.router.navigate(['/login']);
-  }
+  // const role = this.authService.getRoleFromToken();
+  // debugger;
+  // if (role === 'ROLE_MEDIC' || role === 'ROLE_ADMIN') {
+  //   this.router.navigate(['doctor/home'], { relativeTo: this.activatedRoute });
+  // } else if (role === 'ROLE_PATIENT') {
+  //   this.router.navigate(['patient'], { relativeTo: this.activatedRoute });
+  // } else {
+  //   this.router.navigate(['/login']);
+  // }
 }
 }

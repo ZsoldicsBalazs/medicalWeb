@@ -15,7 +15,14 @@ private patientsUrl = "http://localhost:1212/api/v1/admin/patients"
   }
 
   getPatientById(id: number): Observable<Patient>{
-    return this.http.get<Patient>(`http://localhost:1212/api/v1/admin/patients/${id}`)
+    return this.http.get<Patient>(`http://localhost:1212/api/v1/admin/patients/${id}`);
+  }
+  getMyProfile(): Observable<Patient>{
+    return this.http.get<Patient>('http://localhost:1212/api/v1/profile');
+  }
+
+  updatePatient(updatedPatient: Patient){
+    return this.http.put<Patient>('http://localhost:1212/api/v1/admin/patients',updatedPatient);
   }
 
 }

@@ -11,12 +11,17 @@
         <ul class="navbar-nav">
           
           <li class="nav-item">
-            <a class="nav-link" routerLink="/dashboard/patient/profile">Personal Info</a>
+            <a class="nav-link" routerLink="aboutMe">Personal Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="myAppointments">Programarile mele</a>
           </li>
           <li class="nav-item">
             <!-- Buton de logout: apelează metoda logout() definită în componenta TS -->
             <a class="nav-link" style="cursor: pointer;" (click)="logout()">Logout</a>
           </li>
+         
+
         </ul>
       </div>
     </div>
@@ -29,5 +34,8 @@
     <h2>Dashboard</h2>
     <p>Bun venit în Pacient Dashboard!</p>
     <!-- Aici poți adăuga conținut specific, informații suplimentare etc. -->
+
+    <router-outlet></router-outlet>
   </div>
+
  

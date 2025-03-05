@@ -1,3 +1,9 @@
-body{
+/* body{
     margin-left: 100px;
-}
+} */
+ footer{
+    background-color: beige;
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+ }
