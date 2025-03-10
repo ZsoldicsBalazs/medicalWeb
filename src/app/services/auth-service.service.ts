@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, throwError } from 'rxjs';
+import { Patient } from '../domain/patient.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,14 @@ export class AuthService {
 
   private tokenKey = 'authToken';
   private authUrl = 'http://localhost:1212/api/v1/auth';
-
+  private patient: Patient = {
+    id: 0,
+    CNP: "",
+    email: "",
+    phone: "",
+    firstName: "",
+    lastName: ""
+  };
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {
@@ -32,8 +40,13 @@ export class AuthService {
   setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
   }
-  setProfileID(profileID: string){
-    localStorage.setItem("profileID",profileID);
+  setProfileID(patient: Patient){
+    localStorage.setItem("profileID",patient.id.toLocaleString());
+    this.patient = patient;
+    console.log(this.patient);
+  }
+  getProfileDetails(){
+    return this.patient;
   }
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
@@ -67,9 +80,9 @@ export class AuthService {
   
     try {
       const tokenParts = token.split('.');
-      if (tokenParts.length !== 3) return null; // Verificăm că token-ul are 3 părți
+      if (tokenParts.length !== 3) return null; // Verificam ca token-ul are 3 parti
   
-      const tokenPayload = JSON.parse(atob(tokenParts[1])); // Decodificăm payload-ul
+      const tokenPayload = JSON.parse(atob(tokenParts[1])); // Decodificam payloadul
   
       // Verificăm dacă există un câmp 'roles' și extragem 'authority'
       if (tokenPayload && tokenPayload.roles && tokenPayload.roles.length > 0) {

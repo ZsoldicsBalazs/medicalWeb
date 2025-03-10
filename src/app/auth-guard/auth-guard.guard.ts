@@ -17,7 +17,6 @@ export class AuthGuard implements CanActivate {
           debugger;
           this.authService.logout();
           this.router.navigate(['/login']);
-  
         }
       }),
       map(isValid => isValid) // Asigură că se returnează boolean

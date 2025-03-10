@@ -1,6 +1,6 @@
 
 
-  <mat-tab-group>
+  <mat-tab-group class="patient-details">
     <mat-tab label="Personal details"> 
         
       <div *ngIf="loading" class="loading-container">
@@ -14,6 +14,21 @@
           </mat-card-header>
           <mat-card-content>
             <form [formGroup]="patientForm" (ngSubmit)="onSave()">
+              <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Nume</mat-label>
+                  <input matInput formControlName="lastName" placeholder="Nume">
+                  <mat-error *ngIf="patientForm?.get('lastName')?.hasError('required')">Numele este obligatoriu</mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Prenume</mat-label>
+                  <input matInput formControlName="firstName" placeholder="Prenume">
+                  <mat-error *ngIf="patientForm?.get('firstName')?.hasError('required')">Prenumele este obligatoriu</mat-error>
+                </mat-form-field>
+              </div>
+
               <div>
                 <mat-form-field appearance="fill">
                   <mat-label>CNP</mat-label>
@@ -38,21 +53,9 @@
                 </mat-form-field>
               </div>
               
-              <div>
-                <mat-form-field appearance="fill">
-                  <mat-label>Prenume</mat-label>
-                  <input matInput formControlName="firstName" placeholder="Prenume">
-                  <mat-error *ngIf="patientForm?.get('firstName')?.hasError('required')">Prenumele este obligatoriu</mat-error>
-                </mat-form-field>
-              </div>
               
-              <div>
-                <mat-form-field appearance="fill">
-                  <mat-label>Nume</mat-label>
-                  <input matInput formControlName="lastName" placeholder="Nume">
-                  <mat-error *ngIf="patientForm?.get('lastName')?.hasError('required')">Numele este obligatoriu</mat-error>
-                </mat-form-field>
-              </div>
+              
+              
               
               <div class="button-container">
                 <button mat-raised-button color="primary" type="submit" [disabled]="patientForm.invalid">
@@ -73,31 +76,23 @@
           </div>
         
     </mat-tab>
-    <mat-tab label="Consultations"> Content 2 
 
-        <!-- <div *ngIf="patient2">
-            <h2>Patient Details</h2>
-            <p><strong>CNP:</strong> {{ patient2.CNP }}</p>
-            <p><strong>First Name:</strong> {{ patient2.firstName }}</p>
-            <p><strong>Last Name:</strong> {{ patient2.lastName }}</p>
-            <p><strong>Email:</strong> {{ patient2.email }}</p>
-            <p><strong>Phone:</strong> {{ patient2.phone }}</p>
-          </div> -->
-          
+    <mat-tab label="Consultations"> Content 2           
           <div *ngIf="!patient">
             <p>Patient not found!</p>
           </div>
           <p>aici vine lista consultatii pacient</p>
         
-
-
     </mat-tab>
     <mat-tab label="Analize"> Content 3 
 
 
       <h2>Analize:</h2>
-    
-
-
     </mat-tab>
+
+  <mat-tab label="Upcoming appointments">
+
+    <div>Appointment list goes here !</div>
+
+  </mat-tab>
   </mat-tab-group>

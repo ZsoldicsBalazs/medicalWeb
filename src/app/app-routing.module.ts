@@ -32,7 +32,7 @@ const routes: Routes = [
             component: PatientDashboardComponent, 
             canActivate: [AuthGuard,roleGuard],
             children: 
-            [{path:'aboutMe', component: PatientDetailsComponent},
+            [{path:'aboutMe/:id', component: PatientDetailsComponent},
               {path: 'myAppointments', component: MyAppointmentsComponent}
 
             ]

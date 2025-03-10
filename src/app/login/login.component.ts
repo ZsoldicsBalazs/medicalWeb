@@ -19,7 +19,7 @@ export class LoginComponent {
     this.authService.login(this.email,this.password).subscribe(
       (response: any) => {
         this.authService.setToken(response.token);
-        this.authService.setProfileID(response.profileId);
+        this.authService.setProfileID(response.profile);
         const role = this.authService.getRoleFromToken();
         console.log(role);
         

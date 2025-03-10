@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Patient } from '../domain/patient.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-patient-details',
@@ -44,7 +45,7 @@ export class PatientDetailsComponent implements OnInit {
   errorMessage: string = '';
   isMyProfile: boolean = false;
 
-  constructor(private fb: FormBuilder, private patientService: PatientService, private route: ActivatedRoute) {}
+  constructor(private fb: FormBuilder, private patientService: PatientService, private route: ActivatedRoute,private authService: AuthService) {}
 
   ngOnInit(): void {
     // Exemplu: folosim un CNP prestabilit, dar în practică acesta poate proveni din autentificare sau din URL.
@@ -54,8 +55,8 @@ export class PatientDetailsComponent implements OnInit {
         const patientId=+idParam;
         this.loadPatientDetails(patientId);
       }else{
-        this.isMyProfile=true;
-        this.loadMyProfile();
+        this.loading=false;
+        this.errorMessage="Nu s-a putut gasi id ul pacientului din route"
       }
     })
 
@@ -72,20 +73,7 @@ export class PatientDetailsComponent implements OnInit {
     //   }
     // );
   }
-  loadMyProfile() {
-    this.patientService.getMyProfile().subscribe(
-      (data: Patient) => {
-        this.patient = data;
-        this.initializeForm();
-        this.loading=false;
-      },
-      error => {
-        console.error('Eroare la preluarea datelor pacientului', error);
-        this.errorMessage = 'Nu s-au putut încărca detaliile pacientului.';
-        this.loading = false;
-      }
-    )
-  }
+
   loadPatientDetails(patientId: number) {
     this.patientService.getPatientById(patientId).subscribe(
       (data: Patient) => {
@@ -128,6 +116,7 @@ export class PatientDetailsComponent implements OnInit {
           this.patient = response;
           this.initializeForm();
           console.log(response);
+          this.errorMessage="Pacient salvat"
         },
         (error: HttpErrorResponse) => {
           console.error('Eroare la actualizarea datelor pacientului', error);

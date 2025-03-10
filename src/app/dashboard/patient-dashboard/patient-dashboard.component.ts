@@ -18,4 +18,8 @@ export class PatientDashboardComponent {
     this.authService.logout();
     this.router.navigate(['/login'])
   }
+  goToPatientDetails(){
+    var id = 233;
+    this.router.navigate([`dashboard/patient/aboutMe/${id}`])
+  }
 }
