@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Patient } from '../domain/patient.model';
+import { UserAppointment } from '../domain/appointment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ private patientsUrl = "http://localhost:1212/api/v1/admin/patients"
 
   updatePatient(updatedPatient: Patient){
     return this.http.put<Patient>('http://localhost:1212/api/v1/patient',updatedPatient);
+  }
+
+  getAppointments(id: number){
+    return this.http.get<UserAppointment[]>(`http://localhost:1212/api/v1/appointment/${id}`)
   }
 
 }

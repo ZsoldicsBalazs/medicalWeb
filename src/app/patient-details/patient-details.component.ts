@@ -5,6 +5,8 @@ import { Patient } from '../domain/patient.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../services/auth-service.service';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { UserAppointment } from '../domain/appointment.model';
 
 @Component({
   selector: 'app-patient-details',
@@ -43,7 +45,8 @@ export class PatientDetailsComponent implements OnInit {
   patient!: Patient;
   loading: boolean = true;
   errorMessage: string = '';
-  isMyProfile: boolean = false;
+  appointments!: UserAppointment[];
+
 
   constructor(private fb: FormBuilder, private patientService: PatientService, private route: ActivatedRoute,private authService: AuthService) {}
 
@@ -77,9 +80,10 @@ export class PatientDetailsComponent implements OnInit {
   loadPatientDetails(patientId: number) {
     this.patientService.getPatientById(patientId).subscribe(
       (data: Patient) => {
-        this.patient=data;
-        this.initializeForm();
-        this.loading = false;
+        setTimeout(()=> {this.patient=data;
+          this.initializeForm();
+          this.loading = false;}, 3000)
+        
       },
       error => {
         console.error('Eroare la preluarea datelor pacientului', error);
@@ -108,7 +112,7 @@ export class PatientDetailsComponent implements OnInit {
         phone: this.patientForm.get('phone')!.value,
         firstName: this.patientForm.get('firstName')!.value,
         lastName: this.patientForm.get('lastName')!.value,
-        id: 188
+        id: this.patient.id
       };
 
       this.patientService.updatePatient(updatedPatient).subscribe(
@@ -126,6 +130,39 @@ export class PatientDetailsComponent implements OnInit {
         }
       );
     }
+  }
+
+  getAppointments(){
+    this.patientService.getAppointments(this.patient.id).subscribe(
+      response => {
+        this.appointments=response;
+        console.log("Aici sunt appointments: ");
+        console.log(response);
+
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.error?.message['error']);
+      }
+    )
+  }
+
+  onTabChanged(event: MatTabChangeEvent){
+    console.log("Tab Index: ", event.index)
+    switch(event.index){
+      case 0: 
+        console.log("personal details clicked");
+        break;
+      case 1:
+        console.log("consultation clicked");  
+        break;
+      case 2:
+        console.log("analize clicked");
+        break;
+      case 3: 
+        this.getAppointments();
+        break;    
+    }
+
   }
 
 }

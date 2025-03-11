@@ -1,6 +1,6 @@
 
 
-  <mat-tab-group class="patient-details">
+  <mat-tab-group (selectedTabChange)="onTabChanged($event)" class="patient-details">
     <mat-tab label="Personal details"> 
         
       <div *ngIf="loading" class="loading-container">
@@ -53,10 +53,6 @@
                 </mat-form-field>
               </div>
               
-              
-              
-              
-              
               <div class="button-container">
                 <button mat-raised-button color="primary" type="submit" [disabled]="patientForm.invalid">
                   Salvează
@@ -71,7 +67,7 @@
         <mat-error>{{ errorMessage }}</mat-error>
       </div>
           
-          <div *ngIf="!patient">
+          <div *ngIf="!patient && !loading">
             <p>Patient not found!</p>
           </div>
         
@@ -92,7 +88,35 @@
 
   <mat-tab label="Upcoming appointments">
 
-    <div>Appointment list goes here !</div>
+    <div *ngIf="appointments && appointments.length; else noAppointments">
+      <ul>
+        <li *ngFor="let appointment of appointments">
+          <div>
+            <strong>ID:</strong> {{ appointment.id }}
+          </div>
+          <div>
+            <strong>Doctor:</strong> Dr. {{ appointment.doctorName }} {{ appointment.doctorLastName }}
+          </div>
+          <div>
+            <strong>Department:</strong> {{ appointment.department }}
+          </div>
+          <div>
+            <strong>Date:</strong> {{ appointment.appointmentDate | date:'mediumDate' }}
+          </div>
+          <div>
+            <strong>Time:</strong> {{ appointment.appointmentTime }}
+          </div>
+          <div>
+            <strong>Status:</strong> {{ appointment.status }}
+          </div>
+          <hr>
+        </li>
+      </ul>
+    </div>
+    
+    <ng-template #noAppointments>
+      <p>No appointments found.</p>
+    </ng-template>
 
   </mat-tab>
   </mat-tab-group>
