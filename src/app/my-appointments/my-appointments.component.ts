@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserAppointment } from '../domain/appointment.model';
 import { PatientService } from '../services/patient.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-my-appointments',
@@ -10,7 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class MyAppointmentsComponent implements OnInit{
   appointments: UserAppointment[] = [];
-  displayedColumns: string[] = ['doctor', 'department', 'date', 'time', 'status'];
+  displayedColumns: string[] = ['doctor', 'department', 'date', 'time', 'status', 'actions'];
 
   constructor(private patientService: PatientService){}
   ngOnInit(): void {
@@ -26,6 +27,15 @@ export class MyAppointmentsComponent implements OnInit{
           }
         )
     
+  }
+
+  deleteAppointment(id: number){
+    this.patientService.deleteAppointment(id).subscribe(
+      () => {
+        console.log(`Appointment with ID ${id} deleted successfully.`);
+        alert("APPOINTMENT DELETED");
+      }
+    )
   }
 
  

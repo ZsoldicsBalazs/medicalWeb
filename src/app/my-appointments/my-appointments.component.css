@@ -1,0 +1,10 @@
+.delete-icon{
+    position: relative;
+    height: 0.9rem;
+    margin: auto;
+    
+    
+}
+.delete-btn{
+    background-color: rgb(255, 222, 222);
+}
