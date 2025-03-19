@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Patient } from '../domain/patient.model';
-import { UserAppointment } from '../domain/appointment.model';
+import { UserAppointment } from '../domain/user-appointment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,16 +27,10 @@ private patientsUrl = "http://localhost:1212/api/v1/admin/patients"
   }
 
   getAppointments(id: number){
-    return this.http.get<UserAppointment[]>(`http://localhost:1212/api/v1/appointment/${id}`)
+    return this.http.get<UserAppointment[]>(`http://localhost:1212/api/v1/appointment/${id}`);
   }
   deleteAppointment(id: number): Observable<void>{
-    return this.http.delete<void>(`http://localhost:1212/api/v1/appointment/${id}`).pipe(
-      catchError(error => {
-        console.error('Error deleting appointment:', error);
-        alert('Failed to delete appointment. Please try again.');
-        return throwError(() => new Error('Failed to delete appointment'));
-      })
-    )
+    return this.http.delete<void>(`http://localhost:1212/api/v1/appointment/${id}`);
   }
 
 }

@@ -18,13 +18,17 @@ export class AuthService {
     firstName: "",
     lastName: ""
   };
-  constructor(private http: HttpClient) { }
+  private isAuthenticatedBoolean = false;
+  constructor(private http: HttpClient) {
+    this.isAuthenticatedBoolean= !!localStorage.getItem(this.tokenKey)
+   }
 
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.authUrl}/authenticate`, { email, password })
       .pipe(
         catchError((error: HttpErrorResponse) => {
           // Extragem mesajul de eroare de la backend.
+          debugger;
           let errorMsg = 'Unknown error!';
           if (error && error.message) {
             errorMsg = error.error.message;
@@ -40,10 +44,19 @@ export class AuthService {
   setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
   }
+  IsAuthenticatedUser(): boolean{
+    return this.isAuthenticatedBoolean;
+  }
+  setIsAuthenticatedUser(boolean: boolean){
+    this.isAuthenticatedBoolean=boolean;
+  }
   setProfileID(patient: Patient){
     localStorage.setItem("profileID",patient.id.toLocaleString());
     this.patient = patient;
     console.log(this.patient);
+  }
+  setProfileToLocalStorage(patient: Patient){
+    localStorage.setItem('userProfile', JSON.stringify(patient))
   }
   getProfileDetails(){
     return this.patient;
@@ -55,6 +68,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     // Redirecționează către pagina de login (se poate face și cu router)
+    this.isAuthenticatedBoolean=false;
     window.location.href = '/login';
   }
   isAuthenticated(): boolean {
@@ -65,7 +79,6 @@ export class AuthService {
     const token= this.getToken();
     console.log(token);
     if(!token) return of(false);
-    debugger;
     return this.http.get<boolean>(`${this.authUrl}/validate-token?token=${token}`)
             .pipe(
               catchError(()=> of(false))
