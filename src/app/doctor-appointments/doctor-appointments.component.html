@@ -1,0 +1,72 @@
+
+<div class="table-responsive">
+
+    <div class="searchbar">
+        <div class="row mb-4 mt-5 px-0">
+            <div class="col-md-3">
+              <input [(ngModel)]="searchCNP" type="text" class="form-control" placeholder="CNP">
+            </div>
+            <div class="col-md-3">
+              <input [(ngModel)]="searchName"  type="text" class="form-control" placeholder="Nume">
+            </div>
+            <div class="col-md-3">
+              <input [(ngModel)]="searchFirstName"  type="text" class="form-control" placeholder="Prenume">
+            </div>
+            <div class="col-md-3">
+              <input [(ngModel)]="searchDate" type="date" class="form-control" placeholder="Data">
+            </div>
+          </div>
+        <div class="row">
+            <div class="col-md-12 mb-4 px-0">
+                <button (click)="onSearch()" class="btn btn-primary w-100 ">Căutare</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <div *ngIf="notFound">
+        <span class="bg-warning">
+            {{errorMsg}}
+        </span>
+        
+    </div>
+
+    <table class="table table-hover table-striped mt-5">
+        <thead class="table-primary">
+        <tr>
+            <th>#</th>
+            <th>Patient Name</th>
+            <th>First Name</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let appointment of appointments; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ appointment.patientName }}</td>
+            <td>{{ appointment.patientFirstName }}</td>
+            <td>{{ appointment.appointmentDate | date:'yyyy-MM-dd' }}</td>
+            <td>{{ appointment.appointmentTime}}</td>
+            <td>
+            <span class="badge" [ngClass]="{
+                'bg-success': appointment.status === 'COMPLETED',
+                'bg-warning': appointment.status === 'SCHEDULED',
+                'bg-danger': appointment.status === 'CANCELLED'
+            }">
+                {{ appointment.status }}
+            </span>
+            </td>
+            <td>
+                <button>
+                    <a href="">
+                        <i class="fa-solid fa-file-pen"></i></a>    
+                    
+                </button>
+            </td>
+        </tr>
+        </tbody>
+  </table>
+</div>

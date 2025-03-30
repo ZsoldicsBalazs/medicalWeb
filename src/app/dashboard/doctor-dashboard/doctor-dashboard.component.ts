@@ -9,13 +9,16 @@ import { Router } from '@angular/router';
   styleUrl: './doctor-dashboard.component.css'
 })
 export class DoctorDashboardComponent {
-  // userRole: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    
-  }
+  menuItems = [
+    {label: 'Home', icon: 'fas fa-house me-1', route: 'home'},
+    {label: 'News', icon: 'fas fa-newspaper me-1', route: '/newsboard'},
+    {label: 'PatientList', icon: 'fas fa-user-group me-1', route: 'patients'},
+    {label: 'ConsultationList', icon: 'fas fa-notes-medical me-1', route: 'appointments'},
+    {label: 'Profile', icon: 'fas fa-user me-1', route: '/profile'}
+  ]
 
   logout(): void {
     this.authService.logout();

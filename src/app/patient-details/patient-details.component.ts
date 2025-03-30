@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../services/auth-service.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { UserAppointment } from '../domain/appointment.model';
+import { UserAppointment } from '../domain/user-appointment.model';
 
 @Component({
   selector: 'app-patient-details',
@@ -14,33 +14,6 @@ import { UserAppointment } from '../domain/appointment.model';
   styleUrl: './patient-details.component.css'
 })
 export class PatientDetailsComponent implements OnInit {
-  // patient: Patient | undefined ;
-  // patientId: number | null=null;
-  // errorMessage: string = '';
-
-  // patient2: Patient ={
-  //   id: 123123,
-  //   CNP: '12312312',
-  //   email: '12312312',
-  //   phone: '12312312',
-  //   firstName: '123123',
-  //   lastName: '123123'
-  // }
-
-  // constructor(private fb: FormBuilder, private patientService: PatientService, private route: ActivatedRoute){
-
-  // }
-
-
-  // ngOnInit(): void {
-  //   console.log(this.patient2 + ' -> was loaded')
-  //   this.patientId = Number(this.route.snapshot.paramMap.get('id'));
-  //   this.patientService.getPatientById(this.patientId).subscribe(
-  //     (patient: Patient) => this.patient = patient,
-  //     (error) => this.errorMessage = <any>error
-  //   );
-  // }
-
   patientForm!: FormGroup;
   patient!: Patient;
   loading: boolean = true;
@@ -51,7 +24,6 @@ export class PatientDetailsComponent implements OnInit {
   constructor(private fb: FormBuilder, private patientService: PatientService, private route: ActivatedRoute,private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Exemplu: folosim un CNP prestabilit, dar în practică acesta poate proveni din autentificare sau din URL.
     this.route.paramMap.subscribe( params=> {
       const idParam = params.get('id');
       if(idParam){
@@ -62,27 +34,14 @@ export class PatientDetailsComponent implements OnInit {
         this.errorMessage="Nu s-a putut gasi id ul pacientului din route"
       }
     })
-
-    // this.patientService.getPatientById(id).subscribe(
-    //   (data: Patient) => {
-    //     this.patient = data;
-    //     this.initializeForm();
-    //     this.loading = false;
-    //   },
-    //   error => {
-    //     console.error('Eroare la preluarea datelor pacientului', error);
-    //     this.errorMessage = 'Nu s-au putut încărca detaliile pacientului.';
-    //     this.loading = false;
-    //   }
-    // );
   }
 
   loadPatientDetails(patientId: number) {
     this.patientService.getPatientById(patientId).subscribe(
       (data: Patient) => {
-        setTimeout(()=> {this.patient=data;
-          this.initializeForm();
-          this.loading = false;}, 3000)
+        this.patient=data;
+        this.initializeForm();
+        this.loading = false;
         
       },
       error => {
@@ -159,7 +118,6 @@ export class PatientDetailsComponent implements OnInit {
         console.log("analize clicked");
         break;
       case 3: 
-        this.getAppointments();
         break;    
     }
 

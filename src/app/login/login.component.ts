@@ -20,7 +20,9 @@ export class LoginComponent {
       (response: any) => {
         this.authService.setToken(response.token);
         this.authService.setProfileID(response.profile);
+        this.authService.setProfileToLocalStorage(response.profile);
         const role = this.authService.getRoleFromToken();
+        this.authService.setIsAuthenticatedUser(true);
         console.log(role);
         
         if (role) {
@@ -42,6 +44,7 @@ export class LoginComponent {
                this.router.navigate(['/login']);
               break;
           }
+          debugger;
         } else {
            this.router.navigate(['/login']);
         }

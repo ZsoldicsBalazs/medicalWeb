@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -18,14 +17,18 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import {MatCardModule} from '@angular/material/card';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
+import { DocumentListComponent } from './document-list/document-list.component';
+import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
+import { MatButton } from '@angular/material/button';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { MyAppointmentsComponent } from './my-appointments/my-appointments.compo
     HomeComponent,
     PatientListComponent,
     PatientDetailsComponent,
-    MyAppointmentsComponent
+    MyAppointmentsComponent,
+    DocumentListComponent,
+    DoctorAppointmentsComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +62,8 @@ import { MyAppointmentsComponent } from './my-appointments/my-appointments.compo
     MatProgressSpinnerModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatButton
     
   ],
   providers: [

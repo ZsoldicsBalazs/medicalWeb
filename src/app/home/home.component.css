@@ -1,17 +1,9 @@
-/* Stiluri de bază pentru întreaga pagină */
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f2f5;
-  }
-  
+
   /* Containerul principal */
   .home-container {
     position: relative;
     height: 100vh;
-    background-image: url('/assets/medicalBackground.jpg'); /* Adaugă o imagine de fundal */
+    background-image: url('/assets/medicalBackground.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -20,7 +12,7 @@ body, html {
     overflow: hidden;
   }
   
-  /* Overlay pentru întunecarea fundalului */
+  /* Overlay pentru intunecarea fundalului */
   .overlay {
     position: absolute;
     top: 0;
@@ -36,8 +28,8 @@ body, html {
     z-index: 1;
     text-align: center;
     color: white;
-    max-width: 800px;
-    padding: 20px;
+    max-width: 1200px;
+    
     background-color: rgba(0, 0, 0, 0.6); /* Fundal semi-transparent */
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);

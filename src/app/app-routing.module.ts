@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
+import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,30 +19,31 @@ const routes: Routes = [
   // {path: 'rezervation', component: rezervationComponent} TODO:
   { path: 'dashboard',
     component: DashboardComponent,
+    canActivate:[AuthGuard],
       children: [
           { path: 'doctor', 
             component: DoctorDashboardComponent,  
-            canActivate: [AuthGuard,roleGuard],
+            canActivate: [roleGuard],
             children:[
                 {path: 'home', component: HomeComponent},
                 {path:'patients', component: PatientListComponent},
                 {path: 'patients/:id', component: PatientDetailsComponent},
+                {path: 'appointments', component: DoctorAppointmentsComponent},
                 {path: '', redirectTo: 'home', pathMatch: 'full'}
               ]
           },
           { path: 'patient', 
             component: PatientDashboardComponent, 
-            canActivate: [AuthGuard,roleGuard],
+            canActivate: [roleGuard],
             children: 
-            [{path:'aboutMe/:id', component: PatientDetailsComponent},
-              {path: 'myAppointments', component: MyAppointmentsComponent}
-
-            ]
+            [{path: 'home', component: HomeComponent},
+              {path:'aboutMe/:id', component: PatientDetailsComponent},
+              {path: 'myAppointments', component: MyAppointmentsComponent} ]
           },
         
       ] },
     
-  { path: '**', redirectTo: '/login' }
+  { path: '**', component:NotFoundComponent }
 
 ];
 

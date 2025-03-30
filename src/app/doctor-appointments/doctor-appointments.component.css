@@ -1,0 +1,22 @@
+.searchbar{
+    width: 100%;
+    margin: 12;
+    overflow-x: hidden;
+    font-size: 0.5rem;
+}
+.table-responsive{
+    font-size: 0.87rem;
+    width: 90%;
+}
+
+@media (max-width: 768px) {
+    table {
+      font-size: 14px;
+    }
+    .badge {
+      padding: 5px 8px;
+    }
+    #page-content-wrapper{
+      margin-left: 10px;
+    }
+  }

@@ -4,3 +4,11 @@
     align-items: center;
     margin-top: 100px;
 }
+
+.form-field{
+    width: 300px;
+}
+
+.p-detail-container{
+width: 100%;
+}

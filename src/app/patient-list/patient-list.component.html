@@ -1,50 +1,86 @@
-<div class="patient-table-container">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    
-      <!-- CNP Column -->
-      <ng-container matColumnDef="CNP">
-        <th mat-header-cell *matHeaderCellDef> CNP </th>
-        <td mat-cell *matCellDef="let patient"> {{ patient.CNP }} </td>
-      </ng-container>
-  
-      <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let patient"> {{ patient.email }} </td>
-      </ng-container>
-  
-      <!-- Phone Column -->
-      <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef> Phone </th>
-        <td mat-cell *matCellDef="let patient"> {{ patient.phone }} </td>
-      </ng-container>
-  
-      <!-- First Name Column -->
-      <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef> First Name </th>
-        <td mat-cell *matCellDef="let patient"> {{ patient.firstName }} </td>
-      </ng-container>
-  
-      <!-- Last Name Column -->
-      <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef> Last Name </th>
-        <td mat-cell *matCellDef="let patient"> {{ patient.lastName }} </td>
-      </ng-container>
+<!-- Search Box (comun pentru ambele layout-uri) -->
+<div class="search-container mb-3 mt-3">
+  <div class="input-group">
+    <input [(ngModel)]="searchTerm" type="text" class="form-control" placeholder="Caută pacient..." aria-label="Search" (keyup.enter)="searchByNameOrCNP()">
+    <button class="btn btn-primary" type="button" (click)="searchByNameOrCNP()">Căutare</button>
+  </div>
+</div>
 
-      <!-- Buton pentru navigare la detalii -->
-    <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let patient">
-          <button mat-button (click)="goToPatientDetails(patient.id)" color="primary">
-            View Details
-          </button>
-        </td>
+<!-- Layout pentru desktop/tablete: tabel -->
+<div *ngIf="!isMobile" class="patient-table-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+    <!-- CNP Column -->
+    <ng-container matColumnDef="CNP">
+      <th mat-header-cell *matHeaderCellDef> CNP </th>
+      <td mat-cell *matCellDef="let patient"> {{ patient.CNP }} </td>
     </ng-container>
   
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let patient"> {{ patient.email }} </td>
+    </ng-container>
   
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> Phone </th>
+      <td mat-cell *matCellDef="let patient"> {{ patient.phone }} </td>
+    </ng-container>
+  
+    <!-- First Name Column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let patient"> {{ patient.firstName }} </td>
+    </ng-container>
+  
+    <!-- Last Name Column -->
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let patient"> {{ patient.lastName }} </td>
+    </ng-container>
+  
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let patient">
+        <div class="actions-group">
+          <div class="action-elem">
+            <button mat-raised-button (click)="goToPatientDetails(patient.id)">
+              <i class="fa-solid fa-id-card" style="color: rgb(3, 72, 219);"></i>
+            </button>
+          </div>
+          <!-- Alte butoane, dacă este necesar -->
+        </div>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="['CNP', 'email', 'phone', 'firstName', 'lastName', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['CNP', 'email', 'phone', 'firstName', 'lastName', 'actions'];"></tr>
+  </table>
+  
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+
+<!-- Layout pentru mobil: carduri -->
+<div *ngIf="isMobile" class="patient-cards-container">
+  <div class="card mb-3" *ngFor="let patient of displayedPatients">
+    <div class="card-body">
+      <h5 class="card-title">{{ patient.firstName }} {{ patient.lastName }}</h5>
+      <p class="card-text">
+        <strong>First Name: </strong> {{patient.firstName}}<br>
+        <strong>Last Name: </strong> {{patient.lastName}}<br>
+        <strong>CNP:</strong> {{ patient.CNP }}<br>
+        <strong>Email:</strong> {{ patient.email }}<br>
+        <strong>Phone:</strong> {{ patient.phone }}<br>
+        
+      </p>
+      <button mat-raised-button color="primary" (click)="goToPatientDetails(patient.id)">View Details</button>
+    </div>
   </div>
   
+  <!-- Buton "Load More" -->
+  <div class="text-center" *ngIf="patientsToShow < patientList.length">
+    <button mat-raised-button color="accent" (click)="loadMore()">Load More</button>
+  </div>
+</div>

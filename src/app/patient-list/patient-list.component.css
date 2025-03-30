@@ -1,3 +1,57 @@
-.patient-table-container{
-    padding: 100px 100px 100px 100px;
-}
+
+.patient-table-container .patient-cards-container {
+    width: 100%;
+    margin: 0 auto 30px;
+    box-sizing: border-box;
+    padding: 0 10px;
+  }
+  
+  .patient-table-container table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  .patient-table-container th,
+  .patient-table-container td {
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .search-container{
+    width: 50%;
+  }
+  .actions-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Permite înfășurarea elementelor pe mai multe rânduri */
+    gap: 5px;
+    overflow: visible; /* Asigură că nu sunt tăiate */
+  }
+
+  td.mat-cell {
+    min-width: 300px; /* Ajustează după necesități */
+  }
+  .patient-cards-container .card {
+    margin: 10px auto;
+    max-width: 100%;
+  }
+
+
+
+  @media (max-width: 768px) {
+    .custom-table-container table,
+    .custom-table-container th,
+    .custom-table-container td {
+      font-size: 0.5rem; /* Dimensiune font mai mică */
+      padding: 5px;      /* Spațiere redusă */
+    }
+
+    .actions-group button {
+        padding: 4px 8px; /* Butoane mai mici pe mobil */
+        font-size: 0.75rem;
+      }
+      .text-center{
+        padding-bottom: 45px;
+      }
+  }

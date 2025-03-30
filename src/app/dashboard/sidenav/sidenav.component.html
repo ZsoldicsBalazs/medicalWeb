@@ -1,41 +1,52 @@
-<div id="wrapper" [class.toggled]="isSidebarOpen">
-    <!-- Overlay: click pe el pentru a închide sidebar-ul -->
-    <div class="overlay" (click)="toggleSidebar()"></div>
-    
-    <!-- Sidebar -->
-    <nav id="sidebar-wrapper">
-      <ul class="nav sidebar-nav">
-        <div class="sidebar-header">
-          <div class="sidebar-brand"><a href="#">Brand</a></div>
-        </div>
-        <li><a routerLink="home">Home</a></li>
-        <li><a href="#about">NewsBoard</a></li>
-        <li class="dropdown"  >
-          <a href="#works" (click)="toggleDropdown($event)" [class.open]="isDropdownOpen">Pacienți <span class="caret"><img src="/assets/down-arrow.png" alt="helo"></span></a>
-          <ul class="dropdown-menu animated fadeInLeft" [class.show]="isDropdownOpen">
-            <div class="dropdown-header">Dropdown heading</div>
-            <li><a href="#">Pictures</a></li>
-            <li><a href="#">Videos</a></li>
-            <li><a href="#">Books</a></li>
-            <li><a href="#">Art</a></li>
-            <li><a href="#">Awards</a></li>
-          </ul>
-        </li>
-        <li><a routerLink="patients">Patients List</a></li>
-        <li><a href="">Contact</a></li>
-        <li><a style="cursor: pointer;" (click)="logout()">Log Out</a></li>
-      </ul>
-    </nav>
-    
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-      <button class="hamburger" (click)="toggleSidebar()">
-        <span class="hamb-top"></span>
-        <span class="hamb-middle"></span>
-        <span class="hamb-bottom"></span>
-        </button>
-      
-      <router-outlet></router-outlet>
+  <!-- Desktop Sidebar: se afișează doar pe ecrane medii și mari -->
+<nav class="sidebar d-none d-md-block">
+    <div class="sidebar-header">
+      <img src="assets\logo.webp" alt="Logo">
+      <h3>Medical App</h3>
     </div>
-  </div>
+    <ul class="nav flex-column">
+      
+      <li *ngFor="let item of menuItems" class="nav-item">
+        <a [routerLink]="item.route" class="nav-link">
+          <i class="{{item.icon}}"></i>{{item.label}}
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()">
+          <i class="fas fa-sign-out me-2"></i>
+          <span>Logout</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
   
+  <!-- Mobile Navbar: se afișează doar pe ecrane mici -->
+  <nav class="mobile-navbar d-block d-md-none navbar navbar-expand-sm navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/home">
+        <img src="assets/logo.webp" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+        Medical App
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavbar" aria-controls="mobileNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mobileNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+          
+          <li *ngFor="let item of menuItems" class="nav-item">
+            <a [routerLink]="item.route" class="nav-link">
+              <i class="{{item.icon}}"></i>{{item.label}}
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()">  
+              <i class="fas fa-sign-out me-2"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>

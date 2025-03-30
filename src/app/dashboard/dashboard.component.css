@@ -1,6 +1,12 @@
-/* body{
-    margin-left: 100px;
-} */
+body{
+   /* display: flex;
+   flex-wrap: wrap; */
+   width: 100%;
+   /* max-width: 1200px; sau orice valoare potrivită pentru ecranul laptopului */
+   margin: 0 0;
+   overflow-x: hidden;
+
+}
  footer{
     background-color: beige;
     display: flex;
