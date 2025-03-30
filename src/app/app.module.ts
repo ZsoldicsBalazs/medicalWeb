@@ -29,6 +29,7 @@ import { DocumentListComponent } from './document-list/document-list.component';
 import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
 import { MatButton } from '@angular/material/button';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MyAppointmentsComponent,
     DocumentListComponent,
     DoctorAppointmentsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    DoctorProfileComponent
   ],
   imports: [
     BrowserModule,

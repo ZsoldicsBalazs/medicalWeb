@@ -12,6 +12,8 @@ import { PatientDetailsComponent } from './patient-details/patient-details.compo
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { patientProfileGuard } from './auth-guard/patient-profile.guard';
+import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -29,7 +31,8 @@ const routes: Routes = [
                 {path:'patients', component: PatientListComponent},
                 {path: 'patients/:id', component: PatientDetailsComponent},
                 {path: 'appointments', component: DoctorAppointmentsComponent},
-                {path: '', redirectTo: 'home', pathMatch: 'full'}
+                {path: 'profile', component: DoctorProfileComponent},
+                {path: '', redirectTo: 'home', pathMatch: 'full'},
               ]
           },
           { path: 'patient', 
@@ -37,7 +40,7 @@ const routes: Routes = [
             canActivate: [roleGuard],
             children: 
             [{path: 'home', component: HomeComponent},
-              {path:'aboutMe/:id', component: PatientDetailsComponent},
+              {path:'aboutMe/:id', component: PatientDetailsComponent, canActivate:[patientProfileGuard]},
               {path: 'myAppointments', component: MyAppointmentsComponent} ]
           },
         

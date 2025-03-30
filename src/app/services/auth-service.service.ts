@@ -65,6 +65,10 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
+  getProfileId(){
+    return localStorage.getItem('profileID');
+  }
+
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     // Redirecționează către pagina de login (se poate face și cu router)

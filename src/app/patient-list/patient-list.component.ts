@@ -62,10 +62,10 @@ export class PatientListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  goToPatientDetails(patientId: number){
+  // goToPatientDetails(patientId: number){
     
-    this.router.navigate([`/dashboard/doctor/patients/${patientId}`]);
-  }
+  //   this.router.navigate([`/dashboard/doctor/patients/${patientId}`]);
+  // }
 
   searchByNameOrCNP(){
     this.patientService.getPatientsBySearch(this.searchTerm).subscribe(

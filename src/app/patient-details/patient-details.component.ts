@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PatientService } from '../services/patient.service';
 import { ActivatedRoute } from '@angular/router';
 import { Patient } from '../domain/patient.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthService } from '../services/auth-service.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { UserAppointment } from '../domain/user-appointment.model';
 
@@ -15,28 +14,41 @@ import { UserAppointment } from '../domain/user-appointment.model';
 })
 export class PatientDetailsComponent implements OnInit {
   patientForm!: FormGroup;
-  patient!: Patient;
+  @Input() patient!: Patient;
   loading: boolean = true;
   errorMessage: string = '';
   appointments!: UserAppointment[];
+  userId: string | null = null;
+  isMyProfile: boolean = false;
 
 
-  constructor(private fb: FormBuilder, private patientService: PatientService, private route: ActivatedRoute,private authService: AuthService) {}
+  constructor(private fb: FormBuilder, private patientService: PatientService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe( params=> {
-      const idParam = params.get('id');
-      if(idParam){
-        const patientId=+idParam;
-        this.loadPatientDetails(patientId);
-      }else{
-        this.loading=false;
-        this.errorMessage="Nu s-a putut gasi id ul pacientului din route"
+    // this.route.paramMap.subscribe( params=> {
+    //   const idParam = params.get('id');
+    //   if(idParam){
+    //     const patientId=+idParam;
+    //     this.loadPatientDetails(patientId);
+    //   }else{
+    //     this.loading=false;
+    //     this.errorMessage="Nu s-a putut gasi id ul pacientului din route"
+    //   }
+    // })
+    this.route.paramMap.subscribe(params => {
+      this.userId = params.get('id');
+
+      if (!this.patient && this.userId) {
+        // Dacă userData nu a fost pasat ca Input, înseamnă că trebuie să luăm user-ul din API
+        this.loadPatientDetails(this.userId);
       }
-    })
+
+      // Verificăm dacă este profilul propriu (ex: '/my-profile')
+      this.isMyProfile = !this.userId;
+    });
   }
 
-  loadPatientDetails(patientId: number) {
+  loadPatientDetails(patientId: string) {
     this.patientService.getPatientById(patientId).subscribe(
       (data: Patient) => {
         this.patient=data;

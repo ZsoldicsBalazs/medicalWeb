@@ -46,7 +46,7 @@
       <td mat-cell *matCellDef="let patient">
         <div class="actions-group">
           <div class="action-elem">
-            <button mat-raised-button (click)="goToPatientDetails(patient.id)">
+            <button mat-raised-button [routerLink]="[patient.id]">
               <i class="fa-solid fa-id-card" style="color: rgb(3, 72, 219);"></i>
             </button>
           </div>
@@ -75,7 +75,7 @@
         <strong>Phone:</strong> {{ patient.phone }}<br>
         
       </p>
-      <button mat-raised-button color="primary" (click)="goToPatientDetails(patient.id)">View Details</button>
+      <button mat-raised-button color="primary" [routerLink]="[patient.id]" >View Details</button>
     </div>
   </div>
   

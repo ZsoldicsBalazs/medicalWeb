@@ -19,7 +19,7 @@ private patientsUrl2 = "http://localhost:1212/api/v1/patient";
 
 
 
-  getPatientById(id: number): Observable<Patient>{
+  getPatientById(id: string): Observable<Patient>{
     return this.http.get<Patient>(`http://localhost:1212/api/v1/patient/${id}`);
   }
   getMyProfile(): Observable<Patient>{

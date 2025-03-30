@@ -9,13 +9,17 @@ import { Patient } from '../domain/patient.model';
 })
 export class DoctorService {
   private aptURL = "http://localhost:1212/api/v1/appointment";
- 
+  private doctorURL = "http://localhost:1212/api/v1/medic"
 
   constructor(private http: HttpClient) {
    }
 
    getAppointmentForDr(id: number){
     return this.http.get<DoctorAppointment[]>(`${this.aptURL}/dr/${id}`);
+   }
+
+   getDrById(id: string){
+    return this.http.get<any>(`${this.doctorURL}/${id}`)
    }
 
   
