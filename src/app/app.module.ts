@@ -31,6 +31,7 @@ import { MatButton } from '@angular/material/button';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
 import { DoctorPersonalInfoComponent } from './doctor-personal-info/doctor-personal-info.component';
+import { DoctorStatisticsComponent } from './doctor-statistics/doctor-statistics.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { DoctorPersonalInfoComponent } from './doctor-personal-info/doctor-perso
     DoctorAppointmentsComponent,
     NotFoundComponent,
     DoctorProfileComponent,
-    DoctorPersonalInfoComponent
+    DoctorPersonalInfoComponent,
+    DoctorStatisticsComponent
   ],
   imports: [
     BrowserModule,

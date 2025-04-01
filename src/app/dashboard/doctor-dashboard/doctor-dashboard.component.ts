@@ -22,7 +22,8 @@ export class DoctorDashboardComponent implements OnInit {
       {label: 'News', icon: 'fas fa-newspaper me-1', route: 'newsboard'},
       {label: 'PatientList', icon: 'fas fa-user-group me-1', route: 'patients'},
       {label: 'ConsultationList', icon: 'fas fa-notes-medical me-1', route: 'appointments'},
-      {label: 'Profile', icon: 'fas fa-user me-1', route: `profile`}
+      {label: 'Profile', icon: 'fas fa-user-md me-1', route: `profile`},
+      {label: 'Statistics', icon: 'fa fa-pie-chart', route: 'statistics'}
     ]
   
 
