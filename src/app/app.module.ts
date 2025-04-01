@@ -30,6 +30,7 @@ import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appoin
 import { MatButton } from '@angular/material/button';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
+import { DoctorPersonalInfoComponent } from './doctor-personal-info/doctor-personal-info.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { DoctorProfileComponent } from './doctor-profile/doctor-profile.componen
     DocumentListComponent,
     DoctorAppointmentsComponent,
     NotFoundComponent,
-    DoctorProfileComponent
+    DoctorProfileComponent,
+    DoctorPersonalInfoComponent
   ],
   imports: [
     BrowserModule,
