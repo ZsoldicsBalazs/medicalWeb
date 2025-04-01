@@ -1,1 +1,65 @@
-<p>doctor-profile works!</p>
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h3>Doctor Profile</h3>
+        <!-- Butonul de edit / cancel -->
+        <button class="btn btn-outline-primary" (click)="toggleEdit()">
+          {{ editMode ? 'Cancel' : 'Edit' }}
+        </button>
+      </div>
+      <div class="card-body">
+        <!-- Formularul de profil -->
+        <form #doctorForm="ngForm">
+          <div class="mb-3 row">
+            <label for="id" class="col-sm-3 col-form-label">ID</label>
+            <div class="col-sm-9">
+              <input type="text" id="id" class="form-control" [(ngModel)]="drprofile.id" name="id" readonly>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="firstName" class="col-sm-3 col-form-label">First Name</label>
+            <div class="col-sm-9">
+              <input type="text" id="firstName" class="form-control" [(ngModel)]="drprofile.firstName" name="firstName" [readonly]="!editMode">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="lastName" class="col-sm-3 col-form-label">Last Name</label>
+            <div class="col-sm-9">
+              <input type="text" id="lastName" class="form-control" [(ngModel)]="drprofile.lastName" name="lastName" [readonly]="!editMode">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="phone" class="col-sm-3 col-form-label">Phone</label>
+            <div class="col-sm-9">
+              <input type="text" id="phone" class="form-control" [(ngModel)]="drprofile.phone" name="phone" [readonly]="!editMode">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="email" class="col-sm-3 col-form-label">Email</label>
+            <div class="col-sm-9">
+              <input type="email" id="email" class="form-control" [(ngModel)]="drprofile.email" name="email" [readonly]="!editMode">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="department" class="col-sm-3 col-form-label">Department</label>
+            <div class="col-sm-9">
+              <input type="text" id="department" class="form-control" [(ngModel)]="drprofile.department" name="department" [readonly]="!editMode">
+            </div>
+          </div>
+          <!-- Butonul Save apare doar în modul de editare -->
+          <div *ngIf="editMode">
+            <div class="d-flex justify-content-between align-items-center">
+                <div *ngIf="errorMsg">
+                    <div *ngFor="let error of errorMsg">
+                        <p class="text-danger">{{error}}<p>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success" (click)="saveDoctor()">Save</button>
+            </div>
+            
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

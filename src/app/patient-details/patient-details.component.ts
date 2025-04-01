@@ -14,7 +14,7 @@ import { UserAppointment } from '../domain/user-appointment.model';
 })
 export class PatientDetailsComponent implements OnInit {
   patientForm!: FormGroup;
-  @Input() patient!: Patient;
+  patient!: Patient;
   loading: boolean = true;
   errorMessage: string = '';
   appointments!: UserAppointment[];
@@ -25,16 +25,6 @@ export class PatientDetailsComponent implements OnInit {
   constructor(private fb: FormBuilder, private patientService: PatientService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // this.route.paramMap.subscribe( params=> {
-    //   const idParam = params.get('id');
-    //   if(idParam){
-    //     const patientId=+idParam;
-    //     this.loadPatientDetails(patientId);
-    //   }else{
-    //     this.loading=false;
-    //     this.errorMessage="Nu s-a putut gasi id ul pacientului din route"
-    //   }
-    // })
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id');
 

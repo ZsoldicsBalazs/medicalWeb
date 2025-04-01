@@ -8,7 +8,7 @@ import {MenuItem } from '../../domain/menu-item.model';
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.css'
 })
-export class SidenavComponent {
+export class  SidenavComponent {
  
   @Input() menuItems: MenuItem[]=[];
 

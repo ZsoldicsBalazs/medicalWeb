@@ -19,7 +19,7 @@ export class LoginComponent {
     this.authService.login(this.email,this.password).subscribe(
       (response: any) => {
         this.authService.setToken(response.token);
-        this.authService.setProfileID(response.profile);
+        this.authService.setProfileID(response.profile.id);
         this.authService.setProfileToLocalStorage(response.profile);
         const role = this.authService.getRoleFromToken();
         this.authService.setIsAuthenticatedUser(true);

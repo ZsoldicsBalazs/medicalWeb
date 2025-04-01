@@ -50,16 +50,14 @@ export class AuthService {
   setIsAuthenticatedUser(boolean: boolean){
     this.isAuthenticatedBoolean=boolean;
   }
-  setProfileID(patient: Patient){
-    localStorage.setItem("profileID",patient.id.toLocaleString());
-    this.patient = patient;
-    console.log(this.patient);
+  setProfileID(id: string){
+    localStorage.setItem("profileID",id);
   }
-  setProfileToLocalStorage(patient: Patient){
-    localStorage.setItem('userProfile', JSON.stringify(patient))
+  setProfileToLocalStorage(user: any){
+    localStorage.setItem('userProfile', JSON.stringify(user));
   }
   getProfileDetails(){
-    return this.patient;
+    return localStorage.getItem("userProfile");
   }
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
@@ -71,7 +69,8 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(this.tokenKey);
-    // Redirecționează către pagina de login (se poate face și cu router)
+    localStorage.removeItem('profileID');
+    localStorage.removeItem('userProfile');
     this.isAuthenticatedBoolean=false;
     window.location.href = '/login';
   }
