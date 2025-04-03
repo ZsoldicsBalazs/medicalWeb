@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { DoctorAppointment } from '../domain/doctor-appointment.model';
 import { Patient } from '../domain/patient.model';
 import { Doctor } from '../domain/doctor.model';
+import { DoctorProcedure } from '../domain/doctor-procedure.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,14 @@ export class DoctorService {
 
    updateDoctor(drprofile: Doctor): Observable<Doctor> {
     return this.http.put<Doctor>(`${this.doctorURL}`,drprofile);
+  }
+
+  getAllProceduresByDrId(id: string): Observable<DoctorProcedure[]>{
+    return this.http.get<DoctorProcedure[]>(`${this.doctorURL}/${id}/procedures`);
+  }
+
+  addProcedureToDr(id: string, dp: DoctorProcedure): Observable<DoctorProcedure>{
+    return this.http.post<DoctorProcedure>(`${this.doctorURL}/${id}/procedures`,dp);
   }
 
 

@@ -32,7 +32,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
 import { DoctorPersonalInfoComponent } from './doctor-personal-info/doctor-personal-info.component';
 import { DoctorStatisticsComponent } from './doctor-statistics/doctor-statistics.component';
-
+import { DoctorProcedureComponent } from './doctor-procedure/doctor-procedure.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +50,8 @@ import { DoctorStatisticsComponent } from './doctor-statistics/doctor-statistics
     NotFoundComponent,
     DoctorProfileComponent,
     DoctorPersonalInfoComponent,
-    DoctorStatisticsComponent
+    DoctorStatisticsComponent,
+    DoctorProcedureComponent
   ],
   imports: [
     BrowserModule,
