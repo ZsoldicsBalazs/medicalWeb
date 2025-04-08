@@ -145,6 +145,20 @@ editFlag=false;
     this.closeModal();
   };
 
+  deleteProcedure(proc: DoctorProcedure) {
+    this.doctorService.deleteDoctorProcedure(localStorage.getItem("profileID")!,proc.procedure_id).subscribe(
+      (data) => {
+        if(data){
+          console.log("selected element deleted!");
+          this.addedProcedures=this.addedProcedures.filter(lproc => lproc.id!==proc.id);
+        }
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+    }
+
   
 
 }

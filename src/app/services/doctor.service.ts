@@ -40,6 +40,9 @@ export class DoctorService {
   updateProcedureToDr(id: string, dp: DoctorProcedure): Observable<DoctorProcedure>{
     return this.http.put<DoctorProcedure>(`${this.doctorURL}/${id}/procedures`,dp);
   }
+  deleteDoctorProcedure(id: string, doctorProcedureID: string): Observable<Boolean>{
+    return this.http.delete<Boolean>(`${this.doctorURL}/${id}/procedures/${doctorProcedureID}`)
+  }
 
 
 
