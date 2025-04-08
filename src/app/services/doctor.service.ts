@@ -37,6 +37,10 @@ export class DoctorService {
     return this.http.post<DoctorProcedure>(`${this.doctorURL}/${id}/procedures`,dp);
   }
 
+  updateProcedureToDr(id: string, dp: DoctorProcedure): Observable<DoctorProcedure>{
+    return this.http.put<DoctorProcedure>(`${this.doctorURL}/${id}/procedures`,dp);
+  }
+
 
 
   

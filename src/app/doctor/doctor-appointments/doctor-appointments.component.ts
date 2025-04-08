@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DoctorService } from '../services/doctor.service';
-import { DoctorAppointment } from '../domain/doctor-appointment.model';
-import { AppointmentService } from '../services/appointment.service';
+import { DoctorService } from '../../services/doctor.service';
+import { DoctorAppointment } from '../../domain/doctor-appointment.model';
+import { AppointmentService } from '../../services/appointment.service';
 
 @Component({
   selector: 'app-doctor-appointments',

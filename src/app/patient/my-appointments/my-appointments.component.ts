@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserAppointment } from '../domain/user-appointment.model';
-import { PatientService } from '../services/patient.service';
+import { UserAppointment } from '../../domain/user-appointment.model';
+import { PatientService } from '../../services/patient.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-my-appointments',

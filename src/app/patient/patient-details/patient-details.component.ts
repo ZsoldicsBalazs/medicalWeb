@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PatientService } from '../services/patient.service';
+import { PatientService } from '../../services/patient.service';
 import { ActivatedRoute } from '@angular/router';
-import { Patient } from '../domain/patient.model';
+import { Patient } from '../../domain/patient.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { UserAppointment } from '../domain/user-appointment.model';
+import { UserAppointment } from '../../domain/user-appointment.model';
 
 @Component({
   selector: 'app-patient-details',

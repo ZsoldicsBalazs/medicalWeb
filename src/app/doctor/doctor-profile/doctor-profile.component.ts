@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DoctorService } from '../services/doctor.service';
-import { AuthService } from '../services/auth-service.service';
-import { Doctor } from '../domain/doctor.model';
+import { DoctorService } from '../../services/doctor.service';
+import { AuthService } from '../../services/auth-service.service';
+import { Doctor } from '../../domain/doctor.model';
 
 @Component({
   selector: 'app-doctor-profile',

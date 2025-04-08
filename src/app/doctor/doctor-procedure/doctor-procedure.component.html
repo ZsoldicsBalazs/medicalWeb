@@ -15,7 +15,7 @@
       <!-- Index Column -->
       <ng-container matColumnDef="#">
         <th mat-header-cell *matHeaderCellDef> # </th>
-        <td mat-cell *matCellDef="let proc; let i = index"> {{ i + 1 }} </td>
+        <td mat-cell *matCellDef="let proc; let i = index"> {{ proc.id }} </td>
       </ng-container>
   
       <!-- Cod DRG Column -->
@@ -34,7 +34,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let proc">
-          <button mat-raised-button color="primary" (click)="openModal(proc)">Add</button>
+          <button mat-raised-button color="primary" (click)="openModal(proc,false)">Add</button>
         </td>
       </ng-container>
       
@@ -47,7 +47,7 @@
   </div>
 
 
-
+  <!-- MODAL -->
   <div class="modal fade" [ngClass]="{'show': showModal}" [ngStyle]="{'display': showModal ? 'block' : 'none'}" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -56,7 +56,7 @@
           <button type="button" class="btn-close" (click)="closeModal()"></button>
         </div>
         <div class="modal-body">
-          <p>Procedure: {{ selectedProcedure?.description }}</p>
+          <p>Procedure: {{ editFlag ? selectedDoctorProcedure?.description : selectedProcedure?.description }}</p>
           <div class="mb-3">
             <label for="priceInput" class="form-label">Price</label>
             <input type="number" id="priceInput" class="form-control" [(ngModel)]="inputPrice" name="price">
@@ -64,7 +64,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
-          <button type="button" class="btn btn-primary" (click)="confirmAdd()">Confirm</button>
+          <button type="button" class="btn btn-primary" (click)="editFlag ? updatePrice(): confirmAdd() ">{{editFlag ? 'Update' : 'Add'}}</button>
         </div>
       </div>
     </div>
@@ -80,13 +80,28 @@
 
   <div class="mt-4 mb-4">
     <h4>Proceduri adăugate</h4>
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let proc of addedProcedures; let i = index">
-        {{ i + 1 }}. {{ proc.id }} - {{ proc.description }} -   {{proc.price}} RON
-      </li>
-      <li class="list-group-item" *ngIf="addedProcedures.length === 0">
-        Nu există proceduri adăugate.
-      </li>
-    </ul>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Denumire procedura</th>
+          <th scope="col">Pret</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr scope="row" *ngFor="let proc of addedProcedures">
+          <td>{{proc.procedure_id}}</td>
+          <td>{{proc.description}}</td>
+          <td>{{proc.price}}</td>
+          <td>
+            <button mat-raised-button (click)="openModal(proc,true)">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
   

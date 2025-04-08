@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { DoctorDashboardComponent } from './dashboard/doctor-dashboard/doctor-dashboard.component';
-import { AuthGuard } from './auth-guard/auth-guard.guard';
-import { PatientDashboardComponent } from './dashboard/patient-dashboard/patient-dashboard.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { roleGuard } from './auth-guard/role.guard';
-import { HomeComponent } from './home/home.component';
-import { PatientListComponent } from './patient-list/patient-list.component';
-import { PatientDetailsComponent } from './patient-details/patient-details.component';
-import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
-import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
+import { LoginComponent } from './common/login/login.component';
+import { DoctorDashboardComponent } from './doctor/doctor-dashboard/doctor-dashboard.component';
+import { AuthGuard } from './guards/auth-guard.guard';
+import { PatientDashboardComponent } from './patient/patient-dashboard/patient-dashboard.component';
+import { DashboardComponent } from './common/dashboard/dashboard.component';
+import { roleGuard } from './guards/role.guard';
+import { HomeComponent } from './common/home/home.component';
+import { PatientListComponent } from './patient/patient-list/patient-list.component';
+import { PatientDetailsComponent } from './patient/patient-details/patient-details.component';
+import { MyAppointmentsComponent } from './patient/my-appointments/my-appointments.component';
+import { DoctorAppointmentsComponent } from './doctor/doctor-appointments/doctor-appointments.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { patientProfileGuard } from './auth-guard/patient-profile.guard';
-import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
-import { DoctorStatisticsComponent } from './doctor-statistics/doctor-statistics.component';
+import { patientProfileGuard } from './guards/patient-profile.guard';
+import { DoctorProfileComponent } from './doctor/doctor-profile/doctor-profile.component';
+import { DoctorStatisticsComponent } from './doctor/doctor-statistics/doctor-statistics.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },

@@ -16,4 +16,6 @@ export class ProceduresService {
   getAllProcedures(): Observable<Procedure[]>{
     return this.http.get<Procedure[]>(this.procedureURL);
   }
+
+  
 }
