@@ -12,7 +12,7 @@ export class AppointmentService {
 
   constructor(private http: HttpClient) { }
 
-  searchAppointments(searchParams: any,doctorId: number): Observable<DoctorAppointment[]>{
+  searchAppointments(searchParams: any): Observable<DoctorAppointment[]>{
     let params = new HttpParams();
 
 
@@ -29,7 +29,7 @@ export class AppointmentService {
       params = params.set('appointmentDate', searchParams.appointmentDate);
     }
     
-    return this.http.get<DoctorAppointment[]>(`${this.apiUrl}/dr/${doctorId}`,{params})
+    return this.http.get<DoctorAppointment[]>(`${this.apiUrl}/dr`,{params})
 
   }
 

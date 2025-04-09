@@ -23,7 +23,7 @@ export class DoctorAppointmentsComponent implements OnInit {
   constructor(private drService: DoctorService, private appointmentService: AppointmentService){}
 
   ngOnInit(): void {
-    this.appointmentService.searchAppointments(this.getCurrentDate(),this.id,).subscribe(
+    this.appointmentService.searchAppointments(this.getCurrentDate()).subscribe(
       (data)=>{
         this.appointments=data;
     },
@@ -51,7 +51,7 @@ export class DoctorAppointmentsComponent implements OnInit {
       appointmentDate: this.searchDate
     };
 
-    this.appointmentService.searchAppointments(searchParams,this.id).subscribe(
+    this.appointmentService.searchAppointments(searchParams).subscribe(
       (data) => {
         if(data.length===0){
           this.notFound=true;
