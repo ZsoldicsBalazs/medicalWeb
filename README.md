@@ -1,27 +1,44 @@
-# MedicalWeb
+# 🌐 Patient Management Frontend (Angular)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.11.
+## 📌 Overview
 
-## Development server
+This is the frontend application developed using **Angular**, which interacts with the [Patient Management Backend API]. It provides a clean and user-friendly interface for managing patients, doctors, appointments, and procedures.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Technologies Used
 
-## Code scaffolding
+- Angular 17+
+- TypeScript
+- RxJS
+- Angular Router
+- Angular Forms
+- Bootstrap
+- Angular Material
+- HTTP Client Module for REST API communication
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🔐 Authentication
 
-## Build
+- JWT-based authentication
+- Login and secure token storage in `localStorage`
+- Role-based navigation and access control
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 💡 Key Features
 
-## Running unit tests
+- **User Login** and secure session management
+- **Dashboard** for doctors and patients to manage appointments
+- **CRUD operations** for:
+  - Patients
+  - Doctors
+  - Appointments
+  - Medical Procedures
+- **Search & filter** functionality for appointments (by name, CNP, phoneNr)
+- Association of **procedures to doctors**
+- Loading indicators and user feedback messages
+- Modular architecture using Angular best practices(I try :) )
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🔄 API Integration
 
-## Running end-to-end tests
+- Fully integrated with the backend REST API
+- Uses HTTP Interceptors to automatically attach the JWT token to every request
+- Handles API errors and redirects unauthorized users to the login page
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+🎯 This frontend is optimized for medical professionals and admins to easily manage medical operations in clinics or private practices.
