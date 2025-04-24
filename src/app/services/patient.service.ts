@@ -37,6 +37,10 @@ private patientsUrl2 = "http://localhost:1212/api/v1/patient";
     return this.http.delete<void>(`http://localhost:1212/api/v1/appointment/${id}`);
   }
 
+  getCompletedAppointments(id: number): Observable<UserAppointment[]>{
+    return this.http.get<UserAppointment[]>(`http://localhost:1212/api/v1/appointment/${id}/completed`);
+  }
+
   getPatientsBySearch(word: any): Observable<Patient[]>{
     let params = new HttpParams;
     params = params.set("search", word);

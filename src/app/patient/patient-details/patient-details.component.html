@@ -80,18 +80,19 @@
 
     <mat-tab label="Consultations"> Content 2           
           <div *ngIf="!patient">
-            <p>Patient not found!</p>
+            <h2>Patient not found!</h2>
           </div>
-          <p>aici vine lista consultatii pacient</p>
-        
+
+          <app-patient-consultation-list *ngIf="patient" [patientId]="patient.id"></app-patient-consultation-list>  
+
     </mat-tab>
     <mat-tab label="Documente Incarcate"> Content 3 
 
       <app-document-list></app-document-list>
      
     </mat-tab>
-<!-- 
-  <mat-tab label="Upcoming appointments">
+
+  <!-- <mat-tab label="Upcoming appointments">
 
     <app-my-appointments></app-my-appointments>
 

@@ -18,7 +18,7 @@ export class PatientDetailsComponent implements OnInit {
   loading: boolean = true;
   errorMessage: string = '';
   appointments!: UserAppointment[];
-  userId: string | null = null;
+  userId: string | null=null;
   isMyProfile: boolean = false;
 
 

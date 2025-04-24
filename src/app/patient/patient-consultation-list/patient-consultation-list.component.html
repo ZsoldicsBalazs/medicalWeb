@@ -1,0 +1,18 @@
+
+
+<p>patient-consultation-list works/p> 
+
+
+<div *ngFor="let consultationitem of userAppointments">
+
+    <ul>
+        <li>{{consultationitem.id}}</li>
+        <li>{{consultationitem.appointmentDate}}</li>
+        <li>{{consultationitem.appointmentTime}}</li>
+        <li>{{consultationitem.department}}</li>
+        <li>{{consultationitem.doctorLastName }} {{ consultationitem.doctorName}}</li>
+        <li>{{consultationitem.status}}</li>
+    </ul>
+
+</div>
+

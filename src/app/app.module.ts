@@ -33,6 +33,8 @@ import { DoctorProfileComponent } from './doctor/doctor-profile/doctor-profile.c
 import { DoctorPersonalInfoComponent } from './doctor/doctor-personal-info/doctor-personal-info.component';
 import { DoctorStatisticsComponent } from './doctor/doctor-statistics/doctor-statistics.component';
 import { DoctorProcedureComponent } from './doctor/doctor-procedure/doctor-procedure.component';
+import { DoctorConsultationComponent } from './doctor/doctor-consultation/doctor-consultation.component';
+import { PatientConsultationListComponent } from './patient/patient-consultation-list/patient-consultation-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +53,9 @@ import { DoctorProcedureComponent } from './doctor/doctor-procedure/doctor-proce
     DoctorProfileComponent,
     DoctorPersonalInfoComponent,
     DoctorStatisticsComponent,
-    DoctorProcedureComponent
+    DoctorProcedureComponent,
+    DoctorConsultationComponent,
+    PatientConsultationListComponent
   ],
   imports: [
     BrowserModule,

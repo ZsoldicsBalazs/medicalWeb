@@ -35,7 +35,14 @@
       <!-- Status Column -->
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef> Status </th>
-        <td mat-cell *matCellDef="let appointment"> {{ appointment.status }} </td>
+        <td mat-cell *matCellDef="let appointment"> 
+          <div [ngSwitch]="appointment.status">
+            <span *ngSwitchCase="'CANCELLED'" style="color: red;">{{ appointment.status }}</span>
+            <span *ngSwitchCase="'COMPLETED'" style="color: rgb(0, 155, 0);">{{ appointment.status }}</span>
+            <span *ngSwitchCase="'SCHEDULED'" style="color: rgb(18, 95, 238);">{{ appointment.status }}</span>
+            <span *ngSwitchDefault> {{ appointment.status }} </span>
+          </div> 
+        </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

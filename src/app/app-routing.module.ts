@@ -15,6 +15,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { patientProfileGuard } from './guards/patient-profile.guard';
 import { DoctorProfileComponent } from './doctor/doctor-profile/doctor-profile.component';
 import { DoctorStatisticsComponent } from './doctor/doctor-statistics/doctor-statistics.component';
+import { DoctorConsultationComponent } from './doctor/doctor-consultation/doctor-consultation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -34,7 +35,9 @@ const routes: Routes = [
                 {path: 'appointments', component: DoctorAppointmentsComponent},
                 {path: 'profile', component: DoctorProfileComponent},
                 {path: 'statistics', component: DoctorStatisticsComponent},
-                {path: '', redirectTo: 'home', pathMatch: 'full'},
+                {path: 'consultation', component: DoctorConsultationComponent},
+                {path: '', redirectTo: 'home', pathMatch: 'full'}
+                
               ]
           },
           { path: 'patient', 
