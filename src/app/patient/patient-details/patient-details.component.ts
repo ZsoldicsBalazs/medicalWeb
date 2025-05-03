@@ -56,13 +56,15 @@ export class PatientDetailsComponent implements OnInit {
   // Inițializăm formularul folosind datele primite de la backend.
   initializeForm(): void {
     this.patientForm = this.fb.group({
-      CNP: [this.patient.CNP, Validators.required],
+      CNP: [this.patient.CNP, [Validators.required, Validators.pattern('^[0-9]{13}$')]],
       email: [{ value: this.patient.email, disabled: true }, [Validators.required, Validators.email]],
-      phone: [this.patient.phone, Validators.required],
-      firstName: [this.patient.firstName, Validators.required],
+      phone: [this.patient.phone, [Validators.required,Validators.minLength(10), Validators.maxLength(15),Validators.pattern('^\\+?(\\d{1,3})?[ ]?\\d{6,14}$')]],
+      firstName: [this.patient.firstName, [Validators.required,Validators.minLength(3)]],
       lastName: [this.patient.lastName, Validators.required]
     });
   }
+
+
 
   // Actualizează datele pacientului la backend
   onSave(): void {

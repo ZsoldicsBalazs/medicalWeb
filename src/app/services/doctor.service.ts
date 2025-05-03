@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DoctorAppointment } from '../domain/doctor-appointment.model';
-import { Patient } from '../domain/patient.model';
+
 import { Doctor } from '../domain/doctor.model';
 import { DoctorProcedure } from '../domain/doctor-procedure.model';
 

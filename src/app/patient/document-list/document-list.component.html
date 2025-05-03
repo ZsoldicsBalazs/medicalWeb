@@ -1,1 +1,19 @@
 <p>document-list works!</p>
+
+<table>
+    <tr>
+        <th>File Name</th>
+        <th>Upload Date</th>
+    </tr>
+    @for (item of docList; track $index) {
+        <tr>
+            <td>{{item.fileName}}</td>
+            <td> {{item.uploadDate | date:'dd/MM/yyyy HH:mm'}}</td>
+        </tr>
+    }
+</table>
+ 
+
+
+
+
