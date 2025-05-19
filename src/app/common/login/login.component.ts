@@ -44,14 +44,14 @@ export class LoginComponent {
                this.router.navigate(['/login']);
               break;
           }
-          debugger;
+          
         } else {
            this.router.navigate(['/login']);
         }
         
       },
       (error) => {
-        this.errorMessage = error || "Login failed verifica datele";
+        this.errorMessage = error || "Login failed verifica datele introduse";
         console.error(error);
       }
     )
