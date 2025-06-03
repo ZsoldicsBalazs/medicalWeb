@@ -10,7 +10,7 @@ export class DocumentService {
   private filesBaseUrl = "http://localhost:1212/api/v1/files"
   constructor(private http: HttpClient) { }
 
-  getDocumentsForPatient(id: string): Observable<Document[]>{
+  getDocumentsForPatient(id: number): Observable<Document[]>{
     return this.http.get<Document[]>(`${this.filesBaseUrl}/${id}`);
   }
 

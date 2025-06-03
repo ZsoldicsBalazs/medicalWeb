@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, throwError } from 'rxjs';
+import { UserRegistration } from '../domain/user-registration.model';
 import { Patient } from '../domain/patient.model';
 
 @Injectable({
@@ -10,25 +11,20 @@ export class AuthService {
 
   private tokenKey = 'authToken';
   private authUrl = 'http://localhost:1212/api/v1/auth';
-  private patient: Patient = {
-    id: 0,
-    CNP: "",
-    email: "",
-    phone: "",
-    firstName: "",
-    lastName: ""
-  };
+  private patientUrl = 'http://localhost:1212/api/v1/patient';
   private isAuthenticatedBoolean = false;
+
   constructor(private http: HttpClient) {
     this.isAuthenticatedBoolean= !!localStorage.getItem(this.tokenKey)
    }
 
   login(email: string, password: string): Observable<any> {
+    localStorage.clear();
     return this.http.post<any>(`${this.authUrl}/authenticate`, { email, password })
       .pipe(
         catchError((error: HttpErrorResponse) => {
           // Extragem mesajul de eroare de la backend.
-          debugger;
+          
           let errorMsg = 'Unknown error!';
           if (error && error.message) {
             errorMsg = error.error.message;
@@ -71,8 +67,10 @@ export class AuthService {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem('profileID');
     localStorage.removeItem('userProfile');
+    localStorage.clear();
     this.isAuthenticatedBoolean=false;
-    window.location.href = '/login';
+    console.log("deleted credentials")
+    window.location.href = '/auth';
   }
   isAuthenticated(): boolean {
     return !!this.getToken();
@@ -96,11 +94,11 @@ export class AuthService {
   
     try {
       const tokenParts = token.split('.');
-      if (tokenParts.length !== 3) return null; // Verificam ca token-ul are 3 parti
+      if (tokenParts.length !== 3) return null; // Verificam ca token-ul are 3 parte
   
       const tokenPayload = JSON.parse(atob(tokenParts[1])); // Decodificam payloadul
   
-      // Verificăm dacă există un câmp 'roles' și extragem 'authority'
+      // Verific daca exista un camp 'roles' si extragem 'authority'
       if (tokenPayload && tokenPayload.roles && tokenPayload.roles.length > 0) {
         return tokenPayload.roles[0].authority; // Extragem 'authority' din primul rol
       } else {
@@ -111,6 +109,22 @@ export class AuthService {
       console.error('Error decoding token:', error);
       return null;
     }
+  }
+
+
+  registerUser(user: UserRegistration): Observable<UserRegistration>{
+    return this.http.post<UserRegistration>(`${this.authUrl}/register`,user);
+  }
+
+  getUserProfile(): Observable<Patient> {
+    
+    return this.http.get<Patient>(`${this.patientUrl}/me`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMsg = error.error?.message || `Error Code: ${error.status}\nMessage: ${error.message}`;
+        console.error('Error fetching profile:', errorMsg);
+        return throwError(() => errorMsg);
+      })
+    );
   }
 
 

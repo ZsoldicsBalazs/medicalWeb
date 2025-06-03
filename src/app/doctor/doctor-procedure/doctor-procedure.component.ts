@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { DoctorService } from '../../services/doctor.service';
 import { DoctorProcedure } from '../../domain/doctor-procedure.model';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-doctor-procedure',
@@ -33,21 +34,13 @@ selectedProcedure!: Procedure;
 inputPrice: string = '';
 selectedDoctorProcedure!: DoctorProcedure;
 editFlag=false;
-// 
 
-
-
-
-
-
-
- constructor(private procedureService: ProceduresService, private doctorService: DoctorService) {}
+ constructor(private procedureService: ProceduresService, private doctorService: DoctorService, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.procedureService.getAllProcedures().subscribe((procedures: Procedure[]) => {
       this.allProcedures = procedures; 
       this.dataSource.data = procedures;
-      // Setează paginatorul și pagină cu 5 elemente
       this.dataSource.paginator = this.paginator;
       this.paginator.pageSize = 5;
       
@@ -119,7 +112,11 @@ editFlag=false;
       // Adaugă procedura doar dacă nu este deja adăugată
       if (!this.addedProcedures.find(p => p.procedure_id === dp.procedure_id)) {
         this.doctorService.addProcedureToDr(dp.doctor_id,dp).subscribe(
-          (data) => {this.addedProcedures.push(data)},
+          (data) => {
+            this.addedProcedures.push(data);
+            this.notificationService.notify('success','Procedure add',data.description+" has been added"
+            )
+          },
           (error)=> {console.log(error)}
         )
         

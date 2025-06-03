@@ -8,7 +8,7 @@ import {Document} from '../../domain/documents.model';
   styleUrl: './document-list.component.css'
 })
 export class DocumentListComponent implements OnInit {
-  @Input() patientId!: string;
+  @Input() patientId!: number;
   
   docList: Document[] = [];
   
@@ -23,7 +23,7 @@ export class DocumentListComponent implements OnInit {
         console.log(this.docList);
       },
       error => {console.log(error)
-
+          
       }
     
     )

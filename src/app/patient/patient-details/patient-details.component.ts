@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PatientService } from '../../services/patient.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Patient } from '../../domain/patient.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { UserAppointment } from '../../domain/user-appointment.model';
+import { AuthService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-patient-details',
@@ -18,27 +19,44 @@ export class PatientDetailsComponent implements OnInit {
   loading: boolean = true;
   errorMessage: string = '';
   appointments!: UserAppointment[];
-  userId: string | null=null;
+  patientId: string | null=null;
   isMyProfile: boolean = false;
 
 
-  constructor(private fb: FormBuilder, private patientService: PatientService, private route: ActivatedRoute) {}
+  constructor(private fb: FormBuilder, private patientService: PatientService, private route: ActivatedRoute,private router: Router,private authService: AuthService,) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.userId = params.get('id');
+      // Determine if this is the patient's own profile based on the route
+    const currentRoute = this.router.url;
+    this.isMyProfile = currentRoute.includes('/dashboard/patient/aboutMe');
 
-      if (!this.patient && this.userId) {
-        // Dacă userData nu a fost pasat ca Input, înseamnă că trebuie să luăm user-ul din API
-        this.loadPatientDetails(this.userId);
+    // Get patient ID from route params (for doctor) or localStorage (for patient)
+    this.route.paramMap.subscribe(params => {
+      const patientIdFromRoute = params.get('id'); // For /dashboard/doctor/patients/:id
+      const userIdFromStorage = this.authService.getProfileId(); // From localStorage 'profileID'
+
+      let patientId: string | null = null;
+
+      if (this.isMyProfile) {
+        // Patient viewing their own profile
+        patientId = userIdFromStorage;
+      } else {
+        // Doctor viewing a patient's profile
+        patientId = patientIdFromRoute;
       }
 
-      // Verificăm dacă este profilul propriu (ex: '/my-profile')
-      this.isMyProfile = !this.userId;
+      console.log('PatientDetails: patientId=', patientId, 'isMyProfile=', this.isMyProfile); // Debug
+
+      if (patientId) {
+        this.loadPatientDetails(patientId);
+      } else {
+        this.errorMessage = 'Patient ID not found.';
+        this.loading = false;
+      }
     });
   }
 
-  loadPatientDetails(patientId: string) {
+  private loadPatientDetails(patientId: string) {
     this.patientService.getPatientById(patientId).subscribe(
       (data: Patient) => {
         this.patient=data;
@@ -54,7 +72,7 @@ export class PatientDetailsComponent implements OnInit {
   }
 
   // Inițializăm formularul folosind datele primite de la backend.
-  initializeForm(): void {
+  private initializeForm(): void {
     this.patientForm = this.fb.group({
       CNP: [this.patient.CNP, [Validators.required, Validators.pattern('^[0-9]{13}$')]],
       email: [{ value: this.patient.email, disabled: true }, [Validators.required, Validators.email]],

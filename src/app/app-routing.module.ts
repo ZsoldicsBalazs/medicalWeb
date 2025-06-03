@@ -16,11 +16,15 @@ import { patientProfileGuard } from './guards/patient-profile.guard';
 import { DoctorProfileComponent } from './doctor/doctor-profile/doctor-profile.component';
 import { DoctorStatisticsComponent } from './doctor/doctor-statistics/doctor-statistics.component';
 import { DoctorConsultationComponent } from './doctor/doctor-consultation/doctor-consultation.component';
+import { RegisterComponent } from './common/register/register.component';
+import { AuthComponent } from './common/auth/auth.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   // {path: 'rezervation', component: rezervationComponent} TODO:
+  {path: 'register',component: RegisterComponent},
+  {path: 'auth', component: AuthComponent},
   { path: 'dashboard',
     component: DashboardComponent,
     canActivate:[AuthGuard],
@@ -28,6 +32,7 @@ const routes: Routes = [
           { path: 'doctor', 
             component: DoctorDashboardComponent,  
             canActivate: [roleGuard],
+            data: { roles: ['MEDIC'] },
             children:[
                 {path: 'home', component: HomeComponent},
                 {path:'patients', component: PatientListComponent},
@@ -43,9 +48,10 @@ const routes: Routes = [
           { path: 'patient', 
             component: PatientDashboardComponent, 
             canActivate: [roleGuard],
+            data: { roles: ['PATIENT'] },
             children: 
             [{path: 'home', component: HomeComponent},
-              {path:'aboutMe/:id', component: PatientDetailsComponent, canActivate:[patientProfileGuard]},
+              {path:'aboutMe', component: PatientDetailsComponent},
               {path: 'myAppointments', component: MyAppointmentsComponent} ]
           },
         

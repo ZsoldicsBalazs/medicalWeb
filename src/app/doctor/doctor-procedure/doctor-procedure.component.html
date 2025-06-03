@@ -83,7 +83,7 @@
     <table class="doctor-procedures table-sm table-striped">
       <thead class="thead-light">
         <tr>
-          <th scope="col">ID</th>
+        
           <th scope="col">Denumire procedura</th>
           <th scope="col">Pret</th>
           <th scope="col">Actions</th>
@@ -91,7 +91,6 @@
       </thead>
       <tbody>
         <tr scope="row" *ngFor="let proc of addedProcedures">
-          <td>{{proc.procedure_id}}</td>
           <td>{{proc.description}}</td>
           <td>{{proc.price}}</td>
           <td>

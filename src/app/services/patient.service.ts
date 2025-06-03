@@ -8,13 +8,13 @@ import { UserAppointment } from '../domain/user-appointment.model';
   providedIn: 'root'
 })
 export class PatientService {
-private patientsUrl = "http://localhost:1212/api/v1/admin/patients";
+// private patientsUrl = "http://localhost:1212/api/v1/admin/patients";
 private patientsUrl2 = "http://localhost:1212/api/v1/patient";
 
   constructor(private http: HttpClient) { }
 
   getPatients(): Observable<Patient[]>{
-    return this.http.get<Patient[]>(this.patientsUrl)
+    return this.http.get<Patient[]>(this.patientsUrl2)
   }
 
 

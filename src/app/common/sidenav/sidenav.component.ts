@@ -14,8 +14,6 @@ export class  SidenavComponent {
 
   constructor (private authService: AuthService, private router: Router){}
 
-  
-
   logout(){
     this.authService.logout();
     this.router.navigate(['/login'])

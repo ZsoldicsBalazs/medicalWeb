@@ -35,6 +35,16 @@ import { DoctorStatisticsComponent } from './doctor/doctor-statistics/doctor-sta
 import { DoctorProcedureComponent } from './doctor/doctor-procedure/doctor-procedure.component';
 import { DoctorConsultationComponent } from './doctor/doctor-consultation/doctor-consultation.component';
 import { PatientConsultationListComponent } from './patient/patient-consultation-list/patient-consultation-list.component';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { DividerModule } from 'primeng/divider';
+import { RegisterComponent } from './common/register/register.component';
+import { AuthComponent } from './common/auth/auth.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +65,9 @@ import { PatientConsultationListComponent } from './patient/patient-consultation
     DoctorStatisticsComponent,
     DoctorProcedureComponent,
     DoctorConsultationComponent,
-    PatientConsultationListComponent
+    PatientConsultationListComponent,
+    RegisterComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -74,13 +86,20 @@ import { PatientConsultationListComponent } from './patient/patient-consultation
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatButton
+    MatButton,
+    DialogModule, 
+    ButtonModule,
+    InputTextModule,
+    PasswordModule,
+    DividerModule,
+    ToastModule
     
   ],
   providers: [
     AuthService, 
     provideAnimationsAsync(),
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
