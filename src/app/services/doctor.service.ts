@@ -21,6 +21,26 @@ export class DoctorService {
     return this.http.get<DoctorAppointment[]>(`${this.aptURL}/dr/${id}`);
    }
 
+   searchAppointments(searchParams: any): Observable<DoctorAppointment[]>{
+    let params = new HttpParams();
+
+    if (searchParams.cnp) {
+      params = params.set('cnp', searchParams.cnp);
+    }
+    if (searchParams.patientName) {
+      params = params.set('patientName', searchParams.patientName);
+    }
+    if (searchParams.patientFirstName) {
+      params = params.set('patientFirstName', searchParams.patientFirstName);
+    }
+    if (searchParams.appointmentDate) {
+      params = params.set('appointmentDate', searchParams.appointmentDate);
+    }
+    
+    return this.http.get<DoctorAppointment[]>(`${this.aptURL}/dr`,{params})
+
+  }
+
    getDrById(id: string): Observable<Doctor>{
     return this.http.get<Doctor>(`${this.doctorURL}/${id}`)
    }

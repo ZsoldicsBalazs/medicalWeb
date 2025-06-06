@@ -15,7 +15,6 @@ export class AppointmentService {
   searchAppointments(searchParams: any): Observable<DoctorAppointment[]>{
     let params = new HttpParams();
 
-
     if (searchParams.cnp) {
       params = params.set('cnp', searchParams.cnp);
     }

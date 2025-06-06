@@ -38,6 +38,8 @@ export class LoginComponent implements OnInit{
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       const token = params['token'];
+
+    
       if (token) {
         // Store token and set authenticated state
         this.authService.setToken(token);
@@ -144,7 +146,11 @@ export class LoginComponent implements OnInit{
   }
   loginWithGoogle() {
     console.log('Initiating Google login');
-    window.location.href = "http://localhost:1212/oauth2/callback/google"
+    window.location.href = "http://localhost:1212/oauth2/authorization/google"
+  }
+
+  loginWithFacebook(){
+    window.location.href = "http://localhost:1212/oauth2/authorization/facebook";
   }
 
 }
