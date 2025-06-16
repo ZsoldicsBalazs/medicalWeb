@@ -18,6 +18,7 @@ import { DoctorStatisticsComponent } from './doctor/doctor-statistics/doctor-sta
 import { DoctorConsultationComponent } from './doctor/doctor-consultation/doctor-consultation.component';
 import { RegisterComponent } from './common/register/register.component';
 import { AuthComponent } from './common/auth/auth.component';
+import { BookAppointmentComponent } from './common/book-appointment/book-appointment.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -32,7 +33,7 @@ const routes: Routes = [
           { path: 'doctor', 
             component: DoctorDashboardComponent,  
             canActivate: [roleGuard],
-            data: { roles: ['MEDIC'] },
+            data: { roles: ['MEDIC','ADMIN'] },
             children:[
                 {path: 'home', component: HomeComponent},
                 {path:'patients', component: PatientListComponent},
@@ -52,7 +53,9 @@ const routes: Routes = [
             children: 
             [{path: 'home', component: HomeComponent},
               {path:'aboutMe', component: PatientDetailsComponent},
-              {path: 'myAppointments', component: MyAppointmentsComponent} ]
+              {path: 'myAppointments', component: MyAppointmentsComponent},
+              {path: 'book-appointment', component: BookAppointmentComponent}
+            ]
           },
         
       ] },

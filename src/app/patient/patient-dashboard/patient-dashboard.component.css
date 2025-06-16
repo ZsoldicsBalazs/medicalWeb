@@ -2,8 +2,8 @@
     margin-left: 15rem; 
     margin-right: 0;
     max-width: calc(100% - 15rem); 
-    overflow-x: auto; 
-    box-sizing: border-box; 
+    /* overflow-x: auto; 
+    box-sizing: border-box;  */
   }
 
 

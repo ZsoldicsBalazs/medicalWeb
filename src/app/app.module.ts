@@ -44,6 +44,10 @@ import { RegisterComponent } from './common/register/register.component';
 import { AuthComponent } from './common/auth/auth.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { CalendarModule } from 'primeng/calendar';
+import { StepsModule } from 'primeng/steps';
+import { DropdownModule } from 'primeng/dropdown';
+import { BookAppointmentComponent } from './common/book-appointment/book-appointment.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +71,8 @@ import { MessageService } from 'primeng/api';
     DoctorConsultationComponent,
     PatientConsultationListComponent,
     RegisterComponent,
-    AuthComponent
+    AuthComponent,
+    BookAppointmentComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +97,11 @@ import { MessageService } from 'primeng/api';
     InputTextModule,
     PasswordModule,
     DividerModule,
-    ToastModule
+    ToastModule,
+    CalendarModule,
+    StepsModule,
+    DropdownModule
+
     
   ],
   providers: [

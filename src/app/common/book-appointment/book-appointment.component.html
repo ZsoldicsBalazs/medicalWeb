@@ -1,0 +1,16 @@
+
+<div class="w-100 h-100">
+
+    <p-steps [model]="steps" [(activeIndex)]="activeStep" [readonly]="false"></p-steps>
+
+
+    <div *ngIf="activeStep === 0">
+        <h2>Select Speciality</h2>
+        <p-dropdown 
+            [options]="specialities" 
+            [(ngModel)]="selectedSpeciality" 
+            placeholder="Select a speciality"
+            (onChange)="onSpecialtySelect(selectedSpeciality)" />
+      </div>
+    
+</div>

@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DoctorAppointment } from '../domain/doctor-appointment.model';
 import { Observable } from 'rxjs';
+import { Doctor } from '../domain/doctor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,4 +33,8 @@ export class AppointmentService {
 
   }
 
+
+  getAllDoctors(): Observable<Doctor[]>{
+    return this.http.get<Doctor[]>(`${this.apiUrl}/all/doctors`);
+  }
 }

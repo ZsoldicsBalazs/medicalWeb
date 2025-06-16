@@ -1,3 +1,8 @@
+<div class="mb-3">
+  <p-button label="Book Appointent" [routerLink]="['/dashboard/patient/book-appointment']"></p-button>
+</div>
+
+
 <div *ngIf="appointments && appointments.length; else noAppointments">
     <table mat-table [dataSource]="appointments" class="mat-elevation-z8" style="width: 100%;">
   
@@ -66,4 +71,7 @@
   <ng-template #noAppointments>
     <p>No appointments found.</p>
   </ng-template>
+
+
+
   
