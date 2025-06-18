@@ -2,3 +2,9 @@ div{
     height: auto;
     width: auto;
 }
+
+.select-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

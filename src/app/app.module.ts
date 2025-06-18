@@ -48,6 +48,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { StepsModule } from 'primeng/steps';
 import { DropdownModule } from 'primeng/dropdown';
 import { BookAppointmentComponent } from './common/book-appointment/book-appointment.component';
+import { TimelineModule } from 'primeng/timeline';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { BookAppointmentComponent } from './common/book-appointment/book-appoint
     ToastModule,
     CalendarModule,
     StepsModule,
-    DropdownModule
+    DropdownModule,
+    TimelineModule
 
     
   ],

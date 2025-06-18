@@ -13,6 +13,7 @@ export class DoctorService {
  
   private aptURL = "http://localhost:1212/api/v1/appointment";
   private doctorURL = "http://localhost:1212/api/v1/medic"
+  private daysOFFURL =  "http://localhost:1212/api/v1/days-off"
 
   constructor(private http: HttpClient) {
    }
@@ -62,6 +63,13 @@ export class DoctorService {
   }
   deleteDoctorProcedure(id: string, doctorProcedureID: string): Observable<Boolean>{
     return this.http.delete<Boolean>(`${this.doctorURL}/${id}/procedures/${doctorProcedureID}`)
+  }
+
+
+
+  fetchDaysOffForDoctor(medic: Doctor): Observable<Date[]>{
+    console.log(`${this.doctorURL}/${medic.id}/days-off}`);
+    return this.http.get<Date[]>(`${this.daysOFFURL}/${medic.id}`);
   }
 
 
