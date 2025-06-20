@@ -20,14 +20,14 @@ private patientsUrl2 = "http://localhost:1212/api/v1/patient";
 
 
   getPatientById(id: string): Observable<Patient>{
-    return this.http.get<Patient>(`http://localhost:1212/api/v1/patient/${id}`);
+    return this.http.get<Patient>(`${this.patientsUrl2}/${id}`);
   }
   getMyProfile(): Observable<Patient>{
     return this.http.get<Patient>('http://localhost:1212/api/v1/profile');
   }
 
   updatePatient(updatedPatient: Patient){
-    return this.http.put<Patient>('http://localhost:1212/api/v1/patient',updatedPatient);
+    return this.http.put<Patient>(`${this.patientsUrl2}`,updatedPatient);
   }
 
   getAppointments(id: number){
@@ -44,7 +44,7 @@ private patientsUrl2 = "http://localhost:1212/api/v1/patient";
   getPatientsBySearch(word: any): Observable<Patient[]>{
     let params = new HttpParams;
     params = params.set("search", word);
-     return this.http.get<Patient[]>(this.patientsUrl2+"/fulltext",{params})
+     return this.http.get<Patient[]>(`${this.patientsUrl2}/search/fulltext`,{params})
    }
 
 }

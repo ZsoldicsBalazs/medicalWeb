@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { UserAppointment } from '../../domain/user-appointment.model';
 import { AuthService } from '../../services/auth-service.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-patient-details',
@@ -23,7 +24,13 @@ export class PatientDetailsComponent implements OnInit {
   isMyProfile: boolean = false;
 
 
-  constructor(private fb: FormBuilder, private patientService: PatientService, private route: ActivatedRoute,private router: Router,private authService: AuthService,) {}
+  constructor(private fb: FormBuilder,
+     private patientService: PatientService, 
+     private route: ActivatedRoute,
+     private router: Router,
+     private authService: AuthService,
+     private notificationService: NotificationService
+    ) {}
 
   ngOnInit(): void {
       // Determine if this is the patient's own profile based on the route
@@ -101,12 +108,14 @@ export class PatientDetailsComponent implements OnInit {
           this.patient = response;
           this.initializeForm();
           console.log(response);
+          this.notificationService.success("Update patient details", "Patient details updated succesfull");
           this.errorMessage="Pacient salvat"
         },
         (error: HttpErrorResponse) => {
           console.error('Eroare la actualizarea datelor pacientului', error);
           console.log(error.error?.message['error']);
           this.errorMessage=error.error?.message;
+          this.notificationService.warning("Something gone bad",error.error?.message)
           // Aici poți afișa un mesaj de eroare pentru utilizator
         }
       );
