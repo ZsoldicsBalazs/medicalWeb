@@ -42,6 +42,7 @@ const routes: Routes = [
                 {path: 'profile', component: DoctorProfileComponent},
                 {path: 'statistics', component: DoctorStatisticsComponent},
                 {path: 'consultation', component: DoctorConsultationComponent},
+                {path: 'book-appointment', component: BookAppointmentComponent},
                 {path: '', redirectTo: 'home', pathMatch: 'full'}
                 
               ]

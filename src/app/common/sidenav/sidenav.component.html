@@ -37,7 +37,7 @@
           
           <li *ngFor="let item of menuItems" class="nav-item">
             <a [routerLink]="item.route" class="nav-link">
-              <i class="{{item.icon}}"></i>{{item.label}}
+              <i class="{{item.icon}}" aria-hidden="true" ></i>{{item.label}}
             </a>
           </li>
 
