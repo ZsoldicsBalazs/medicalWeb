@@ -41,7 +41,7 @@ const routes: Routes = [
                 {path: 'profile', component: DoctorProfileComponent},
                 {path: 'statistics', component: DoctorStatisticsComponent},
                 {path: 'consultation', component: DoctorConsultationComponent},
-                {path: 'book-appointment', component: BookAppointmentComponent},
+                {path: 'book-appointment/patient/:id', component: BookAppointmentComponent, data: {roles: ['MEDIC']}},
                 {path: '', redirectTo: 'home', pathMatch: 'full'}
                 
               ]
@@ -54,7 +54,7 @@ const routes: Routes = [
             [{path: 'home', component: HomeComponent},
               {path:'aboutMe', component: PatientDetailsComponent},
               {path: 'myAppointments', component: MyAppointmentsComponent},
-              {path: 'book-appointment', component: BookAppointmentComponent}
+              {path: 'book-appointment', component: BookAppointmentComponent},
             ]
           },
         

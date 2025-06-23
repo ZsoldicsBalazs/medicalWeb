@@ -49,8 +49,11 @@
             <button mat-raised-button [routerLink]="[patient.id]">
               <i class="fa-solid fa-id-card" style="color: rgb(3, 72, 219);"></i>
             </button>
+            <button mat-raised-button [routerLink]="['/dashboard/doctor/book-appointment/patient', patient.id]">
+              <i class="pi pi-calendar-plus" style="color: rgb(3, 72, 219);"></i>
+            </button>
           </div>
-          <!-- Alte butoane, dacă este necesar -->
+          <!-- Alte butoane, dacă este necesar  -->
         </div>
       </td>
     </ng-container>

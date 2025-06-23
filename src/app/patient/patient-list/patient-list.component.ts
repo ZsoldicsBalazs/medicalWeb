@@ -25,7 +25,10 @@ export class PatientListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   isMobile: boolean = false;
 
-  constructor(private patientService: PatientService, private router: Router, private breakpointObserver: BreakpointObserver, private cdr: ChangeDetectorRef) { }
+  constructor(private patientService: PatientService, 
+    private router: Router, 
+    private breakpointObserver: BreakpointObserver, 
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.fetchPatients();

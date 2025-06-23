@@ -4,7 +4,7 @@
     <p-steps [model]="steps" [(activeIndex)]="activeStep" [readonly]="false">
     </p-steps>
 
-<div class="select-wrapper ">
+<div class="select-wrapper">
     <div *ngIf="activeStep === 0">
         <h2>Select Speciality</h2>
         <p-dropdown 
@@ -42,6 +42,33 @@
         [numberOfMonths]="2"
         [disabledDates]="doctorFreeDays!"
         (onSelect)="onDateSelect()"/>
+      </div>
+
+      <div *ngIf="activeStep === 3">
+        <h2>Select Time</h2>
+        <p-dropdown 
+        [options]="timeSlot" 
+        [(ngModel)]="selectedTimeSlot" 
+        [showClear]="true"
+        placeholder="Select a time slot" />
+
+        <div class="mt-4 p-3 border border-gray-300 rounded shadow-sm bg-light">
+          <h3>Booking Summary</h3>
+          <p><strong>Speciality:</strong> {{ selectedSpeciality }}</p>
+          <p><strong>Doctor:</strong> Dr. {{ selectedDoctor?.firstName }} {{ selectedDoctor?.lastName }}</p>
+          <p><strong>Date:</strong> {{ selectedDate | date: 'fullDate' }}</p>
+          <p><strong>Time:</strong> {{ selectedTimeSlot }}</p>
+      
+          <button 
+            class="btn btn-primary mt-3" 
+            [disabled]="!selectedTimeSlot" 
+            (click)="submitAppointment()">
+            Submit Booking
+          </button>
+      </div>
+
+      <div *ngIf="!profileId">
+        <h3>Profile id was not set</h3>
       </div>
     
 

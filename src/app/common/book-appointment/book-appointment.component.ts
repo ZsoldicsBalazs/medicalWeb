@@ -4,6 +4,8 @@ import { AppointmentService } from '../../services/appointment.service';
 import { Doctor } from '../../domain/doctor.model';
 import { DoctorService } from '../../services/doctor.service';
 import { NotificationService } from '../../services/notification.service';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-book-appointment',
@@ -18,6 +20,8 @@ export class BookAppointmentComponent implements OnInit{
     { label: 'Select Date' },
     { label: 'Select Time Slot' },
   ];
+
+  profileId: string | undefined ;
 
 
   activeStep: number = 0;
@@ -34,7 +38,16 @@ export class BookAppointmentComponent implements OnInit{
   minDate: Date = new Date(); // Today
   // maxDate: Date = new Date(new Date().setDate(new Date().getDate() + 7));
 
-  constructor(private appointmentService: AppointmentService, private drService: DoctorService, private notificationService: NotificationService){
+  timeSlot: string[] = [];
+  selectedTimeSlot: string |undefined;
+
+
+  constructor(private appointmentService: AppointmentService,
+     private drService: DoctorService, 
+     private notificationService: NotificationService,
+     private authService: AuthService,
+     private route: ActivatedRoute
+    ){
   
   }
 
@@ -71,8 +84,32 @@ export class BookAppointmentComponent implements OnInit{
     console.log(this.selectedDate);
     this.activeStep=3;
     this.steps[2].label = this.selectedDate?.toLocaleDateString();
-
+    this.fetchTimeSlots(this.selectedDoctor!.id, this.selectedDate!)
     // FETCH TIME SLOTS FOR DOCTOR BY DATE SELECTED
+  }
+
+  private fetchTimeSlots(drId: string, date: Date){
+
+ 
+    this.appointmentService.getTimeSlotsByDrIdAndDate(drId,date).subscribe((data)=> {
+      this.timeSlot=data;
+      console.log(data);
+    },
+    (error)=> {
+      console.log(error);
+    }
+  )
+  }
+
+  submitAppointment(){
+    this.appointmentService.submitAppointment(this.selectedDoctor!.id, this.selectedDate!, this.selectedTimeSlot!, this.profileId!).subscribe(
+      (data)=> {
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 
 
@@ -81,6 +118,22 @@ export class BookAppointmentComponent implements OnInit{
       this.allDoctors=data;
       this.doctorList = [...this.allDoctors];
     })
+
+    const role = this.authService.getRoleFromToken();
+    if(role === "ROLE_PATIENT"){
+      this.profileId=this.authService.getProfileId()!;
+    }else{
+      this.route.paramMap.subscribe((params) => {
+        const id = params.get('id');
+        if (id) {
+          this.profileId = id;
+        } else {
+          // opțional: fallback/error
+          console.warn('ID-ul pacientului lipsește din URL');
+        }
+      });
+    }
+    
   }
 
   resetStepLabels(fromIndex: number) {

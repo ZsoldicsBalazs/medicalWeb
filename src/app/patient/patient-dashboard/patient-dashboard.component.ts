@@ -23,7 +23,8 @@ export class PatientDashboardComponent implements OnInit {
     this.menuItems = [
       { label: 'Home', icon: 'fas fa-house me-1', route: 'home' },
       { label: 'MyAppointments', icon: 'fas fa-notes-medical me-1', route: 'myAppointments' },
-      {label: 'Profile', icon: 'fas fa-user me-1', route: `aboutMe`}
+      {label: 'Profile', icon: 'fas fa-user me-1', route: `aboutMe`},
+      {label: 'Book Appointment', icon: 'pi pi-calendar-plus', route: 'book-appointment'}
     ]
 
   }
