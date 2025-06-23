@@ -1,0 +1,17 @@
+table {
+font-size: 2rem;
+}
+
+.doctor-procedures{
+    font-size: 0.8rem;
+}
+
+.procedure-table {
+    
+    margin-top: 3rem;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(14, 89, 228, 0.438);
+
+    border-radius: 1rem;
+    background-color: #fff;
+  }

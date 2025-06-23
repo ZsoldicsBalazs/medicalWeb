@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Patient } from '../../domain/patient.model';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit{
   @Output() 
   myEvent = new EventEmitter<'register'>();
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute){
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private notificationService: NotificationService){
     this.registerForm = this.fb.group({
       cnp: ['', [Validators.required, Validators.pattern(/^\d{13}$/)]],
       username: ['', Validators.required],
@@ -55,14 +56,17 @@ export class LoginComponent implements OnInit{
             const role = this.authService.getRoleFromToken();
             console.log('Role from token:', role); // Debug
             this.redirectBasedOnRole(role);
+            this.notificationService.success("Welcome" + profile.firstName + " " + profile.lastName, "");
           },
           (error) => {
             this.errorMessage = 'Failed to fetch user profile after Google login. Please try again.';
             console.error('Profile fetch error:', error);
+            this.notificationService.warning("Login Error", error);
             this.router.navigate(['/login'], { replaceUrl: true });
           }
         );
       } else if (params['error']) {
+        this.notificationService.warning("Login Error", this.errorMessage);
         this.errorMessage = 'Google login failed. Please try again.';
         console.error('OAuth2 error:', params['error']);
       }

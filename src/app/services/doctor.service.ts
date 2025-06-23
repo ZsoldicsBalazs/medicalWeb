@@ -50,6 +50,8 @@ export class DoctorService {
     return this.http.put<Doctor>(`${this.doctorURL}`,drprofile);
   }
 
+                      // PROCEDURES 
+
   getAllProceduresByDrId(id: string): Observable<DoctorProcedure[]>{
     return this.http.get<DoctorProcedure[]>(`${this.doctorURL}/${id}/procedures`);
   }
@@ -66,10 +68,17 @@ export class DoctorService {
   }
 
 
+              // FREEE DAYS 
 
   fetchDaysOffForDoctor(medic: Doctor): Observable<Date[]>{
     console.log(`${this.doctorURL}/${medic.id}/days-off}`);
     return this.http.get<Date[]>(`${this.daysOFFURL}/${medic.id}`);
+  }
+
+
+  saveDaysOffForDoctor(newOffDates: Date[], medicId: string): Observable<Date[]>{
+    console.log(`${this.doctorURL}/${medicId}/days-off`);
+    return this.http.post<Date[]>(`${this.doctorURL}/${medicId}/days-off`, newOffDates);
   }
 
 

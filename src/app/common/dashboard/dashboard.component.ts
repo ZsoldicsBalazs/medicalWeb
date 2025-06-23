@@ -41,7 +41,7 @@ ngOnInit(): void {
       this.router.navigate(['/dashboard'], { replaceUrl: true });
     } else if (!this.authService.isAuthenticated()) {
       console.log("authservice. isauthenticated = false ! or true")
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth']);
     }
   });
 }

@@ -1,8 +1,10 @@
+import { AppointmentStatus } from "./appointment-status.model";
+
 export interface DoctorAppointment{
     id: number,
-    patientName: String,
-    patientFirstName: String,
+    patientName: string,
+    patientFirstName: string,
     appointmentDate: Date,
     appointmentTime: Date,
-    status: String,
+    status: AppointmentStatus,
 }

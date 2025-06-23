@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Doctor } from '../../domain/doctor.model';
-import { AuthService } from '../../services/auth-service.service';
-import { DoctorService } from '../../services/doctor.service';
+import { Doctor } from '../../../domain/doctor.model';
+import { AuthService } from '../../../services/auth-service.service';
+import { DoctorService } from '../../../services/doctor.service';
 
 @Component({
   selector: 'app-doctor-personal-info',

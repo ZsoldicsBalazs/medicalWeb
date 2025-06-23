@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Procedure } from '../../domain/procedure.model';
-import { ProceduresService } from '../../services/procedures.service';
+import { Procedure } from '../../../domain/procedure.model';
+import { ProceduresService } from '../../../services/procedures.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { DoctorService } from '../../services/doctor.service';
-import { DoctorProcedure } from '../../domain/doctor-procedure.model';
-import { NotificationService } from '../../services/notification.service';
+import { DoctorService } from '../../../services/doctor.service';
+import { DoctorProcedure } from '../../../domain/doctor-procedure.model';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-doctor-procedure',

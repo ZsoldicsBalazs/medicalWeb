@@ -30,9 +30,9 @@ import { DoctorAppointmentsComponent } from './doctor/doctor-appointments/doctor
 import { MatButton } from '@angular/material/button';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DoctorProfileComponent } from './doctor/doctor-profile/doctor-profile.component';
-import { DoctorPersonalInfoComponent } from './doctor/doctor-personal-info/doctor-personal-info.component';
+import { DoctorPersonalInfoComponent } from './doctor/doctor-profile/doctor-personal-info/doctor-personal-info.component';
 import { DoctorStatisticsComponent } from './doctor/doctor-statistics/doctor-statistics.component';
-import { DoctorProcedureComponent } from './doctor/doctor-procedure/doctor-procedure.component';
+import { DoctorProcedureComponent } from './doctor/doctor-profile/doctor-procedure/doctor-procedure.component';
 import { DoctorConsultationComponent } from './doctor/doctor-consultation/doctor-consultation.component';
 import { PatientConsultationListComponent } from './patient/patient-consultation-list/patient-consultation-list.component';
 import { DialogModule } from 'primeng/dialog';
@@ -49,6 +49,7 @@ import { StepsModule } from 'primeng/steps';
 import { DropdownModule } from 'primeng/dropdown';
 import { BookAppointmentComponent } from './common/book-appointment/book-appointment.component';
 import { TimelineModule } from 'primeng/timeline';
+import { DoctorFreeDaySchedulerComponent } from './doctor/doctor-profile/doctor-free-day-scheduler/doctor-free-day-scheduler.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { TimelineModule } from 'primeng/timeline';
     PatientConsultationListComponent,
     RegisterComponent,
     AuthComponent,
-    BookAppointmentComponent
+    BookAppointmentComponent,
+    DoctorFreeDaySchedulerComponent
   ],
   imports: [
     BrowserModule,

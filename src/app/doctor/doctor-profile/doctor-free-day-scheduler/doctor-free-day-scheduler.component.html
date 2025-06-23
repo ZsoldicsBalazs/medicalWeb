@@ -1,0 +1,30 @@
+
+<div class="calendar-container">
+    <h2 class="text-xl font-semibold mb-3">Edit Doctor Working Days</h2>
+  
+    <p-calendar
+    selectionMode="range"
+    [numberOfMonths]="2"
+    [inline]="true"
+    [monthNavigator]="true"
+    [yearNavigator]="true"
+    [showButtonBar]="true"
+    [showClear]="true"
+    (onSelect)="toggleNonWorkingDay($event)">
+  
+    <!-- Asta e varianta corectă pentru a personaliza zilele -->
+    <ng-template let-date pTemplate="date">
+      <span
+        [ngClass]="{
+          'non-working': isNonWorkingDay(date),
+        }">
+        {{ date.day }}
+      </span>
+    </ng-template>
+  </p-calendar>
+  
+    <div class="mt-4 flex justify-end">
+      <button pButton type="button" label="Save Schedule" icon="pi pi-save" (click)="saveSchedule()"></button>
+    </div>
+  </div>
+  

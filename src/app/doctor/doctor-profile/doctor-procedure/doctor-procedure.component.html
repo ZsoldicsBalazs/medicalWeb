@@ -1,15 +1,20 @@
-<!-- Search Bar -->
-<form (ngSubmit)="searchProcedures()">
-    <div class="search-container mb-3 mt-5 w-50">
-      <div class="input-group">
-        <input [(ngModel)]="searchTerm" name="searchTerm" type="text" class="form-control" placeholder="Search procedures..." aria-label="Search">
-        <button class="btn btn-primary" type="submit">Search</button>
-      </div>
-    </div>
-  </form>
+
   
   <!-- Tabelul cu proceduri -->
-  <div class="table-responsive custom-table-container">
+  <div class="table-responsive custom-table-container procedure-table">
+
+    <!-- Search Bar -->
+    <form (ngSubmit)="searchProcedures()">
+      <div class="search-container mb-3 mt-5 w-50">
+        <div class="input-group">
+          <input [(ngModel)]="searchTerm" name="searchTerm" type="text" class="form-control" placeholder="Search procedures..." aria-label="Search">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+      </div>
+    </form>
+
+
+
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 all-procedures ">
       
       <!-- Index Column -->
@@ -44,6 +49,37 @@
   
     <!-- MatPaginator: se afișează 5 elemente pe pagină -->
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+
+    <div class="mt-4 mb-4">
+      <h4>Proceduri adăugate</h4>
+      <table class="doctor-procedures table-sm table-striped">
+        <thead class="thead-light">
+          <tr>
+          
+            <th scope="col">Denumire procedura</th>
+            <th scope="col">Pret</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr scope="row" *ngFor="let proc of addedProcedures">
+            <td>{{proc.description}}</td>
+            <td>{{proc.price}}</td>
+            <td>
+              <button mat-raised-button (click)="openModal(proc,true)">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+              <button mat-raised-button (click)="deleteProcedure(proc)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+    </div>
+    
   </div>
 
 
@@ -78,32 +114,4 @@
 
 
 
-  <div class="mt-4 mb-4">
-    <h4>Proceduri adăugate</h4>
-    <table class="doctor-procedures table-sm table-striped">
-      <thead class="thead-light">
-        <tr>
-        
-          <th scope="col">Denumire procedura</th>
-          <th scope="col">Pret</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr scope="row" *ngFor="let proc of addedProcedures">
-          <td>{{proc.description}}</td>
-          <td>{{proc.price}}</td>
-          <td>
-            <button mat-raised-button (click)="openModal(proc,true)">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
-            <button mat-raised-button (click)="deleteProcedure(proc)">
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-  </div>
   

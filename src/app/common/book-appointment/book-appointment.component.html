@@ -20,7 +20,15 @@
             [options]="doctorList" 
             [(ngModel)]="selectedDoctor" 
             placeholder="Select A doctor"
-            (onChange)="onDoctorSelect(selectedDoctor!)" />
+            (onChange)="onDoctorSelect(selectedDoctor!)" >
+            <ng-template let-doctor pTemplate="item">
+              Dr. {{ doctor.firstName }} {{ doctor.lastName }}
+            </ng-template>
+            <ng-template let-doctor pTemplate="selectedItem">
+              Dr. {{ doctor?.firstName }} {{ doctor?.lastName }}
+            </ng-template>
+          </p-dropdown>
+          
       </div>
 
       <div *ngIf="activeStep === 2">

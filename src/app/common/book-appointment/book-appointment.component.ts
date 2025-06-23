@@ -24,6 +24,7 @@ export class BookAppointmentComponent implements OnInit{
   noDataMessage: string | null = null;
   specialities: string[] = ["chirurgie","radiologie","ORL",];
   doctorList: Doctor[] | undefined;
+  allDoctors: Doctor[] = []; 
   doctorFreeDays: Date[] | undefined;
 
   selectedDoctor: Doctor | null = null;
@@ -44,7 +45,7 @@ export class BookAppointmentComponent implements OnInit{
     this.selectedDoctor = undefined!;
     this.selectedDate = undefined!;
     this.selectedSpeciality= value;
-    this.doctorList = this.doctorList?.filter(dr => dr.department==value);
+    this.doctorList = this.allDoctors.filter(dr => dr.department === value);
     console.log(this.doctorList);
     this.resetStepLabels(1);
   }
@@ -77,7 +78,8 @@ export class BookAppointmentComponent implements OnInit{
 
   ngOnInit(): void {
     this.appointmentService.getAllDoctors().subscribe((data) => {
-      this.doctorList=data;
+      this.allDoctors=data;
+      this.doctorList = [...this.allDoctors];
     })
   }
 

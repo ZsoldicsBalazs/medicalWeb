@@ -21,8 +21,7 @@ import { AuthComponent } from './common/auth/auth.component';
 import { BookAppointmentComponent } from './common/book-appointment/book-appointment.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
   // {path: 'rezervation', component: rezervationComponent} TODO:
   {path: 'register',component: RegisterComponent},
   {path: 'auth', component: AuthComponent},

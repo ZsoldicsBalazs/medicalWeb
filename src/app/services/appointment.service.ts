@@ -37,4 +37,5 @@ export class AppointmentService {
   getAllDoctors(): Observable<Doctor[]>{
     return this.http.get<Doctor[]>(`${this.apiUrl}/all/doctors`);
   }
+  
 }

@@ -56,7 +56,7 @@
                 'bg-warning': appointment.status === 'SCHEDULED',
                 'bg-danger': appointment.status === 'CANCELLED'
             }">
-                {{ appointment.status }}
+                {{ appointment.status || 'UNKNOWN'  }}
             </span>
             </td>
             <td>
