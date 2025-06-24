@@ -1,5 +1,32 @@
 
 <div class="calendar-container">
+  <h2 class="text-xl font-semibold mb-3">Select consultation interval: </h2>
+  <div class="consultation-interval">
+    <div class="select-b">
+      <p-selectButton 
+      [options]="consultationInterval" 
+      [(ngModel)]="consultationIntervalValue" 
+      optionLabel="name" 
+      optionValue="value" />
+  
+    </div>
+   
+    <p-confirmPopup>
+      <ng-template pTemplate="content" let-message>
+          <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border p-3 mb-3">
+              <i [class]="message.icon" class="text-6xl text-primary-500"></i>
+              <p>{{ message.message }}</p>
+          </div>
+      </ng-template>
+  </p-confirmPopup>
+    <p-button (onClick)="confirmChangeInterval($event)">Save Interval</p-button>
+
+  </div>
+   
+
+
+
+
     <h2 class="text-xl font-semibold mb-3">Edit Doctor Working Days</h2>
   
     <p-calendar

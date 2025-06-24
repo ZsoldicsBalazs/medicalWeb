@@ -22,3 +22,14 @@
     padding: 4px;
     border-radius: 4px;
   }
+
+  .consultation-interval{
+    display: flex;
+    padding-bottom: 2%;
+    
+  }
+
+  .select-b{
+    padding-right: 2vh;
+    
+  }

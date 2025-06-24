@@ -43,13 +43,17 @@ import { DividerModule } from 'primeng/divider';
 import { RegisterComponent } from './common/register/register.component';
 import { AuthComponent } from './common/auth/auth.component';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { CalendarModule } from 'primeng/calendar';
 import { StepsModule } from 'primeng/steps';
 import { DropdownModule } from 'primeng/dropdown';
 import { BookAppointmentComponent } from './common/book-appointment/book-appointment.component';
 import { TimelineModule } from 'primeng/timeline';
 import { DoctorFreeDaySchedulerComponent } from './doctor/doctor-profile/doctor-free-day-scheduler/doctor-free-day-scheduler.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { OauthSuccesComponent } from './common/auth/oauth-succes/oauth-succes/oauth-succes.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 @NgModule({
   declarations: [
@@ -75,7 +79,9 @@ import { DoctorFreeDaySchedulerComponent } from './doctor/doctor-profile/doctor-
     RegisterComponent,
     AuthComponent,
     BookAppointmentComponent,
-    DoctorFreeDaySchedulerComponent
+    DoctorFreeDaySchedulerComponent,
+    AdminDashboardComponent,
+    OauthSuccesComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +110,9 @@ import { DoctorFreeDaySchedulerComponent } from './doctor/doctor-profile/doctor-
     CalendarModule,
     StepsModule,
     DropdownModule,
-    TimelineModule
+    TimelineModule,
+    SelectButtonModule,
+    ConfirmPopupModule
 
     
   ],
@@ -112,7 +120,8 @@ import { DoctorFreeDaySchedulerComponent } from './doctor/doctor-profile/doctor-
     AuthService, 
     provideAnimationsAsync(),
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    MessageService
+    MessageService,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

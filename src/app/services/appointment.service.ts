@@ -40,8 +40,8 @@ export class AppointmentService {
   }
 
   getTimeSlotsByDrIdAndDate(drId: string, date: Date): Observable<string[]> {
-    const formattedDate = date.toISOString().split('T')[0]; // "yyyy-MM-dd"
-  
+    const formattedDate = date.toLocaleDateString('en-CA'); // "yyyy-MM-dd"
+    console.log("===========> FOrmatted date:" + formattedDate);
     const params = new HttpParams().set('date', formattedDate);
   
     return this.http.get<string[]>(`${this.apointmentURL}/dr/${drId}`, { params });
@@ -51,7 +51,7 @@ export class AppointmentService {
   submitAppointment(drId: string, date: Date, time: string, patientId: string): Observable<any>{
     const apRequest: AppointmentRequest = {
       drId: drId,
-      date: date.toISOString().split('T')[0],
+      date: date.toLocaleDateString('en-CA'),
       time: time,
       patientId: patientId
     }

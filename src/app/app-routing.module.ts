@@ -19,12 +19,15 @@ import { DoctorConsultationComponent } from './doctor/doctor-consultation/doctor
 import { RegisterComponent } from './common/register/register.component';
 import { AuthComponent } from './common/auth/auth.component';
 import { BookAppointmentComponent } from './common/book-appointment/book-appointment.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { OauthSuccesComponent } from './common/auth/oauth-succes/oauth-succes/oauth-succes.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   // {path: 'rezervation', component: rezervationComponent} TODO:
   {path: 'register',component: RegisterComponent},
   {path: 'auth', component: AuthComponent},
+  {path: 'oauth-succes', component: OauthSuccesComponent},
   { path: 'dashboard',
     component: DashboardComponent,
     canActivate:[AuthGuard],
@@ -57,6 +60,22 @@ const routes: Routes = [
               {path: 'book-appointment', component: BookAppointmentComponent},
             ]
           },
+          {path: 'admin',
+            component: AdminDashboardComponent,
+            canActivate: [roleGuard],
+            data: {roles: ['ADMIN']},
+            children: [
+              {path: 'home', component: HomeComponent},
+              {path: 'patients', component: PatientListComponent},
+              {path: 'patients/:id', component: PatientDetailsComponent},
+              {path: 'appointments', component: DoctorAppointmentsComponent},
+              {path: 'profile', component: DoctorProfileComponent},
+              {path: 'statistics', component: DoctorStatisticsComponent},
+              {path: 'consultation', component: DoctorConsultationComponent},
+              {path: 'book-appointment/patient/:id', component: BookAppointmentComponent, data: {roles: ['ADMIN']}},
+              {path: '', redirectTo: 'home', pathMatch: 'full'}
+            ]
+          }
         
       ] },
     

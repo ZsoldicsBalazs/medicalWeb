@@ -81,6 +81,10 @@ export class DoctorService {
     return this.http.post<Date[]>(`${this.doctorURL}/${medicId}/days-off`, newOffDates);
   }
 
+  saveTimeIntervalForDoctor(interval: number, id: string){
+    return this.http.put<number>(`${this.doctorURL}/${id}/timeInterval`,interval);
+  }
+
 
 
   

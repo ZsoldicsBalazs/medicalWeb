@@ -104,10 +104,15 @@ export class BookAppointmentComponent implements OnInit{
   submitAppointment(){
     this.appointmentService.submitAppointment(this.selectedDoctor!.id, this.selectedDate!, this.selectedTimeSlot!, this.profileId!).subscribe(
       (data)=> {
-        console.log(data);
+        this.notificationService.success("Success", "Succesfully created reservation")
       },
       (error) => {
-        console.log(error);
+        if (error.error && error.error.message) {
+          this.notificationService.warning("Reservation error", error.error.message);
+        } else {
+          this.notificationService.warning("Unexpected error", "Something went wrong.");
+        }
+        console.error("Backend error: ", error);
       }
     )
   }
