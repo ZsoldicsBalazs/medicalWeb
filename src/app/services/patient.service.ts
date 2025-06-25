@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Cons, Observable, throwError } from 'rxjs';
 import { Patient } from '../domain/patient.model';
 import { UserAppointment } from '../domain/user-appointment.model';
+import { ConsultationRecord } from '../domain/consultation-record.model';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,10 @@ private patientsUrl2 = "http://localhost:1212/api/v1/patient";
     let params = new HttpParams;
     params = params.set("search", word);
      return this.http.get<Patient[]>(`${this.patientsUrl2}/search/fulltext`,{params})
+   }
+
+   getConsultationRecordByPatientId(patientId: number): Observable<ConsultationRecord[]>{
+    return this.http.get<ConsultationRecord[]>(`${this.patientsUrl2}/${patientId}/consultations`)
    }
 
 }

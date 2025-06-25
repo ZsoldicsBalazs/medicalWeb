@@ -60,11 +60,9 @@
             </span>
             </td>
             <td>
-                <button >
-                    <a [routerLink]="['consultation']">
-                        <i class="fa-solid fa-file-pen"></i></a>    
-                    
-                </button>
+                <button *ngIf="appointment.status !== 'CANCELLED'" (click)="goToConsultation(appointment.id)">
+                    <i class="fa-solid fa-file-pen"></i>
+                  </button>
             </td>
         </tr>
         </tbody>

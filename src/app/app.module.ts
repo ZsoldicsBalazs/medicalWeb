@@ -37,6 +37,7 @@ import { DoctorConsultationComponent } from './doctor/doctor-consultation/doctor
 import { PatientConsultationListComponent } from './patient/patient-consultation-list/patient-consultation-list.component';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { DividerModule } from 'primeng/divider';
@@ -54,6 +55,8 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { OauthSuccesComponent } from './common/auth/oauth-succes/oauth-succes/oauth-succes.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -112,7 +115,11 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
     DropdownModule,
     TimelineModule,
     SelectButtonModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    TableModule,
+    CommonModule,
+    BrowserAnimationsModule
+
 
     
   ],

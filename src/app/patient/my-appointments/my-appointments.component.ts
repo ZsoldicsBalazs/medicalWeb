@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserAppointment } from '../../domain/user-appointment.model';
 import { PatientService } from '../../services/patient.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-my-appointments',
@@ -12,9 +13,9 @@ export class MyAppointmentsComponent implements OnInit{
   appointments: UserAppointment[] = [];
   displayedColumns: string[] = ['doctor', 'department', 'date', 'time', 'status', 'actions'];
 
-  constructor(private patientService: PatientService){}
+  constructor(private patientService: PatientService,private authenticationService: AuthService){}
   ngOnInit(): void {
-    this.patientService.getAppointments(233).subscribe( //TODO CHANGE 233 ID TO DINAMIC FETCH FROM ID !!!
+    this.patientService.getAppointments(Number.parseInt(this.authenticationService.getProfileId()!)).subscribe( //TODO CHANGE 233 ID TO DINAMIC FETCH FROM ID !!!
           response => {
             this.loadAppointments(response);
             // this.appointments=response;

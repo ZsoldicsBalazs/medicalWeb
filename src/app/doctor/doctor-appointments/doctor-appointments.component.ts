@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DoctorService } from '../../services/doctor.service';
 import { DoctorAppointment } from '../../domain/doctor-appointment.model';
 import { AppointmentService } from '../../services/appointment.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-doctor-appointments',
@@ -20,7 +21,11 @@ export class DoctorAppointmentsComponent implements OnInit {
   notFound: boolean=false;
 
 
-  constructor(private drService: DoctorService, private appointmentService: AppointmentService){}
+  constructor(private drService: DoctorService, 
+    private appointmentService: AppointmentService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ){}
 
   ngOnInit(): void {
     this.appointmentService.searchAppointments(this.getCurrentDate()).subscribe(
@@ -65,5 +70,19 @@ export class DoctorAppointmentsComponent implements OnInit {
         console.log(error.error.message)
       }
     )
+  }
+
+
+
+  goToConsultation(appointmentId: number) {
+    const fullUrl = this.router.url; // e.g., /dashboard/admin/appointments
+  const segments = fullUrl.split('/'); // ['', 'dashboard', 'admin', 'appointments']
+  const role = segments[2]; // index 2 will be 'admin' or 'doctor'
+
+  if (role) {
+    this.router.navigate([`/dashboard/${role}/consultation`, appointmentId]);
+  } else {
+    console.error('Role not found in URL!');
+  }
   }
 }

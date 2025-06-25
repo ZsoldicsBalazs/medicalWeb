@@ -7,4 +7,5 @@ export interface DoctorAppointment{
     appointmentDate: Date,
     appointmentTime: Date,
     status: AppointmentStatus,
+    patientId: string
 }

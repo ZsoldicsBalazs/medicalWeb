@@ -43,8 +43,8 @@ const routes: Routes = [
                 {path: 'appointments', component: DoctorAppointmentsComponent},
                 {path: 'profile', component: DoctorProfileComponent},
                 {path: 'statistics', component: DoctorStatisticsComponent},
-                {path: 'consultation', component: DoctorConsultationComponent},
-                {path: 'book-appointment/patient/:id', component: BookAppointmentComponent, data: {roles: ['MEDIC']}},
+                {path: 'consultation/:id', component: DoctorConsultationComponent},
+                {path: 'patients/book-appointment/:id', component: BookAppointmentComponent, data: {roles: ['MEDIC']}},
                 {path: '', redirectTo: 'home', pathMatch: 'full'}
                 
               ]
@@ -71,8 +71,8 @@ const routes: Routes = [
               {path: 'appointments', component: DoctorAppointmentsComponent},
               {path: 'profile', component: DoctorProfileComponent},
               {path: 'statistics', component: DoctorStatisticsComponent},
-              {path: 'consultation', component: DoctorConsultationComponent},
-              {path: 'book-appointment/patient/:id', component: BookAppointmentComponent, data: {roles: ['ADMIN']}},
+              {path: 'consultation/:id', component: DoctorConsultationComponent},
+              {path: 'patients/book-appointment/:id', component: BookAppointmentComponent, data: {roles: ['ADMIN','MEDIC']}},
               {path: '', redirectTo: 'home', pathMatch: 'full'}
             ]
           }

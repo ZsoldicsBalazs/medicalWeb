@@ -1,23 +1,46 @@
+<p-toast></p-toast>
+<p>Completed Consultation List</p>
 
-
-<p>Completed consultation list</p> 
-
-<table>
+<p-table 
+  [value]="consultationRecord!" 
+  [tableStyle]="{'min-width': '50rem'}" 
+  selectionMode="single" 
+  (onRowSelect)="onRowSelect($event)"
+  dataKey="recordId">
+  <ng-template pTemplate="header">
     <tr>
-        <th>Department</th>
-        <th>Doctor</th>
-        <th>Date</th>
-        <th>Time</th>
+      <th>Department</th>
+      <th>Doctor</th>
+      <th>Date</th>
     </tr>
-    <tr>
-        @for (item of userAppointments; track $index) {
-            <td>{{item.department}}</td>
-            <td>Dr. {{item.doctorName}} {{item.doctorLastName}}</td>
-            <td>{{item.appointmentDate}}</td>
-            <td>{{item.appointmentTime}}</td>
-        }
+  </ng-template>
+  <ng-template pTemplate="body" let-record>
+    <tr [pSelectableRow]="record">
+      <td>{{ record.department }}</td>
+      <td>Dr. {{ record.drName }}</td>
+      <td>{{ record.created_at }}</td>
     </tr>
-</table>
+  </ng-template>
+</p-table>
 
-
-
+<p-dialog 
+  header="Consultation Record Details" 
+  [(visible)]="displayDialog" 
+  [modal]="true" 
+  [style]="{width: '50vw'}" 
+  (onHide)="closeDialog()">
+  <div id="pdf-content" class="p-4 bg-white">
+    <h2 class="text-2xl font-bold mb-4">Consultation Record</h2>
+    <p><strong>Record ID:</strong> {{ selectedRecord?.recordId }}</p>
+    <p><strong>Appointment ID:</strong> {{ selectedRecord?.appointmentId }}</p>
+    <p><strong>Department:</strong> {{ selectedRecord?.department }}</p>
+    <p><strong>Doctor:</strong> Dr. {{ selectedRecord?.drName }}</p>
+    <p><strong>Date:</strong> {{ selectedRecord?.created_at}}</p>
+    <p><strong>Diagnosis:</strong> {{ selectedRecord?.diagnosis }}</p>
+    <p><strong>Results:</strong> {{ selectedRecord?.results }}</p>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton type="button" label="Download PDF" icon="pi pi-download" (click)="downloadPDF()"></button>
+    <button pButton type="button" label="Close" icon="pi pi-times" class="p-button-secondary" (click)="closeDialog()"></button>
+  </ng-template>
+</p-dialog>
