@@ -57,6 +57,10 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditorModule } from 'primeng/editor';
+import { PanelModule } from 'primeng/panel';
+import { FieldsetModule } from 'primeng/fieldset';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
   declarations: [
@@ -118,8 +122,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ConfirmPopupModule,
     TableModule,
     CommonModule,
-    BrowserAnimationsModule
-
+    BrowserAnimationsModule,
+    EditorModule,
+    PanelModule,
+    FieldsetModule,
+    MessageModule
 
     
   ],

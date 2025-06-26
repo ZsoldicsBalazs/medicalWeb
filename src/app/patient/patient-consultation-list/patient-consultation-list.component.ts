@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PatientService } from '../../services/patient.service';
 import { ConsultationRecord } from '../../domain/consultation-record.model';
 import { MessageService } from 'primeng/api';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-patient-consultation-list',
@@ -17,7 +18,7 @@ export class PatientConsultationListComponent implements OnInit {
 
   constructor(
     private patientService: PatientService,
-    private messageService: MessageService
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -29,13 +30,12 @@ export class PatientConsultationListComponent implements OnInit {
       },
       error => {
         console.error("Error loading consultation records:", error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load consultation records' });
-      }
+        this.notificationService.warning("Error",'Failed to load consultation records');      }
     );
   }
 
   onRowSelect(event: any): void {
-    console.log("Row selected:", event.data); // Debug log
+    console.log("Row selected:", event.data); // ptr debug
     this.selectedRecord = event.data;
     this.displayDialog = true;
   }
@@ -59,12 +59,15 @@ export class PatientConsultationListComponent implements OnInit {
 
             pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
             pdf.save(`consultation-record-${this.selectedRecord?.recordId}.pdf`);
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'PDF downloaded successfully' });
           });
         });
-      });
+      }
+
+    );
+     this.notificationService.success("Success",'PDF downloaded successfully');      
     } else {
-      console.error("PDF content element not found");
+      this.notificationService.success("Success",'PDF content element not found');      
+
     }
   }
 

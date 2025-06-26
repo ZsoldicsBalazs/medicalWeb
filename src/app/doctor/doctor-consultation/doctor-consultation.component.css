@@ -1,0 +1,25 @@
+/* .card {
+  max-width: 800px;
+  margin: 0 auto;
+} */
+
+.p-field {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 1rem;
+}
+
+:host ::ng-deep .p-fieldset .p-fieldset-content {
+  padding: 1rem;
+}
+
+:host ::ng-deep .p-dropdown {
+  width: 200px;
+}

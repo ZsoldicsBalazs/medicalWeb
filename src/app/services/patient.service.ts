@@ -9,16 +9,15 @@ import { ConsultationRecord } from '../domain/consultation-record.model';
   providedIn: 'root'
 })
 export class PatientService {
-// private patientsUrl = "http://localhost:1212/api/v1/admin/patients";
 private patientsUrl2 = "http://localhost:1212/api/v1/patient";
 
   constructor(private http: HttpClient) { }
 
+
+  // <===== PATIENT =====>
   getPatients(): Observable<Patient[]>{
     return this.http.get<Patient[]>(this.patientsUrl2)
   }
-
-
 
   getPatientById(id: string): Observable<Patient>{
     return this.http.get<Patient>(`${this.patientsUrl2}/${id}`);
@@ -30,23 +29,27 @@ private patientsUrl2 = "http://localhost:1212/api/v1/patient";
   updatePatient(updatedPatient: Patient){
     return this.http.put<Patient>(`${this.patientsUrl2}`,updatedPatient);
   }
+  // <===== APPOINTMNET =====>
 
-  getAppointments(id: number){
-    return this.http.get<UserAppointment[]>(`http://localhost:1212/api/v1/appointment/${id}`);
-  }
-  deleteAppointment(id: number): Observable<void>{
-    return this.http.delete<void>(`http://localhost:1212/api/v1/appointment/${id}`);
-  }
+  // getAppointments(id: number){
+  //   return this.http.get<UserAppointment[]>(`http://localhost:1212/api/v1/appointment/${id}`);
+  // }
+  // deleteAppointment(id: number): Observable<void>{
+  //   return this.http.delete<void>(`http://localhost:1212/api/v1/appointment/${id}`);
+  // }
 
-  getCompletedAppointments(id: number): Observable<UserAppointment[]>{
-    return this.http.get<UserAppointment[]>(`http://localhost:1212/api/v1/appointment/${id}/completed`);
-  }
+  // getCompletedAppointments(id: number): Observable<UserAppointment[]>{
+  //   return this.http.get<UserAppointment[]>(`http://localhost:1212/api/v1/appointment/${id}/completed`);
+  // }
 
   getPatientsBySearch(word: any): Observable<Patient[]>{
     let params = new HttpParams;
     params = params.set("search", word);
      return this.http.get<Patient[]>(`${this.patientsUrl2}/search/fulltext`,{params})
    }
+
+
+   // <===== CONSULTATION RECORD =====>
 
    getConsultationRecordByPatientId(patientId: number): Observable<ConsultationRecord[]>{
     return this.http.get<ConsultationRecord[]>(`${this.patientsUrl2}/${patientId}/consultations`)

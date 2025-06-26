@@ -1,1 +1,91 @@
-<p>doctor-consultation works!</p>
+<p-toast></p-toast>
+
+<div class="card p-4">
+  <p-panel header="Consultation Details" [style]="{'margin-bottom': '2rem'}">
+    <div *ngIf="appointmentDetails; else noData">
+      <p-fieldset legend="Patient Information" [toggleable]="true">
+        <div class="p-grid p-fluid">
+          <div class="p-col-12 p-md-6">
+            <label class="p-d-block">
+              <strong>Name:</strong> 
+              {{ appointmentDetails.patient.firstName && appointmentDetails.patient.lastName ? 
+                 appointmentDetails.patient.firstName + ' ' + appointmentDetails.patient.lastName : 
+                 'Name not available' }}
+            </label>
+          </div>
+          <div class="p-col-12 p-md-6">
+            <label class="p-d-block"><strong>CNP:</strong> {{ appointmentDetails.patient.CNP || 'N/A' }}</label>
+          </div>
+          <div class="p-col-12 p-md-6">
+            <label class="p-d-block"><strong>Email:</strong> {{ appointmentDetails.patient.email || 'N/A' }}</label>
+          </div>
+          <div class="p-col-12 p-md-6">
+            <label class="p-d-block"><strong>Phone:</strong> {{ appointmentDetails.patient.phone || 'N/A' }}</label>
+          </div>
+        </div>
+      </p-fieldset>
+
+      <p-fieldset legend="Doctor Information" [toggleable]="true"  [collapsed]="true">
+        <div class="p-grid p-fluid">
+          <div class="p-col-12 p-md-6">
+            <label class="p-d-block"><strong>Name:</strong> Dr. {{ appointmentDetails.doctor.firstName }} {{ appointmentDetails.doctor.lastName }}</label>
+          </div>
+          <div class="p-col-12 p-md-6">
+            <label class="p-d-block"><strong>Department:</strong> {{ appointmentDetails.doctor.department }}</label>
+          </div>
+          <div class="p-col-12 p-md-6">
+            <label class="p-d-block"><strong>Email:</strong> {{ appointmentDetails.doctor.email }}</label>
+          </div>
+          <div class="p-col-12 p-md-6">
+            <label class="p-d-block"><strong>Phone:</strong> {{ appointmentDetails.doctor.phone }}</label>
+          </div>
+        </div>
+      </p-fieldset>
+
+      <p-fieldset legend="Appointment Information" [toggleable]="true" [collapsed]="true">
+        <div class="p-grid p-fluid">
+          <div class="p-col-12 p-md-6">
+            <label class="p-d-block"><strong>Date:</strong> {{ appointmentDetails.appointmentDate | date: 'mediumDate' }}</label>
+          </div>
+          <div class="p-col-12 p-md-6">
+            <label class="p-d-block"><strong>Time:</strong> {{ appointmentDetails.appointmentTime }}</label>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+
+    <ng-template #noData>
+      <p-message severity="warn" text="No appointment details available"></p-message>
+    </ng-template>
+  </p-panel>
+
+  <p-panel header="Consultation Notes">
+    
+      
+      <div class="p-field">
+            <label for="template" class="p-d-block">Select Template</label>
+            <p-dropdown
+            id="template"
+            [options]="templates"
+            [(ngModel)]="selectedTemplate"
+            [ngModelOptions]="{standalone: true}"
+            placeholder="Select a template"
+            [style]="{'width': '200px'}">
+            </p-dropdown>
+      </div>
+      <div class="p-field">
+        <label for="results" class="p-d-block">Results</label>
+        <p-editor [(ngModel)]="results!" [style]="{'height': '300px'}" id="results"></p-editor>
+      </div>
+      
+      <div class="p-field">
+        <label for="diagnosis" class="p-d-block">Diagnosis</label>
+        <p-editor [(ngModel)]="diagnosis" [style]="{'height': '100px'}" id="diagnosis"></p-editor>
+      </div>
+      <div class="p-d-flex p-jc-end p-mt-3">
+        <button pButton type="button" label="Save Consultation" icon="pi pi-save" (click)="saveConsultation()"></button>
+      </div>
+   
+  </p-panel>
+  
+</div>

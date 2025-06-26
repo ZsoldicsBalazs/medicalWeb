@@ -8,6 +8,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { UserAppointment } from '../../domain/user-appointment.model';
 import { AuthService } from '../../services/auth-service.service';
 import { NotificationService } from '../../services/notification.service';
+import { AppointmentService } from '../../services/appointment.service';
 
 @Component({
   selector: 'app-patient-details',
@@ -29,7 +30,8 @@ export class PatientDetailsComponent implements OnInit {
      private route: ActivatedRoute,
      private router: Router,
      private authService: AuthService,
-     private notificationService: NotificationService
+     private notificationService: NotificationService,
+     private appointmentService: AppointmentService,
     ) {}
 
   ngOnInit(): void {
@@ -123,7 +125,7 @@ export class PatientDetailsComponent implements OnInit {
   }
 
   getAppointments(){
-    this.patientService.getAppointments(this.patient.id).subscribe(
+    this.appointmentService.getAppointments(this.patient.id).subscribe(
       response => {
         this.appointments=response;
         console.log("Aici sunt appointments: ");
