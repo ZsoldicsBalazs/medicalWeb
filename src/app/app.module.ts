@@ -61,6 +61,8 @@ import { EditorModule } from 'primeng/editor';
 import { PanelModule } from 'primeng/panel';
 import { FieldsetModule } from 'primeng/fieldset';
 import { MessageModule } from 'primeng/message';
+import { BadgeModule } from 'primeng/badge';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,7 @@ import { MessageModule } from 'primeng/message';
     BookAppointmentComponent,
     DoctorFreeDaySchedulerComponent,
     AdminDashboardComponent,
-    OauthSuccesComponent
+    OauthSuccesComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,7 +110,7 @@ import { MessageModule } from 'primeng/message';
     ReactiveFormsModule,
     MatInputModule,
     MatButton,
-    DialogModule, 
+    DialogModule,
     ButtonModule,
     InputTextModule,
     PasswordModule,
@@ -126,17 +128,17 @@ import { MessageModule } from 'primeng/message';
     EditorModule,
     PanelModule,
     FieldsetModule,
-    MessageModule
-
-    
+    MessageModule,
+    BadgeModule,
+    CardModule,
   ],
   providers: [
-    AuthService, 
+    AuthService,
     provideAnimationsAsync(),
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     MessageService,
-    ConfirmationService
+    ConfirmationService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

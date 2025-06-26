@@ -2,7 +2,7 @@ import { AppointmentStatus } from "./appointment-status.model";
 
 export interface DoctorAppointment{
     id: number,
-    patientName: string,
+    patientLastName: string,
     patientFirstName: string,
     appointmentDate: Date,
     appointmentTime: Date,

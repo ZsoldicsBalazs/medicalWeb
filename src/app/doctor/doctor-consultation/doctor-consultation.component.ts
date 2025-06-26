@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { AppointmentDrAndPatient } from '../../domain/appointment.model';
 import { ConsultationRecord } from '../../domain/consultation-record.model';
 import { SelectItem } from 'primeng/api';
+import { ConsultationRecordCreated } from '../../domain/consultationRecord-request.model';
+import { ConsultationRecordService } from '../../services/consultation-record.service';
 
 @Component({
   selector: 'app-doctor-consultation',
@@ -25,9 +27,9 @@ export class DoctorConsultationComponent implements OnInit {
 
   // Template strings
   private normalTemplate = `
-Vital Signs:<br>
-- Blood Pressure: Normal (120/80 mmHg)<br>
-- Heart Rate: 70 bpm<br>
+Vital Signs: \n
+- Blood Pressure: Normal (120/80 mmHg)\n
+- Heart Rate: 70 bpm\n
 - Temperature: 36.6°C<br><br>
 
 Examination:<br>
@@ -62,7 +64,7 @@ Recommendations:<br>
     private appointmentService: AppointmentService,
     private route: ActivatedRoute,
     private messageService: MessageService,
-    private http: HttpClient
+    private recordService: ConsultationRecordService
   ) {}
 
   ngOnInit(): void {
@@ -73,7 +75,10 @@ Recommendations:<br>
         .subscribe(
           (data) => {
             this.appointmentDetails = data;
-            console.log('Appointment details:', JSON.stringify(data, null, 2));
+            if (data.record) {
+              this.diagnosis = data.record.diagnosis;
+              this.results = data.record.results;
+            }
           },
           (error) => {
             console.error('Error fetching appointment:', error);
@@ -93,6 +98,14 @@ Recommendations:<br>
     }
   }
 
+  sanitizeText(rawHtml: string): string {
+    const div = document.createElement('div');
+    div.innerHTML = rawHtml;
+    return div.textContent || div.innerText || '';
+  }
+
+  onResultsChange(value: string): void {}
+
   onTemplateSelect(): void {
     if (!this.selectedTemplate) {
       console.warn('No template selected');
@@ -109,10 +122,7 @@ Recommendations:<br>
       return;
     }
 
-    // Append template to existing results
-
     this.results = templateText;
-    console.log('Updated results:', this.results); // Debug log
 
     this.messageService.add({
       severity: 'info',
@@ -122,42 +132,39 @@ Recommendations:<br>
   }
 
   saveConsultation(): void {
-    // if (!this.appointmentDetails) {
-    //   this.messageService.add({
-    //     severity: 'warn',
-    //     summary: 'Warning',
-    //     detail: 'Please fill in all fields',
-    //   });
-    //   return;
-    // }
+    if (!this.appointmentDetails) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Warning',
+        detail: 'Please fill in all fields',
+      });
+      return;
+    }
 
-    // const consultationRecord: ConsultationRecord = {
-    //   recordId: 0, // Will be set by backend
-    //   appointmentId: Number(this.route.snapshot.paramMap.get('id')),
-    //   diagnosis: this.diagnosis,
-    //   results: this.results,
-    //   created_at: '', // Will be set by backend
-    //   drName: `${this.appointmentDetails.doctor.firstName} ${this.appointmentDetails.doctor.lastName}`,
-    //   department: this.appointmentDetails.doctor.department,
-    // };
+    const consultationRecord: ConsultationRecordCreated = {
+      appointmentId: Number(this.route.snapshot.paramMap.get('id')),
+      diagnosis: this.diagnosis,
+      results: this.results!,
+      drName: `${this.appointmentDetails.doctor.firstName} ${this.appointmentDetails.doctor.lastName}`,
+      department: this.appointmentDetails.doctor.department,
+    };
+    console.log('========> SANITEZD' + this.sanitizeText(this.results!));
 
-    // this.http.post('/api/consultation-records', consultationRecord).subscribe(
-    //   () => {
-    //     this.messageService.add({
-    //       severity: 'success',
-    //       summary: 'Success',
-    //       detail: 'Consultation record saved',
-    //     });
-    //   },
-    //   (error) => {
-    //     console.error('Error saving consultation:', error);
-    //     this.messageService.add({
-    //       severity: 'error',
-    //       summary: 'Error',
-    //       detail: 'Failed to save consultation record',
-    //     });
-    //   }
-    // );
-    console.log(this.results);
+    this.recordService.saveConsultationRecord(consultationRecord).subscribe(
+      (data) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: data,
+        });
+      },
+      (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to save consultation record',
+        });
+      }
+    );
   }
 }

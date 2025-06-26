@@ -1,22 +1,24 @@
-.searchbar{
-    width: 100%;
-    margin: 12;
-    overflow-x: hidden;
-    font-size: 0.5rem;
-}
-.table-responsive{
-    font-size: 0.87rem;
-    width: 90%;
-}
-
-@media (max-width: 768px) {
-    table {
-      font-size: 14px;
-    }
-    .badge {
-      padding: 5px 8px;
-    }
-    #page-content-wrapper{
-      margin-left: 10px;
-    }
+:host ::ng-deep {
+  .p-card {
+    font-size: 0.85rem;
+    padding: 1rem;
   }
+
+  .p-inputtext,
+  .p-calendar input {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .p-button-sm {
+    font-size: 0.8rem;
+  }
+
+  .p-calendar {
+    width: 100%;
+  }
+
+  .p-message {
+    font-size: 0.85rem;
+  }
+}

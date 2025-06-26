@@ -1,70 +1,78 @@
+<p-card class="shadow-sm border-round p-2">
+  <div class="p-fluid grid formgrid gap-2 text-sm">
 
-<div class="table-responsive">
-
-    <div class="searchbar">
-        <div class="row mb-4 mt-5 px-0">
-            <div class="col-md-3">
-              <input [(ngModel)]="searchCNP" type="text" class="form-control" placeholder="CNP">
-            </div>
-            <div class="col-md-3">
-              <input [(ngModel)]="searchName"  type="text" class="form-control" placeholder="Nume">
-            </div>
-            <div class="col-md-3">
-              <input [(ngModel)]="searchFirstName"  type="text" class="form-control" placeholder="Prenume">
-            </div>
-            <div class="col-md-3">
-              <input [(ngModel)]="searchDate" type="date" class="form-control" placeholder="Data">
-            </div>
-          </div>
-        <div class="row">
-            <div class="col-md-12 mb-4 px-0">
-                <button (click)="onSearch()" class="btn btn-primary w-100 ">Căutare</button>
-            </div>
-        </div>
-    </div>
-    
-
-    <div *ngIf="notFound">
-        <span class="bg-warning">
-            {{errorMsg}}
-        </span>
-        
+    <div class="field col-6 md:col-3">
+      <label for="cnp" class="text-xs">CNP</label>
+      <input id="cnp" pInputText [(ngModel)]="searchCNP" placeholder="CNP" styleClass="p-inputtext-sm w-full" />
+      
     </div>
 
-    <table class="table table-hover table-striped mt-5">
-        <thead class="table-primary">
-        <tr>
-            <th>#</th>
-            <th>Patient Name</th>
-            <th>First Name</th>
-            <th>Appointment Date</th>
-            <th>Appointment Time</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let appointment of appointments; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ appointment.patientName }}</td>
-            <td>{{ appointment.patientFirstName }}</td>
-            <td>{{ appointment.appointmentDate | date:'yyyy-MM-dd' }}</td>
-            <td>{{ appointment.appointmentTime}}</td>
-            <td>
-            <span class="badge" [ngClass]="{
-                'bg-success': appointment.status === 'COMPLETED',
-                'bg-warning': appointment.status === 'SCHEDULED',
-                'bg-danger': appointment.status === 'CANCELLED'
-            }">
-                {{ appointment.status || 'UNKNOWN'  }}
-            </span>
-            </td>
-            <td>
-                <button *ngIf="appointment.status !== 'CANCELLED'" (click)="goToConsultation(appointment.id)">
-                    <i class="fa-solid fa-file-pen"></i>
-                  </button>
-            </td>
-        </tr>
-        </tbody>
-  </table>
-</div>
+    <div class="field col-6 md:col-3">
+      <label for="lastName" class="text-xs">Nume</label>
+      <input id="lastName" pInputText [(ngModel)]="lastName" placeholder="Nume" styleClass="p-inputtext-sm w-full" />
+    </div>
+
+    <div class="field col-6 md:col-3">
+      <label for="firstName" class="text-xs">Prenume</label>
+      <input id="firstName" pInputText [(ngModel)]="searchFirstName" placeholder="Prenume" styleClass="p-inputtext-sm w-full" />
+    </div>
+
+    <div class="field col-6 md:col-3">
+      <label for="date" class="text-xs">Data</label>
+      <p-calendar id="date" [(ngModel)]="searchDate" dateFormat="yy-mm-dd" [showIcon]="true"
+        styleClass="p-inputtext-sm w-full" class="max-width: 100%;" panelStyleClass="p-calendar-sm" />
+    </div>
+
+    <div class="col-12 mt-3">
+      <p-button label="Căutare" icon="pi pi-search" (click)="onSearch()" styleClass="p-button-sm w-full p-button-primary" />
+    </div>
+
+    <div class="col-12" *ngIf="notFound">
+      <p-message severity="warn" [text]="errorMsg" />
+    </div>
+
+  </div>
+</p-card>
+
+<p-table
+  class="mt-3 text-sm"
+  [value]="appointments"
+  [paginator]="true"
+  [rows]="10"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [responsiveLayout]="'scroll'"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="Se afișează de la {first} la {last} din {totalRecords} consultări">
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>#</th>
+      <th>Nume</th>
+      <th>Prenume</th>
+      <th>Data</th>
+      <th>Ora</th>
+      <th>Status</th>
+      <th>Acțiuni</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-appointment let-i="rowIndex">
+    <tr>
+      <td>{{ i + 1 }}</td>
+      <td>{{ appointment.patientFirstName }}</td>
+      <td>{{ appointment.patientLastName }}</td>
+      <td>{{ appointment.appointmentDate | date:'yyyy-MM-dd' }}</td>
+      <td>{{ appointment.appointmentTime }}</td>
+      <td>
+        <p-badge [value]="appointment.status || 'UNKNOWN'" [severity]="getSeverity(appointment.status)" />
+      </td>
+      <td>
+        <p-button
+          *ngIf="appointment.status !== 'CANCELLED'"
+          icon="pi pi-file-edit"
+          styleClass="p-button-text p-button-sm"
+          (click)="goToConsultation(appointment.id)" />
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

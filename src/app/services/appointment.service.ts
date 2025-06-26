@@ -21,8 +21,8 @@ export class AppointmentService {
     if (searchParams.cnp) {
       params = params.set('cnp', searchParams.cnp);
     }
-    if (searchParams.patientName) {
-      params = params.set('patientName', searchParams.patientName);
+    if (searchParams.patientLastName) {
+      params = params.set('lastName', searchParams.patientLastName);
     }
     if (searchParams.patientFirstName) {
       params = params.set('patientFirstName', searchParams.patientFirstName);
@@ -68,12 +68,18 @@ export class AppointmentService {
     return this.http.post<any>(`${this.APPOINTMENT_URL}/book`, apRequest);
   }
 
-  getAppointmentForConsultation(appointmentId: string): Observable<AppointmentDrAndPatient> {
-    return this.http.get<AppointmentDrAndPatient>(`${this.APPOINTMENT_URL}/${appointmentId}`);
+  getAppointmentForConsultation(
+    appointmentId: string
+  ): Observable<AppointmentDrAndPatient> {
+    return this.http.get<AppointmentDrAndPatient>(
+      `${this.APPOINTMENT_URL}/${appointmentId}`
+    );
   }
 
   getAppointments(id: number) {
-    return this.http.get<UserAppointment[]>(`${this.APPOINTMENT_URL}/patient/${id}`);
+    return this.http.get<UserAppointment[]>(
+      `${this.APPOINTMENT_URL}/patient/${id}`
+    );
   }
 
   deleteAppointment(apointmentId: number): Observable<any> {
