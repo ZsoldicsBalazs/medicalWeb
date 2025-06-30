@@ -1,0 +1,43 @@
+
+<div class="buttons">
+    <div class="add-button">
+        <p-button label="Adaugă Doctor" icon="fa fa-stethoscope" (onClick)="showDrDialog()"></p-button>
+    </div>
+     <div class="add-button">
+        <p-button label="Adaugă Secretară" icon="fa fa-user-md" (onClick)="showSecretaryDialog()" />
+     </div>
+</div>
+
+<p-dialog header="Adaugă Doctor" 
+[(visible)]="displayDialog" 
+[modal]="true" 
+[style]="{ width: '35vw' }">
+  <app-add-doctor 
+    (doctorCreated)="registerDoctor($event)" 
+    (closeDialog)="displayDialog = false"
+    [errorMsg]="errorMsg"
+    >
+    
+  </app-add-doctor>
+</p-dialog>
+
+
+<!-- Buton pentru deschidere dialog -->
+
+<!-- Dialog pentru secretară -->
+<p-dialog
+  header="Înregistrare Secretară"
+  [(visible)]="secretaryDialogVisible"
+  [modal]="true"
+  [style]="{ width: '35vw' }"
+>
+  <app-add-secretary
+    (secretaryCreated)="registerSecretary($event)"
+    (closeDialog)="secretaryDialogVisible = false"
+    [errorMsg]="errorMsg"
+  ></app-add-secretary>
+</p-dialog>
+
+<app-user-list [users]="users"
+ (roleUpdated)="updateUserRole($event)">
+</app-user-list>

@@ -63,6 +63,11 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { MessageModule } from 'primeng/message';
 import { BadgeModule } from 'primeng/badge';
 import { CardModule } from 'primeng/card';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ManageUserComponent } from './admin/manage-user/manage-user.component';
+import { UserListComponent } from './admin/manage-user/user-list/user-list.component';
+import { AddDoctorComponent } from './admin/manage-user/add-doctor/add-doctor.component';
+import { AddSecretaryComponent } from './admin/manage-user/add-secretary/add-secretary.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +96,10 @@ import { CardModule } from 'primeng/card';
     DoctorFreeDaySchedulerComponent,
     AdminDashboardComponent,
     OauthSuccesComponent,
+    ManageUserComponent,
+    UserListComponent,
+    AddDoctorComponent,
+    AddSecretaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -131,6 +140,7 @@ import { CardModule } from 'primeng/card';
     MessageModule,
     BadgeModule,
     CardModule,
+    ConfirmDialogModule
   ],
   providers: [
     AuthService,

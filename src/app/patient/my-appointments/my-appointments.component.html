@@ -1,77 +1,45 @@
 <div class="mb-3">
-  <p-button label="Book Appointent" [routerLink]="['/dashboard/patient/book-appointment']"></p-button>
+  <p-button label="Book Appointment" [routerLink]="['/dashboard/patient/book-appointment']"></p-button>
 </div>
 
-
-<div *ngIf="appointments && appointments.length; else noAppointments">
-    <table mat-table [dataSource]="appointments" class="mat-elevation-z8" style="width: 100%;">
-  
-    
-      <!-- Doctor Column -->
-      <ng-container matColumnDef="doctor">
-        <th mat-header-cell *matHeaderCellDef> Doctor </th>
-        <td mat-cell *matCellDef="let appointment">
-          Dr. {{ appointment.doctorName }} {{ appointment.doctorLastName }}
-        </td>
-      </ng-container>
-  
-      <!-- Department Column -->
-      <ng-container matColumnDef="department">
-        <th mat-header-cell *matHeaderCellDef> Department </th>
-        <td mat-cell *matCellDef="let appointment"> {{ appointment.department }} </td>
-      </ng-container>
-  
-      <!-- Date Column -->
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef> Date </th>
-        <td mat-cell *matCellDef="let appointment">
-          {{ appointment.appointmentDate | date:'mediumDate' }}
-        </td>
-      </ng-container>
-  
-      <!-- Time Column -->
-      <ng-container matColumnDef="time">
-        <th mat-header-cell *matHeaderCellDef> Time </th>
-        <td mat-cell *matCellDef="let appointment">
-          {{ appointment.appointmentTime}}
-        </td>
-      </ng-container>
-  
-      <!-- Status Column -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
-        <td mat-cell *matCellDef="let appointment"> 
-          <div [ngSwitch]="appointment.status">
-            <span *ngSwitchCase="'CANCELLED'" style="color: red;">{{ appointment.status }}</span>
-            <span *ngSwitchCase="'COMPLETED'" style="color: rgb(0, 155, 0);">{{ appointment.status }}</span>
-            <span *ngSwitchCase="'SCHEDULED'" style="color: rgb(18, 95, 238);">{{ appointment.status }}</span>
-            <span *ngSwitchDefault> {{ appointment.status }} </span>
-          </div> 
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let appointment">
-            <div *ngIf="appointment.status==='SCHEDULED'" >
-                <button class="delete-btn" mat-button (click)="deleteAppointment(appointment)" color="red">
-                    <img src="../assets/delete.svg" alt="delete icon" class="delete-icon">
-                  </button>
-            </div>           
-        <td>
-      </ng-container>
-
-    </table>
-  </div>
-  
-  <ng-template #noAppointments>
-    <p>No appointments found.</p>
+<p-table *ngIf="appointments && appointments.length" [value]="appointments" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Doctor</th>
+      <th>Department</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
   </ng-template>
 
+  <ng-template pTemplate="body" let-appointment>
+    <tr>
+      <td>Dr. {{ appointment.doctorName }} {{ appointment.doctorLastName }}</td>
+      <td>{{ appointment.department }}</td>
+      <td>{{ appointment.appointmentDate | date:'mediumDate' }}</td>
+      <td>{{ appointment.appointmentTime }}</td>
+      <td>
+        <span [ngClass]="{
+            'text-red-500': appointment.status === 'CANCELLED',
+            'text-green-600': appointment.status === 'COMPLETED',
+            'text-blue-500': appointment.status === 'SCHEDULED'
+          }">
+          {{ appointment.status }}
+        </span>
+      </td>
+      <td>
+        <button *ngIf="appointment.status === 'SCHEDULED'" pButton icon="pi pi-trash" class="p-button-danger p-button-sm" (click)="confirmDelete(appointment)"></button>
+      </td>
+    </tr>
+  </ng-template>
 
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="6">No appointments found.</td>
+    </tr>
+  </ng-template>
+</p-table>
 
-  
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

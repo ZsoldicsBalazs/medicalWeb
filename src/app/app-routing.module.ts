@@ -21,70 +21,83 @@ import { AuthComponent } from './common/auth/auth.component';
 import { BookAppointmentComponent } from './common/book-appointment/book-appointment.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { OauthSuccesComponent } from './common/auth/oauth-succes/oauth-succes/oauth-succes.component';
+import { ManageUserComponent } from './admin/manage-user/manage-user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   // {path: 'rezervation', component: rezervationComponent} TODO:
-  {path: 'register',component: RegisterComponent},
-  {path: 'auth', component: AuthComponent},
-  {path: 'oauth-succes', component: OauthSuccesComponent},
-  { path: 'dashboard',
+  { path: 'register', component: RegisterComponent },
+  { path: 'auth', component: AuthComponent },
+  { path: 'oauth-succes', component: OauthSuccesComponent },
+  {
+    path: 'dashboard',
     component: DashboardComponent,
-    canActivate:[AuthGuard],
-      children: [
-          { path: 'doctor', 
-            component: DoctorDashboardComponent,  
-            canActivate: [roleGuard],
-            data: { roles: ['MEDIC','ADMIN'] },
-            children:[
-                {path: 'home', component: HomeComponent},
-                {path:'patients', component: PatientListComponent},
-                {path: 'patients/:id', component: PatientDetailsComponent},
-                {path: 'appointments', component: DoctorAppointmentsComponent},
-                {path: 'profile', component: DoctorProfileComponent},
-                {path: 'statistics', component: DoctorStatisticsComponent},
-                {path: 'consultation/:id', component: DoctorConsultationComponent},
-                {path: 'patients/book-appointment/:id', component: BookAppointmentComponent, data: {roles: ['MEDIC']}},
-                {path: '', redirectTo: 'home', pathMatch: 'full'}
-                
-              ]
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'doctor',
+        component: DoctorDashboardComponent,
+        canActivate: [roleGuard],
+        data: { roles: ['MEDIC', 'ADMIN'] },
+        children: [
+          { path: 'home', component: HomeComponent },
+          { path: 'patients', component: PatientListComponent },
+          { path: 'patients/:id', component: PatientDetailsComponent },
+          { path: 'appointments', component: DoctorAppointmentsComponent },
+          { path: 'profile', component: DoctorProfileComponent },
+          { path: 'statistics', component: DoctorStatisticsComponent },
+          { path: 'consultation/:id', component: DoctorConsultationComponent },
+          {
+            path: 'patients/book-appointment/:id',
+            component: BookAppointmentComponent,
+            data: { roles: ['MEDIC'] },
           },
-          { path: 'patient', 
-            component: PatientDashboardComponent, 
-            canActivate: [roleGuard],
-            data: { roles: ['PATIENT'] },
-            children: 
-            [{path: 'home', component: HomeComponent},
-              {path:'aboutMe', component: PatientDetailsComponent},
-              {path: 'myAppointments', component: MyAppointmentsComponent},
-              {path: 'book-appointment', component: BookAppointmentComponent},
-            ]
+          { path: '', redirectTo: 'home', pathMatch: 'full' },
+        ],
+      },
+      {
+        path: 'patient',
+        component: PatientDashboardComponent,
+        canActivate: [roleGuard],
+        data: { roles: ['PATIENT'] },
+        children: [
+          { path: 'home', component: HomeComponent },
+          { path: 'aboutMe', component: PatientDetailsComponent },
+          { path: 'myAppointments', component: MyAppointmentsComponent },
+          { path: 'book-appointment', component: BookAppointmentComponent },
+          { path: '', redirectTo: 'home', pathMatch: 'full' },
+        ],
+      },
+      {
+        path: 'admin',
+        component: AdminDashboardComponent,
+        canActivate: [roleGuard],
+        data: { roles: ['ADMIN'] },
+        children: [
+          { path: 'home', component: HomeComponent },
+          { path: 'patients', component: PatientListComponent },
+          { path: 'patients/:id', component: PatientDetailsComponent },
+          { path: 'appointments', component: DoctorAppointmentsComponent },
+          { path: 'profile', component: DoctorProfileComponent },
+          { path: 'statistics', component: DoctorStatisticsComponent },
+          { path: 'consultation/:id', component: DoctorConsultationComponent },
+          {
+            path: 'patients/book-appointment/:id',
+            component: BookAppointmentComponent,
+            data: { roles: ['ADMIN', 'MEDIC'] },
           },
-          {path: 'admin',
-            component: AdminDashboardComponent,
-            canActivate: [roleGuard],
-            data: {roles: ['ADMIN']},
-            children: [
-              {path: 'home', component: HomeComponent},
-              {path: 'patients', component: PatientListComponent},
-              {path: 'patients/:id', component: PatientDetailsComponent},
-              {path: 'appointments', component: DoctorAppointmentsComponent},
-              {path: 'profile', component: DoctorProfileComponent},
-              {path: 'statistics', component: DoctorStatisticsComponent},
-              {path: 'consultation/:id', component: DoctorConsultationComponent},
-              {path: 'patients/book-appointment/:id', component: BookAppointmentComponent, data: {roles: ['ADMIN','MEDIC']}},
-              {path: '', redirectTo: 'home', pathMatch: 'full'}
-            ]
-          }
-        
-      ] },
-    
-  { path: '**', component:NotFoundComponent }
+          { path: 'users', component: ManageUserComponent },
+          { path: '', redirectTo: 'home', pathMatch: 'full' },
+        ],
+      },
+    ],
+  },
 
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -21,6 +21,7 @@ export class AdminDashboardComponent implements OnInit {
     {label: 'ConsultationList', icon: 'fas fa-notes-medical me-1', route: 'appointments'},
     {label: 'Profile', icon: 'fas fa-user-md me-1', route: `profile`},
     {label: 'Statistics', icon: 'fa fa-pie-chart', route: 'statistics'},
+    {label: 'Users', icon: 'fa fa-users', route: 'users'},
   ]
   }
 

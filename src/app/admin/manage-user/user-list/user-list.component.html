@@ -1,0 +1,38 @@
+<div class="p-inputgroup mb-3">
+  <span class="p-inputgroup-addon">
+    <i class="pi pi-search"></i>
+  </span>
+  <input type="text" pInputText placeholder="Search by email" [(ngModel)]="searchEmail" />
+</div>
+
+<p-table [value]="filteredUsers" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Rol</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr>
+      <td>{{ user.user_id }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{user.role}}</td>
+      <td>
+        <p-dropdown
+          [options]="roles"
+          [ngModel]="user.role"
+          optionLabel="label"
+          optionValue="value"
+          appendTo="body"
+          [overlayOptions]="{ style: { zIndex: 10000 } }"
+          (onChange)="onRoleChange(user, $event.value)"
+          [style]="{ width: '10rem' }">
+        </p-dropdown>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-confirmDialog></p-confirmDialog>

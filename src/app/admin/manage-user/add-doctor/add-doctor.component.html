@@ -1,0 +1,45 @@
+<form [formGroup]="doctorForm" (ngSubmit)="submit()">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="username">Username</label>
+      <input id="username" pInputText formControlName="username" />
+    </div>
+    <div class="p-field">
+      <label for="password">Parolă</label>
+      <input id="password" type="password" pInputText formControlName="password" />
+    </div>
+    <div class="p-field">
+      <label for="firstName">Prenume</label>
+      <input id="firstName" pInputText formControlName="firstName" />
+    </div>
+    <div class="p-field">
+      <label for="lastName">Nume</label>
+      <input id="lastName" pInputText formControlName="lastName" />
+    </div>
+    <div class="p-field">
+      <label for="email">Email</label>
+      <input id="email" pInputText formControlName="email" />
+    </div>
+    <div class="p-field">
+      <label for="phone">Telefon</label>
+      <input id="phone" pInputText formControlName="phone" />
+    </div>
+    <div class="p-field">
+      <label for="department">Departament</label>
+      <input id="department" pInputText formControlName="department" />
+    </div>
+    <div class="p-field">
+      <label for="salary">Salariu</label>
+      <input id="salary" type="number" pInputText formControlName="salary" />
+    </div>
+  </div>
+  <div *ngIf="errorMsg" class="error-messages">
+  <ul>
+    <li *ngFor="let msg of errorMsg">{{ msg }}</li>
+  </ul>
+    </div>
+  <p-footer>
+    <p-button label="Salvează" type="submit" [disabled]="doctorForm.invalid"></p-button>
+    <p-button label="Renunță" class="p-button-secondary" (onClick)="cancel()" styleClass="p-ml-2"></p-button>
+  </p-footer>
+</form>
