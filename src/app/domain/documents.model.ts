@@ -1,4 +1,5 @@
 export interface Document{
     fileName: string,
-    uploadDate: Date
+    uploadDate: Date,
+    fileUrl: string
 }

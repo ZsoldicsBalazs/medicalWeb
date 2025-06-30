@@ -68,6 +68,7 @@ import { ManageUserComponent } from './admin/manage-user/manage-user.component';
 import { UserListComponent } from './admin/manage-user/user-list/user-list.component';
 import { AddDoctorComponent } from './admin/manage-user/add-doctor/add-doctor.component';
 import { AddSecretaryComponent } from './admin/manage-user/add-secretary/add-secretary.component';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -140,7 +141,8 @@ import { AddSecretaryComponent } from './admin/manage-user/add-secretary/add-sec
     MessageModule,
     BadgeModule,
     CardModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    FileUploadModule,
   ],
   providers: [
     AuthService,

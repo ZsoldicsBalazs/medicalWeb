@@ -1,18 +1,38 @@
-<p>document-list works!</p>
+<p-fileUpload
+  name="file"
+  accept="application/pdf"
+  [customUpload]="true"
+  (uploadHandler)="onUpload($event)"
+  [auto]="false"
+  [showUploadButton]="true"
+  [showCancelButton]="true"
+  chooseLabel="Alege PDF"
+  uploadLabel="Trimite"
+  cancelLabel="Anulează"
+>
+</p-fileUpload>
 
-<table>
+
+<p-table [value]="docList" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="header">
     <tr>
-        <th>File Name</th>
-        <th>Upload Date</th>
+      <th>Document</th>
+      <th>Data Upload</th>
+      <th>Acțiune</th>
     </tr>
-    @for (item of docList; track $index) {
-        <tr>
-            <td>{{item.fileName}}</td>
-            <td> {{item.uploadDate | date:'dd/MM/yyyy HH:mm'}}</td>
-        </tr>
-    }
-</table>
- 
+  </ng-template>
+  <ng-template pTemplate="body" let-doc>
+    <tr>
+      <td>{{ doc.fileName }}</td>
+      <td>{{ doc.uploadDate | date:'short' }}</td>
+      <td>
+        <button pButton type="button" icon="pi pi-file-pdf" label="Deschide"
+                (click)="openPdf(doc.fileUrl)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
 
 
 
