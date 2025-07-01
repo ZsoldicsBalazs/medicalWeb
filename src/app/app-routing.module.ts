@@ -25,6 +25,7 @@ import { ManageUserComponent } from './admin/manage-user/manage-user.component';
 import { ManageNewsComponent } from './admin/manage-news/manage-news.component';
 import { SecretaryDashboardComponent } from './secretary/secretary-dashboard/secretary-dashboard.component';
 import { NewsboardComponent } from './common/newsboard/newsboard.component';
+import { SecretaryProfileComponent } from './secretary/secretary-profile/secretary-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -83,7 +84,7 @@ const routes: Routes = [
           { path: 'patients', component: PatientListComponent },
           { path: 'patients/:id', component: PatientDetailsComponent },
           { path: 'appointments', component: DoctorAppointmentsComponent },
-          { path: 'profile', component: PatientDetailsComponent },
+          { path: 'profile', component: SecretaryProfileComponent },
           { path: '', redirectTo: 'home', pathMatch: 'full' },
         ],
       },

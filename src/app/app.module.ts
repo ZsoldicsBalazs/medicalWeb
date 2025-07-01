@@ -75,6 +75,8 @@ import { AccordionModule } from 'primeng/accordion';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SecretaryDashboardComponent } from './secretary/secretary-dashboard/secretary-dashboard.component';
+import { SecretaryProfileComponent } from './secretary/secretary-profile/secretary-profile.component';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
   declarations: [
@@ -110,6 +112,7 @@ import { SecretaryDashboardComponent } from './secretary/secretary-dashboard/sec
     NewsboardComponent,
     ManageNewsComponent,
     SecretaryDashboardComponent,
+    SecretaryProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -155,6 +158,7 @@ import { SecretaryDashboardComponent } from './secretary/secretary-dashboard/sec
     AccordionModule,
     InputTextareaModule,
     ProgressSpinnerModule,
+    TagModule,
   ],
   providers: [
     AuthService,

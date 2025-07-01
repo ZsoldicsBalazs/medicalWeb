@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth-service.service';
 import { UsersService } from '../../services/users.service';
+import { UserDTO } from '../../domain/userdto.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Secretary } from '../../domain/secretary.model';
 
 @Component({
   selector: 'app-secretary-profile',
   templateUrl: './secretary-profile.component.html',
-  styleUrls: ['./secretary-profile.component.css']
+  styleUrls: ['./secretary-profile.component.css'],
 })
 export class SecretaryProfileComponent implements OnInit {
-  secretaryProfile: any = null;
+  secretaryProfile!: Secretary;
   loading: boolean = true;
   error: string | null = null;
 
@@ -22,23 +25,9 @@ export class SecretaryProfileComponent implements OnInit {
   }
 
   private loadSecretaryProfile(): void {
-    const profileId = this.authService.getProfileId();
-    if (!profileId) {
-      this.error = 'Profile ID not found';
-      this.loading = false;
-      return;
-    }
-
-    this.usersService.getUserById(profileId).subscribe({
-      next: (profile) => {
-        this.secretaryProfile = profile;
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error loading secretary profile:', error);
-        this.error = 'Failed to load profile information';
-        this.loading = false;
-      }
-    });
+    let secretary = this.authService.getProfileDetails();
+    let obj = JSON.parse(secretary ?? '{}');
+    this.secretaryProfile = obj as Secretary;
+    this.loading = false;
   }
-} 
+}
