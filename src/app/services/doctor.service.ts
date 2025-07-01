@@ -7,22 +7,20 @@ import { Doctor } from '../domain/doctor.model';
 import { DoctorProcedure } from '../domain/doctor-procedure.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DoctorService {
- 
-  private aptURL = "http://localhost:1212/api/v1/appointment";
-  private doctorURL = "http://localhost:1212/api/v1/medic"
-  private daysOFFURL =  "http://localhost:1212/api/v1/days-off"
+  private aptURL = 'http://localhost:1212/api/v1/appointment';
+  private doctorURL = 'http://localhost:1212/api/v1/medic';
+  private daysOFFURL = 'http://localhost:1212/api/v1/days-off';
 
-  constructor(private http: HttpClient) {
-   }
+  constructor(private http: HttpClient) {}
 
-   getAppointmentForDr(id: number){
+  getAppointmentForDr(id: number) {
     return this.http.get<DoctorAppointment[]>(`${this.aptURL}/dr/${id}`);
-   }
+  }
 
-   searchAppointments(searchParams: any): Observable<DoctorAppointment[]>{
+  searchAppointments(searchParams: any): Observable<DoctorAppointment[]> {
     let params = new HttpParams();
 
     if (searchParams.cnp) {
@@ -37,55 +35,73 @@ export class DoctorService {
     if (searchParams.appointmentDate) {
       params = params.set('appointmentDate', searchParams.appointmentDate);
     }
-    
-    return this.http.get<DoctorAppointment[]>(`${this.aptURL}/dr`,{params})
 
+    return this.http.get<DoctorAppointment[]>(`${this.aptURL}/dr`, { params });
   }
 
-   getDrById(id: string): Observable<Doctor>{
-    return this.http.get<Doctor>(`${this.doctorURL}/${id}`)
-   }
-
-   updateDoctor(drprofile: Doctor): Observable<Doctor> {
-    return this.http.put<Doctor>(`${this.doctorURL}`,drprofile);
+  getDrById(id: string): Observable<Doctor> {
+    return this.http.get<Doctor>(`${this.doctorURL}/${id}`);
   }
 
-                      // PROCEDURES 
-
-  getAllProceduresByDrId(id: string): Observable<DoctorProcedure[]>{
-    return this.http.get<DoctorProcedure[]>(`${this.doctorURL}/${id}/procedures`);
+  updateDoctor(drprofile: Doctor): Observable<Doctor> {
+    return this.http.put<Doctor>(`${this.doctorURL}`, drprofile);
   }
 
-  addProcedureToDr(id: string, dp: DoctorProcedure): Observable<DoctorProcedure>{
-    return this.http.post<DoctorProcedure>(`${this.doctorURL}/${id}/procedures`,dp);
+  // PROCEDURES
+
+  getAllProceduresByDrId(id: string): Observable<DoctorProcedure[]> {
+    return this.http.get<DoctorProcedure[]>(
+      `${this.doctorURL}/${id}/procedures`
+    );
   }
 
-  updateProcedureToDr(id: string, dp: DoctorProcedure): Observable<DoctorProcedure>{
-    return this.http.put<DoctorProcedure>(`${this.doctorURL}/${id}/procedures`,dp);
+  addProcedureToDr(
+    id: string,
+    dp: DoctorProcedure
+  ): Observable<DoctorProcedure> {
+    return this.http.post<DoctorProcedure>(
+      `${this.doctorURL}/${id}/procedures`,
+      dp
+    );
   }
-  deleteDoctorProcedure(id: string, doctorProcedureID: string): Observable<Boolean>{
-    return this.http.delete<Boolean>(`${this.doctorURL}/${id}/procedures/${doctorProcedureID}`)
+
+  updateProcedureToDr(
+    id: string,
+    dp: DoctorProcedure
+  ): Observable<DoctorProcedure> {
+    return this.http.put<DoctorProcedure>(
+      `${this.doctorURL}/${id}/procedures`,
+      dp
+    );
+  }
+  deleteDoctorProcedure(
+    id: string,
+    doctorProcedureID: string
+  ): Observable<Boolean> {
+    return this.http.delete<Boolean>(
+      `${this.doctorURL}/${id}/procedures/${doctorProcedureID}`
+    );
   }
 
+  // FREEE DAYS
 
-              // FREEE DAYS 
-
-  fetchDaysOffForDoctor(medic: Doctor): Observable<Date[]>{
+  fetchDaysOffForDoctor(medic: Doctor): Observable<Date[]> {
     console.log(`${this.doctorURL}/${medic.id}/days-off}`);
     return this.http.get<Date[]>(`${this.daysOFFURL}/${medic.id}`);
   }
 
-
-  saveDaysOffForDoctor(newOffDates: Date[], medicId: string): Observable<Date[]>{
+  saveDaysOffForDoctor(
+    newOffDates: string[],
+    medicId: string
+  ): Observable<Date[]> {
     console.log(`${this.doctorURL}/${medicId}/days-off`);
-    return this.http.post<Date[]>(`${this.doctorURL}/${medicId}/days-off`, newOffDates);
+    return this.http.post<Date[]>(`${this.daysOFFURL}/${medicId}`, newOffDates);
   }
 
-  saveTimeIntervalForDoctor(interval: number, id: string){
-    return this.http.put<number>(`${this.doctorURL}/${id}/timeInterval`,interval);
+  saveTimeIntervalForDoctor(interval: number, id: string) {
+    return this.http.put<number>(
+      `${this.doctorURL}/${id}/timeInterval`,
+      interval
+    );
   }
-
-
-
-  
 }

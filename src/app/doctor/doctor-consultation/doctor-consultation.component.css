@@ -23,3 +23,72 @@ label {
 :host ::ng-deep .p-dropdown {
   width: 200px;
 }
+
+/* Voice recording styles */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.recording-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+.recording-indicator i {
+  animation: pulse 1s infinite;
+  color: #dc3545;
+}
+
+.recording-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.recording-status.warning {
+  color: #856404;
+  background-color: #fff3cd;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ffeaa7;
+}
+
+.recording-status.recording {
+  color: #155724;
+  background-color: #d4edda;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #c3e6cb;
+}
+
+/* Button styling for recording */
+:host ::ng-deep .p-button.p-button-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+:host ::ng-deep .p-button.p-button-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+:host ::ng-deep .p-button.p-button-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+:host ::ng-deep .p-button.p-button-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}

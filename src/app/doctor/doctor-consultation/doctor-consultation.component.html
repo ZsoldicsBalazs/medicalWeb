@@ -63,7 +63,7 @@
     
       
       <div class="p-field">
-            <label for="template" class="p-d-block">Select Template</label>
+            <label for="template" class="p-d-block p-2">Select Template</label>
             <p-dropdown
             id="template"
             [options]="templates"
@@ -74,6 +74,23 @@
             placeholder="Select a template"
             [style]="{'width': '200px'}">
             </p-dropdown>
+            <div class="p-2">
+              <p-button 
+                [label]="isRecording ? 'STOP RECORDING' : 'START RECORDING'"
+                [icon]="isRecording ? 'pi pi-stop' : 'pi pi-microphone'"
+                [severity]="isRecording ? 'danger' : 'success'"
+                [disabled]="!isSupported"
+                (onClick)="isRecording ? stopRecording() : startRecording()"
+                [style]="{'margin-right': '10px'}">
+              </p-button>
+              <div *ngIf="!isSupported" class="recording-status warning">
+                <i class="pi pi-exclamation-triangle"></i> Voice recording not supported in this browser
+              </div>
+              <div *ngIf="isRecording" class="recording-status recording">
+                <i class="pi pi-circle-fill"></i> Recording... Speak in Romanian
+              </div>
+            </div>
+            
       </div>
       <div class="p-field">
         <label for="results" class="p-d-block">Results</label>

@@ -80,7 +80,7 @@ export class PatientDetailsComponent implements OnInit {
     )
   }
 
-  // Inițializăm formularul folosind datele primite de la backend.
+
   private initializeForm(): void {
     this.patientForm = this.fb.group({
       CNP: [this.patient.CNP, [Validators.required, Validators.pattern('^[0-9]{13}$')]],
@@ -91,9 +91,6 @@ export class PatientDetailsComponent implements OnInit {
     });
   }
 
-
-
-  // Actualizează datele pacientului la backend
   onSave(): void {
     if (this.patientForm.valid) {
       const updatedPatient: Patient = {
@@ -148,7 +145,7 @@ export class PatientDetailsComponent implements OnInit {
         console.log("consultation clicked");  
         break;
       case 2:
-        console.log("analize clicked");
+        console.log("documente incarcate clicked");
         break;
       case 3: 
         break;    

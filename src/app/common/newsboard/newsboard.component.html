@@ -1,0 +1,31 @@
+<div class="newsboard-container">
+    <p-card header="Hospital News" styleClass="mb-4">
+        <p-progressSpinner *ngIf="loading" styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+        
+        <div *ngIf="!loading && news.length === 0" class="text-center p-4">
+            <i class="pi pi-info-circle" style="font-size: 2rem"></i>
+            <p>No news available at the moment.</p>
+        </div>
+
+        <div *ngIf="!loading && news.length > 0" class="news-list">
+            <p-accordion [multiple]="true">
+                <p-accordionTab *ngFor="let post of news" [header]="post.title">
+                    <ng-template pTemplate="header">
+                        <div class="flex align-items-center gap-2">
+                            <i class="pi pi-newspaper"></i>
+                            <span>{{post.title}}</span>
+                        </div>
+                    </ng-template>
+                    <div class="news-content">
+                        <p>{{post.content}}</p>
+                        <div class="news-metadata text-sm text-color-secondary mt-3">
+                            <p>Posted by: {{post.authorName}}</p>
+                            <p>Date: {{post.createdAt | date:'medium'}}</p>
+                            <p *ngIf="post.updatedAt">Updated: {{post.updatedAt | date:'medium'}}</p>
+                        </div>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+    </p-card>
+</div> 

@@ -22,6 +22,9 @@ import { BookAppointmentComponent } from './common/book-appointment/book-appoint
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { OauthSuccesComponent } from './common/auth/oauth-succes/oauth-succes/oauth-succes.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
+import { ManageNewsComponent } from './admin/manage-news/manage-news.component';
+import { SecretaryDashboardComponent } from './secretary/secretary-dashboard/secretary-dashboard.component';
+import { NewsboardComponent } from './common/newsboard/newsboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -42,6 +45,7 @@ const routes: Routes = [
         children: [
           { path: 'home', component: HomeComponent },
           { path: 'patients', component: PatientListComponent },
+          { path: 'newsboard', component: NewsboardComponent },
           { path: 'patients/:id', component: PatientDetailsComponent },
           { path: 'appointments', component: DoctorAppointmentsComponent },
           { path: 'profile', component: DoctorProfileComponent },
@@ -69,12 +73,28 @@ const routes: Routes = [
         ],
       },
       {
+        path: 'secretary',
+        component: SecretaryDashboardComponent,
+        canActivate: [roleGuard],
+        data: { roles: ['SECRETARY'] },
+        children: [
+          { path: 'home', component: HomeComponent },
+          { path: 'newsboard', component: NewsboardComponent },
+          { path: 'patients', component: PatientListComponent },
+          { path: 'patients/:id', component: PatientDetailsComponent },
+          { path: 'appointments', component: DoctorAppointmentsComponent },
+          { path: 'profile', component: PatientDetailsComponent },
+          { path: '', redirectTo: 'home', pathMatch: 'full' },
+        ],
+      },
+      {
         path: 'admin',
         component: AdminDashboardComponent,
         canActivate: [roleGuard],
         data: { roles: ['ADMIN'] },
         children: [
           { path: 'home', component: HomeComponent },
+          { path: 'news', component: ManageNewsComponent },
           { path: 'patients', component: PatientListComponent },
           { path: 'patients/:id', component: PatientDetailsComponent },
           { path: 'appointments', component: DoctorAppointmentsComponent },
@@ -87,6 +107,7 @@ const routes: Routes = [
             data: { roles: ['ADMIN', 'MEDIC'] },
           },
           { path: 'users', component: ManageUserComponent },
+          { path: 'news', component: ManageNewsComponent },
           { path: '', redirectTo: 'home', pathMatch: 'full' },
         ],
       },

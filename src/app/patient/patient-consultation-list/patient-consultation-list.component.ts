@@ -8,7 +8,7 @@ import { NotificationService } from '../../services/notification.service';
   selector: 'app-patient-consultation-list',
   templateUrl: './patient-consultation-list.component.html',
   styleUrls: ['./patient-consultation-list.component.css'],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class PatientConsultationListComponent implements OnInit {
   @Input() patientId!: number;
@@ -22,35 +22,41 @@ export class PatientConsultationListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log("Patient ID received:", this.patientId);
-    this.patientService.getConsultationRecordByPatientId(this.patientId).subscribe(
-      data => {
-        this.consultationRecord = data;
-        console.log("Consultation records loaded:", data);
-      },
-      error => {
-        console.error("Error loading consultation records:", error);
-        this.notificationService.warning("Error",'Failed to load consultation records');      }
-    );
+    console.log('Patient ID received:', this.patientId);
+    this.patientService
+      .getConsultationRecordByPatientId(this.patientId)
+      .subscribe(
+        (data) => {
+          this.consultationRecord = data;
+          console.log('Consultation records loaded:', data);
+        },
+        (error) => {
+          console.error('Error loading consultation records:', error);
+          this.notificationService.warning(
+            'Error',
+            'Failed to load consultation records'
+          );
+        }
+      );
   }
 
   onRowSelect(event: any): void {
-    console.log("Row selected:", event.data); // ptr debug
+    console.log('Row selected:', event.data); // debug
     this.selectedRecord = event.data;
     this.displayDialog = true;
   }
 
   downloadPDF(): void {
     if (!this.selectedRecord) {
-      console.warn("No record selected for PDF download");
+      console.warn('No record selected for PDF download');
       return;
     }
 
     const element = document.getElementById('pdf-content');
     if (element) {
-      import('html2canvas').then(html2canvas => {
-        html2canvas.default(element, { scale: 2 }).then(canvas => {
-          import('jspdf').then(jsPDF => {
+      import('html2canvas').then((html2canvas) => {
+        html2canvas.default(element, { scale: 2 }).then((canvas) => {
+          import('jspdf').then((jsPDF) => {
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF.default('p', 'mm', 'a4');
             const imgProps = pdf.getImageProperties(imgData);
@@ -58,21 +64,26 @@ export class PatientConsultationListComponent implements OnInit {
             const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
             pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save(`consultation-record-${this.selectedRecord?.recordId}.pdf`);
+            pdf.save(
+              `consultation-record-${this.selectedRecord?.drName}-${this.selectedRecord?.created_at}.pdf`
+            );
           });
         });
-      }
-
-    );
-     this.notificationService.success("Success",'PDF downloaded successfully');      
+      });
+      this.notificationService.success(
+        'Success',
+        'PDF downloaded successfully'
+      );
     } else {
-      this.notificationService.success("Success",'PDF content element not found');      
-
+      this.notificationService.success(
+        'Success',
+        'PDF content element not found'
+      );
     }
   }
 
   closeDialog(): void {
-    console.log("Closing dialog"); // Debug log
+    console.log('Closing dialog'); // Debug log
     this.displayDialog = false;
     this.selectedRecord = null;
   }

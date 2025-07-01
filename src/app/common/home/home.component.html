@@ -21,5 +21,9 @@
         Simplifică fluxurile de lucru medicale și îmbunătățește calitatea îngrijirii cu MediManage!
       </p>
     </div>
+
+    <div *ngIf="isStaffMember" class="news-section mt-4">
+      <app-newsboard></app-newsboard>
+    </div>
   </div>
   

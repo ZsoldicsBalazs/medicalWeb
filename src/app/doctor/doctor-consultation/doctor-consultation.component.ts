@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, NgZone } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppointmentService } from '../../services/appointment.service';
 import { MessageService } from 'primeng/api';
-import { HttpClient } from '@angular/common/http';
 import { AppointmentDrAndPatient } from '../../domain/appointment.model';
-import { ConsultationRecord } from '../../domain/consultation-record.model';
 import { SelectItem } from 'primeng/api';
 import { ConsultationRecordCreated } from '../../domain/consultationRecord-request.model';
 import { ConsultationRecordService } from '../../services/consultation-record.service';
@@ -15,7 +13,7 @@ import { ConsultationRecordService } from '../../services/consultation-record.se
   styleUrls: ['./doctor-consultation.component.css'],
   providers: [MessageService],
 })
-export class DoctorConsultationComponent implements OnInit {
+export class DoctorConsultationComponent implements OnInit, OnDestroy {
   appointmentDetails: AppointmentDrAndPatient | undefined;
   templates: SelectItem[] = [
     { label: 'Select a template', value: null, disabled: true },
@@ -24,6 +22,11 @@ export class DoctorConsultationComponent implements OnInit {
   ];
 
   selectedTemplate: string | null = null;
+
+  // Voice recording properties
+  isRecording: boolean = false;
+  recognition: SpeechRecognition | null = null;
+  isSupported: boolean = false;
 
   // Template strings
   private normalTemplate = `
@@ -64,8 +67,12 @@ Recommendations:<br>
     private appointmentService: AppointmentService,
     private route: ActivatedRoute,
     private messageService: MessageService,
-    private recordService: ConsultationRecordService
-  ) {}
+    private recordService: ConsultationRecordService,
+    private changeDetectorRef: ChangeDetectorRef,
+    private ngZone: NgZone
+  ) {
+    this.initializeSpeechRecognition();
+  }
 
   ngOnInit(): void {
     const appointmentId = this.route.snapshot.paramMap.get('id');
@@ -96,6 +103,190 @@ Recommendations:<br>
         detail: 'No appointment ID provided',
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.recognition && this.isRecording) {
+      this.recognition.stop();
+    }
+  }
+
+  private initializeSpeechRecognition(): void {
+    // Check if browser supports speech recognition
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      this.isSupported = true;
+      
+      // Initialize speech recognition
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      this.recognition = new SpeechRecognition();
+      
+      if (this.recognition) {
+        // Configure for Romanian medical language
+        this.recognition.lang = 'ro-RO';
+        this.recognition.continuous = true;
+        this.recognition.interimResults = true;
+        this.recognition.maxAlternatives = 1;
+        
+        // Set up event handlers
+        this.recognition.onstart = () => {
+          this.ngZone.run(() => {
+            this.isRecording = true;
+            this.changeDetectorRef.detectChanges();
+            this.messageService.add({
+              severity: 'info',
+              summary: 'Recording Started',
+              detail: 'Voice recording started. Speak in Romanian.',
+            });
+          });
+        };
+
+        this.recognition.onresult = (event: SpeechRecognitionEvent) => {
+          this.ngZone.run(() => {
+            let finalTranscript = '';
+            let interimTranscript = '';
+
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+              const transcript = event.results[i][0].transcript;
+              if (event.results[i].isFinal) {
+                finalTranscript += transcript;
+              } else {
+                interimTranscript += transcript;
+              }
+            }
+
+            if (finalTranscript) {
+              this.addTranscriptionToResults(finalTranscript);
+            }
+          });
+        };
+
+        this.recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+          this.ngZone.run(() => {
+            console.error('Speech recognition error:', event.error);
+            this.isRecording = false;
+            this.changeDetectorRef.detectChanges();
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Recording Error',
+              detail: `Speech recognition error: ${event.error}`,
+            });
+          });
+        };
+
+        this.recognition.onend = () => {
+          this.ngZone.run(() => {
+            this.isRecording = false;
+            this.changeDetectorRef.detectChanges();
+            this.messageService.add({
+              severity: 'info',
+              summary: 'Recording Stopped',
+              detail: 'Voice recording stopped.',
+            });
+          });
+        };
+      }
+    } else {
+      this.isSupported = false;
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Not Supported',
+        detail: 'Speech recognition is not supported in this browser.',
+      });
+    }
+  }
+
+  startRecording(): void {
+    if (!this.isSupported || !this.recognition) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Not Supported',
+        detail: 'Speech recognition is not supported in this browser.',
+      });
+      return;
+    }
+
+    try {
+      this.recognition.start();
+      // Force change detection to update UI immediately
+      this.changeDetectorRef.detectChanges();
+    } catch (error) {
+      console.error('Error starting recording:', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to start recording.',
+      });
+    }
+  }
+
+  stopRecording(): void {
+    if (this.recognition && this.isRecording) {
+      this.recognition.stop();
+      // Force change detection to update UI immediately
+      this.changeDetectorRef.detectChanges();
+    }
+  }
+
+  private addTranscriptionToResults(transcript: string): void {
+    // Format the transcribed text for medical context
+    const formattedText = this.formatMedicalText(transcript);
+    
+    // Add to existing results with proper spacing
+    if (this.results) {
+      // Add extra spacing between recording sessions
+      this.results += '<br><br>' + formattedText;
+    } else {
+      this.results = formattedText;
+    }
+
+    // Trigger change detection to update the UI
+    this.changeDetectorRef.detectChanges();
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Transcription Added',
+      detail: 'Voice transcription added to results.',
+    });
+  }
+
+  private formatMedicalText(text: string): string {
+    // Basic formatting for medical text
+    let formatted = text.trim();
+    
+    // Add punctuation if missing at the end
+    if (!formatted.match(/[.!?]$/)) {
+      formatted += '.';
+    }
+    
+    // Handle temperature values (e.g., "37° c" -> "37°C")
+    formatted = formatted.replace(/(\d+)\s*°\s*c/gi, '$1°C');
+    
+    // Split text into sentences and put each sentence on a new line
+    const sentences = formatted.split(/(?<=[.!?])\s+/);
+    formatted = sentences.join('<br>');
+    
+    // Capitalize first letter of each sentence
+    formatted = formatted.replace(/(^|\.\s+)([a-zăâîșț])/g, (match, p1, p2) => {
+      return p1 + p2.toUpperCase();
+    });
+
+    // Add common medical formatting
+    const medicalTerms = [
+      { pattern: /\b(tensiune|presiune)\s+(arterială|sanguină)\b/gi, replacement: '**$1 $2**' },
+      { pattern: /\b(frecvență|ritm)\s+(cardiacă)\b/gi, replacement: '**$1 $2**' },
+      { pattern: /\b(temperatură)\b/gi, replacement: '**$1**' },
+      { pattern: /\b(diagnostic)\b/gi, replacement: '**$1**' },
+      { pattern: /\b(tratament|medicație)\b/gi, replacement: '**$1**' },
+      { pattern: /\b(simptome|simptom)\b/gi, replacement: '**$1**' },
+      { pattern: /\b(examen|investigație)\b/gi, replacement: '**$1**' },
+      { pattern: /\b(recomandare|recomandări)\b/gi, replacement: '**$1**' },
+    ];
+
+    medicalTerms.forEach(term => {
+      formatted = formatted.replace(term.pattern, term.replacement);
+    });
+
+    return formatted;
   }
 
   sanitizeText(rawHtml: string): string {

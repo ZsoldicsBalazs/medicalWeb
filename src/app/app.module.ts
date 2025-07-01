@@ -69,6 +69,12 @@ import { UserListComponent } from './admin/manage-user/user-list/user-list.compo
 import { AddDoctorComponent } from './admin/manage-user/add-doctor/add-doctor.component';
 import { AddSecretaryComponent } from './admin/manage-user/add-secretary/add-secretary.component';
 import { FileUploadModule } from 'primeng/fileupload';
+import { NewsboardComponent } from './common/newsboard/newsboard.component';
+import { ManageNewsComponent } from './admin/manage-news/manage-news.component';
+import { AccordionModule } from 'primeng/accordion';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { SecretaryDashboardComponent } from './secretary/secretary-dashboard/secretary-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +107,9 @@ import { FileUploadModule } from 'primeng/fileupload';
     UserListComponent,
     AddDoctorComponent,
     AddSecretaryComponent,
+    NewsboardComponent,
+    ManageNewsComponent,
+    SecretaryDashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -143,6 +152,9 @@ import { FileUploadModule } from 'primeng/fileupload';
     CardModule,
     ConfirmDialogModule,
     FileUploadModule,
+    AccordionModule,
+    InputTextareaModule,
+    ProgressSpinnerModule,
   ],
   providers: [
     AuthService,
