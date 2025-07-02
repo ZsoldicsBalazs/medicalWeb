@@ -28,38 +28,36 @@ export class DoctorConsultationComponent implements OnInit, OnDestroy {
   recognition: SpeechRecognition | null = null;
   isSupported: boolean = false;
 
-  // Template strings
-  private normalTemplate = `
-Vital Signs: \n
-- Blood Pressure: Normal (120/80 mmHg)\n
-- Heart Rate: 70 bpm\n
-- Temperature: 36.6°C<br><br>
-
+  // Template strings with <br> tags for p-editor display
+  private normalTemplate = `Vital Signs:<br>
+- Blood Pressure: Normal (120/80 mmHg)<br>
+- Heart Rate: 70 bpm<br>
+- Temperature: 36.6°C<br>
+<br>
 Examination:<br>
 - General condition: Stable<br>
 - No acute distress observed<br>
-- Normal respiratory and cardiovascular function<br><br>
-
+- Normal respiratory and cardiovascular function<br>
+<br>
 Recommendations:<br>
 - Continue regular check-ups<br>
-- Maintain healthy lifestyle
-`;
-  private illTemplate = `
-**Vital Signs**:<br>
+- Maintain healthy lifestyle`;
+
+  private illTemplate = `**Vital Signs**:<br>
 - Blood Pressure: Elevated (140/90 mmHg)<br>
 - Heart Rate: 90 bpm<br>
-- Temperature: 38.0°C<br><br>
-
+- Temperature: 38.0°C<br>
+<br>
 **Examination**:<br>
 - General condition: Unstable<br>
 - Signs of acute illness detected<br>
-- Abnormal respiratory or cardiovascular findings<br><br>
-
+- Abnormal respiratory or cardiovascular findings<br>
+<br>
 **Recommendations**:<br>
 - Immediate follow-up required<br>
 - Prescribed medication: [Specify]<br>
-- Rest and monitor symptoms<br><br>
-`;
+- Rest and monitor symptoms`;
+
   results: string | undefined = '';
   diagnosis: string = '';
 
@@ -233,7 +231,7 @@ Recommendations:<br>
     
     // Add to existing results with proper spacing
     if (this.results) {
-      // Add extra spacing between recording sessions
+      // Add extra spacing between recording sessions using <br> for display
       this.results += '<br><br>' + formattedText;
     } else {
       this.results = formattedText;
@@ -261,7 +259,7 @@ Recommendations:<br>
     // Handle temperature values (e.g., "37° c" -> "37°C")
     formatted = formatted.replace(/(\d+)\s*°\s*c/gi, '$1°C');
     
-    // Split text into sentences and put each sentence on a new line
+    // Split text into sentences and put each sentence on a new line with <br> for display
     const sentences = formatted.split(/(?<=[.!?])\s+/);
     formatted = sentences.join('<br>');
     
@@ -287,6 +285,31 @@ Recommendations:<br>
     });
 
     return formatted;
+  }
+
+  private convertHtmlToNewlines(text: string): string {
+    if (!text) return '';
+    
+    // First, normalize all line breaks to <br>
+    let result = text.replace(/\r\n|\r|\n/g, '<br>');
+    
+    // Replace multiple <br> tags with double newline for proper spacing
+    result = result.replace(/<br\s*\/?>\s*<br\s*\/?>/gi, '\n\n');
+    
+    // Replace remaining single <br> tags with single newline
+    result = result.replace(/<br\s*\/?>/gi, '\n');
+    
+    // Remove any other HTML tags
+    result = result.replace(/<[^>]+>/g, '');
+    
+    // Normalize multiple newlines to maximum of two
+    result = result.replace(/\n{3,}/g, '\n\n');
+    
+    // Ensure proper line endings for database storage
+    result = result.replace(/\n/g, '\r\n');
+    
+    // Trim whitespace but preserve internal line structure
+    return result.trim();
   }
 
   sanitizeText(rawHtml: string): string {
@@ -334,12 +357,11 @@ Recommendations:<br>
 
     const consultationRecord: ConsultationRecordCreated = {
       appointmentId: Number(this.route.snapshot.paramMap.get('id')),
-      diagnosis: this.diagnosis,
-      results: this.results!,
+      diagnosis: this.convertHtmlToNewlines(this.diagnosis),
+      results: this.convertHtmlToNewlines(this.results!),
       drName: `${this.appointmentDetails.doctor.firstName} ${this.appointmentDetails.doctor.lastName}`,
       department: this.appointmentDetails.doctor.department,
     };
-    console.log('========> SANITEZD' + this.sanitizeText(this.results!));
 
     this.recordService.saveConsultationRecord(consultationRecord).subscribe(
       (data) => {

@@ -77,6 +77,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SecretaryDashboardComponent } from './secretary/secretary-dashboard/secretary-dashboard.component';
 import { SecretaryProfileComponent } from './secretary/secretary-profile/secretary-profile.component';
 import { TagModule } from 'primeng/tag';
+import { RemoveHtmlTagsPipe } from './pipes/remove-html-tags.pipe';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { TagModule } from 'primeng/tag';
     ManageNewsComponent,
     SecretaryDashboardComponent,
     SecretaryProfileComponent,
+    RemoveHtmlTagsPipe,
   ],
   imports: [
     BrowserModule,

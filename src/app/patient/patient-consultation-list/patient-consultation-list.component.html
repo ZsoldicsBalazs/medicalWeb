@@ -36,8 +36,10 @@
     <p><strong>Department:</strong> {{ selectedRecord?.department }}</p>
     <p><strong>Doctor:</strong> Dr. {{ selectedRecord?.drName }}</p>
     <p><strong>Date:</strong> {{ selectedRecord?.created_at}}</p>
-    <p><strong>Diagnosis:</strong> {{ selectedRecord?.diagnosis }}</p>
-    <p><strong>Results:</strong> {{ selectedRecord?.results }}</p>
+    <p><strong>Diagnosis:</strong></p>
+    <p style="white-space: pre-line" class="pl-4">{{ selectedRecord?.diagnosis! | removeHtmlTags }}</p>
+    <p><strong>Results:</strong></p>
+    <p style="white-space: pre-line" class="pl-4">{{ selectedRecord?.results! | removeHtmlTags }}</p>
   </div>
   <ng-template pTemplate="footer">
     <button pButton type="button" label="Download PDF" icon="pi pi-download" (click)="downloadPDF()"></button>

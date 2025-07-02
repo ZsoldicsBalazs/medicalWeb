@@ -3,6 +3,7 @@ import { PatientService } from '../../services/patient.service';
 import { ConsultationRecord } from '../../domain/consultation-record.model';
 import { MessageService } from 'primeng/api';
 import { NotificationService } from '../../services/notification.service';
+import { ConsultationRecordService } from '../../services/consultation-record.service';
 
 @Component({
   selector: 'app-patient-consultation-list',
@@ -18,7 +19,8 @@ export class PatientConsultationListComponent implements OnInit {
 
   constructor(
     private patientService: PatientService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private consultationRecordService: ConsultationRecordService
   ) {}
 
   ngOnInit(): void {
@@ -47,39 +49,10 @@ export class PatientConsultationListComponent implements OnInit {
   }
 
   downloadPDF(): void {
-    if (!this.selectedRecord) {
-      console.warn('No record selected for PDF download');
-      return;
-    }
-
-    const element = document.getElementById('pdf-content');
-    if (element) {
-      import('html2canvas').then((html2canvas) => {
-        html2canvas.default(element, { scale: 2 }).then((canvas) => {
-          import('jspdf').then((jsPDF) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF.default('p', 'mm', 'a4');
-            const imgProps = pdf.getImageProperties(imgData);
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save(
-              `consultation-record-${this.selectedRecord?.drName}-${this.selectedRecord?.created_at}.pdf`
-            );
-          });
-        });
-      });
-      this.notificationService.success(
-        'Success',
-        'PDF downloaded successfully'
-      );
-    } else {
-      this.notificationService.success(
-        'Success',
-        'PDF content element not found'
-      );
-    }
+   //opens new window
+    this.consultationRecordService.getConsultationRecordPDF(
+      this.selectedRecord?.recordId!
+    );
   }
 
   closeDialog(): void {
