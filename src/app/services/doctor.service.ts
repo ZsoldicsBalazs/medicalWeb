@@ -5,14 +5,15 @@ import { DoctorAppointment } from '../domain/doctor-appointment.model';
 
 import { Doctor } from '../domain/doctor.model';
 import { DoctorProcedure } from '../domain/doctor-procedure.model';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DoctorService {
-  private aptURL = 'http://localhost:1212/api/v1/appointment';
-  private doctorURL = 'http://localhost:1212/api/v1/medic';
-  private daysOFFURL = 'http://localhost:1212/api/v1/days-off';
+  private aptURL = `${environment.apiBaseUrl}/appointment`;
+  private doctorURL = `${environment.apiBaseUrl}/medic`;
+  private daysOFFURL = `${environment.apiBaseUrl}/days-off`;
 
   constructor(private http: HttpClient) {}
 

@@ -5,13 +5,14 @@ import { UserDTO } from '../domain/userdto.model';
 import { DoctorRegistrationRequest } from '../domain/doctor-registration.model';
 import { Doctor } from '../domain/doctor.model';
 import { SecretaryRegistrationRequest } from '../domain/secretary-registration-request.model';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  private USERS_URL = 'http://localhost:1212/api/v1/users';
-  private ADMIN_URL = 'http://localhost:1212/api/v1/admin';
+  private USERS_URL = `${environment.apiBaseUrl}/users`;
+  private ADMIN_URL = `${environment.apiBaseUrl}/admin`;
 
   constructor(private http: HttpClient) {}
 

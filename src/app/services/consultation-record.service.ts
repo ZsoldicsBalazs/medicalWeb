@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConsultationRecordCreated } from '../domain/consultationRecord-request.model';
 import { Observable } from 'rxjs';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConsultationRecordService {
-  private RECORD_URL = 'http://localhost:1212/api/v1/record';
+  private RECORD_URL = `${environment.apiBaseUrl}/record`;
 
   constructor(private httpClient: HttpClient) {}
 

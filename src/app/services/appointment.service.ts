@@ -6,12 +6,13 @@ import { Doctor } from '../domain/doctor.model';
 import { AppointmentRequest } from '../domain/appointment-request.model';
 import { UserAppointment } from '../domain/user-appointment.model';
 import { AppointmentDrAndPatient } from '../domain/appointment.model';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppointmentService {
-  private APPOINTMENT_URL = 'http://localhost:1212/api/v1/appointment';
+  private APPOINTMENT_URL = `${environment.apiBaseUrl}/appointment`;
 
   constructor(private http: HttpClient) {}
 

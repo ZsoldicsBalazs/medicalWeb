@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of, throwError } from 'rxjs';
 import { UserRegistration } from '../domain/user-registration.model';
 import { Patient } from '../domain/patient.model';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ import { Patient } from '../domain/patient.model';
 export class AuthService {
 
   private tokenKey = 'authToken';
-  private authUrl = 'http://localhost:1212/api/v1/auth';
-  private patientUrl = 'http://localhost:1212/api/v1/patient';
+  private authUrl = `${environment.apiBaseUrl}/auth`;
+  private patientUrl = `${environment.apiBaseUrl}/patient`;
   private isAuthenticatedBoolean = false;
 
   constructor(private http: HttpClient) {
