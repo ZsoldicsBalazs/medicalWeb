@@ -79,6 +79,9 @@
         
       </p>
       <button mat-raised-button color="primary" [routerLink]="[patient.id]" >View Details</button>
+      <button mat-raised-button [routerLink]="['book-appointment/', patient.id]">
+              <i class="pi pi-calendar-plus" style="color: rgb(3, 72, 219);"></i>
+            </button>
     </div>
   </div>
   

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Patient } from '../../domain/patient.model';
 import { NotificationService } from '../../services/notification.service';
+import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'app-login',
@@ -151,11 +152,11 @@ export class LoginComponent implements OnInit{
   }
   loginWithGoogle() {
     console.log('Initiating Google login');
-    window.location.href = "http://localhost:1212/oauth2/authorization/google"
+    window.location.href = `http://localhost:${environment.backendPort}/oauth2/authorization/google`
   }
 
   loginWithFacebook(){
-    window.location.href = "http://localhost:1212/oauth2/authorization/facebook";
+    window.location.href = `http://localhost:${environment.backendPort}/oauth2/authorization/facebook`;
   }
 
 }

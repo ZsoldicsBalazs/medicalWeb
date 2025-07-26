@@ -1,0 +1,176 @@
+<p-toast></p-toast>
+
+<div class="admin-statistics-container">
+  <div class="header-section">
+    <h2 class="page-title">
+      <i class="pi pi-chart-bar"></i>
+      System Statistics & Analytics
+    </h2>
+    
+    <p-button 
+      label="Refresh" 
+      icon="pi pi-refresh" 
+      [loading]="loading"
+      (onClick)="refreshStatistics()"
+      styleClass="p-button-outlined">
+    </p-button>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="loading-container">
+    <p-progressSpinner></p-progressSpinner>
+    <p>Loading statistics...</p>
+  </div>
+
+  <!-- Statistics Content -->
+  <div *ngIf="!loading">
+    <!-- User Statistics Cards -->
+    <div class="statistics-grid">
+      <div class="stat-card users">
+        <div class="stat-header">
+          <i class="pi pi-users"></i>
+          <span>Total Users</span>
+        </div>
+        <div class="stat-value">{{ totalUsers }}</div>
+        <div class="stat-subtitle">Registered in system</div>
+      </div>
+
+      <div class="stat-card doctors">
+        <div class="stat-header">
+          <i class="pi pi-heart"></i>
+          <span>Doctors</span>
+        </div>
+        <div class="stat-value">{{ totalDoctors }}</div>
+        <div class="stat-subtitle">Active medical staff</div>
+      </div>
+
+      <div class="stat-card patients">
+        <div class="stat-header">
+          <i class="pi pi-user"></i>
+          <span>Patients</span>
+        </div>
+        <div class="stat-value">{{ totalPatients }}</div>
+        <div class="stat-subtitle">Registered patients</div>
+      </div>
+
+      <div class="stat-card secretaries">
+        <div class="stat-header">
+          <i class="pi pi-briefcase"></i>
+          <span>Secretaries</span>
+        </div>
+        <div class="stat-value">{{ totalSecretaries }}</div>
+        <div class="stat-subtitle">Administrative staff</div>
+      </div>
+    </div>
+
+  <!-- Appointment & Consultation Statistics -->
+  <div class="statistics-grid mt-4">
+    <div class="stat-card appointments">
+      <div class="stat-header">
+        <i class="pi pi-calendar"></i>
+        <span>Total Appointments</span>
+      </div>
+      <div class="stat-value">{{ totalAppointments }}</div>
+      <div class="stat-subtitle">All appointments</div>
+    </div>
+
+    <div class="stat-card consultations">
+      <div class="stat-header">
+        <i class="pi pi-file-edit"></i>
+        <span>Total Consultations</span>
+      </div>
+      <div class="stat-value">{{ totalConsultations }}</div>
+      <div class="stat-subtitle">Consultation records</div>
+    </div>
+
+    <div class="stat-card daily-registrations">
+      <div class="stat-header">
+        <i class="pi pi-user-plus"></i>
+        <span>Daily Registrations</span>
+      </div>
+      <div class="stat-value">{{ systemStats.dailyRegistrations }}</div>
+      <div class="stat-subtitle">New users today</div>
+    </div>
+
+    <div class="stat-card monthly-appointments">
+      <div class="stat-header">
+        <i class="pi pi-calendar-plus"></i>
+        <span>Monthly Appointments</span>
+      </div>
+      <div class="stat-value">{{ systemStats.monthlyAppointments }}</div>
+      <div class="stat-subtitle">This month</div>
+    </div>
+  </div>
+
+  <!-- Detailed Appointment Status Statistics -->
+  <div class="statistics-grid mt-4">
+    <div class="stat-card completed-appointments">
+      <div class="stat-header">
+        <i class="pi pi-check-circle"></i>
+        <span>Completed Appointments</span>
+      </div>
+      <div class="stat-value completed">{{ completedAppointments }}</div>
+      <div class="stat-subtitle">Successfully completed</div>
+    </div>
+
+    <div class="stat-card pending-appointments">
+      <div class="stat-header">
+        <i class="pi pi-clock"></i>
+        <span>Pending Appointments</span>
+      </div>
+      <div class="stat-value pending">{{ pendingAppointments }}</div>
+      <div class="stat-subtitle">Scheduled/Waiting</div>
+    </div>
+
+    <div class="stat-card cancelled-appointments">
+      <div class="stat-header">
+        <i class="pi pi-times-circle"></i>
+        <span>Cancelled Appointments</span>
+      </div>
+      <div class="stat-value cancelled">{{ cancelledAppointments }}</div>
+      <div class="stat-subtitle">Cancelled by user/doctor</div>
+    </div>
+
+    <div class="stat-card appointment-rate">
+      <div class="stat-header">
+        <i class="pi pi-percentage"></i>
+        <span>Completion Rate</span>
+      </div>
+      <div class="stat-value rate">{{ getCompletionRate() }}%</div>
+      <div class="stat-subtitle">Success rate</div>
+    </div>
+  </div>
+
+
+  <!-- System Performance   -->
+  <div class="performance-section mt-5">
+    <h3>System Performance</h3>
+    <div class="performance-grid">
+      <div class="performance-card">
+        <div class="metric-name">Average Consultation Time</div>
+        <div class="metric-value">{{ systemStats.averageConsultationTime }} min</div>
+        <div class="metric-trend positive">↗ 5% improvement</div>
+      </div>
+
+      <div class="performance-card">
+        <div class="metric-name">System Uptime</div>
+        <div class="metric-value">{{ systemStats.systemUptime }}</div>
+        <div class="metric-trend positive">↗ Excellent</div>
+      </div>
+
+      <div class="performance-card">
+        <div class="metric-name">User Satisfaction</div>
+        <div class="metric-value">4.8/5</div>
+        <div class="metric-trend positive">↗ High rating</div>
+      </div>
+
+      <div class="performance-card">
+        <div class="metric-name">Response Time</div>
+        <div class="metric-value">< 200ms</div>
+        <div class="metric-trend positive">↗ Fast response</div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div> 

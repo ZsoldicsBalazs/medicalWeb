@@ -1,4 +1,5 @@
 <p-fileUpload
+  #fileUpload
   name="file"
   accept="application/pdf"
   [customUpload]="true"
@@ -6,9 +7,9 @@
   [auto]="false"
   [showUploadButton]="true"
   [showCancelButton]="true"
-  chooseLabel="Alege PDF"
-  uploadLabel="Trimite"
-  cancelLabel="Anulează"
+  chooseLabel="Chose PDF"
+  uploadLabel="Send"
+  cancelLabel="Cancel"
 >
 </p-fileUpload>
 
@@ -17,8 +18,8 @@
   <ng-template pTemplate="header">
     <tr>
       <th>Document</th>
-      <th>Data Upload</th>
-      <th>Acțiune</th>
+      <th>Uploaded at</th>
+      <th>Action</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-doc>
@@ -26,7 +27,7 @@
       <td>{{ doc.fileName }}</td>
       <td>{{ doc.uploadDate | date:'short' }}</td>
       <td>
-        <button pButton type="button" icon="pi pi-file-pdf" label="Deschide"
+        <button pButton type="button" icon="pi pi-file-pdf" label="Open"
                 (click)="openPdf(doc.fileUrl)"></button>
       </td>
     </tr>
