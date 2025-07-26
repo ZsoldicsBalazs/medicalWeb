@@ -52,6 +52,7 @@ import { BookAppointmentComponent } from './common/book-appointment/book-appoint
 import { TimelineModule } from 'primeng/timeline';
 import { DoctorFreeDaySchedulerComponent } from './doctor/doctor-profile/doctor-free-day-scheduler/doctor-free-day-scheduler.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { AdminStatisticsComponent } from './admin/admin-statistics/admin-statistics.component';
 import { OauthSuccesComponent } from './common/auth/oauth-succes/oauth-succes/oauth-succes.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
@@ -78,6 +79,7 @@ import { SecretaryDashboardComponent } from './secretary/secretary-dashboard/sec
 import { SecretaryProfileComponent } from './secretary/secretary-profile/secretary-profile.component';
 import { TagModule } from 'primeng/tag';
 import { RemoveHtmlTagsPipe } from './pipes/remove-html-tags.pipe';
+import { ManageAppointmentsComponent } from './secretary/manage-appointments/manage-appointments.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +107,7 @@ import { RemoveHtmlTagsPipe } from './pipes/remove-html-tags.pipe';
     BookAppointmentComponent,
     DoctorFreeDaySchedulerComponent,
     AdminDashboardComponent,
+    AdminStatisticsComponent,
     OauthSuccesComponent,
     ManageUserComponent,
     UserListComponent,
@@ -115,6 +118,7 @@ import { RemoveHtmlTagsPipe } from './pipes/remove-html-tags.pipe';
     SecretaryDashboardComponent,
     SecretaryProfileComponent,
     RemoveHtmlTagsPipe,
+    ManageAppointmentsComponent,
   ],
   imports: [
     BrowserModule,

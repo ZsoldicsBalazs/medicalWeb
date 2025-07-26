@@ -15,7 +15,7 @@
       <div >
         <mat-card>
           <mat-card-header>
-            <mat-card-title>Detalii Pacient</mat-card-title>
+            <mat-card-title>Pacient Details</mat-card-title>
           </mat-card-header>
           <mat-card-content style="width: 500px;" >
             <form  [formGroup]="patientForm" (ngSubmit)="onSave()">
@@ -65,7 +65,7 @@
               
               <div class="button-container">
                 <button mat-raised-button color="primary" type="submit" [disabled]="patientForm.invalid">
-                  Salvează
+                  Save
                 </button>
               </div>
             </form>
@@ -91,7 +91,7 @@
           <app-patient-consultation-list *ngIf="patient" [patientId]="patient.id"></app-patient-consultation-list>  
 
     </mat-tab>
-    <mat-tab label="Documente Incarcate">
+    <mat-tab label="Uploaded Documents">
 
       <app-document-list [patientId]="patient.id"></app-document-list>
      
