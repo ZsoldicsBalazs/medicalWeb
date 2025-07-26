@@ -7,12 +7,11 @@
   [auto]="false"
   [showUploadButton]="true"
   [showCancelButton]="true"
-  chooseLabel="Chose PDF"
-  uploadLabel="Send"
+  chooseLabel="Choose PDF"
+  uploadLabel="Upload"
   cancelLabel="Cancel"
 >
 </p-fileUpload>
-
 
 <p-table [value]="docList" [paginator]="true" [rows]="10">
   <ng-template pTemplate="header">
@@ -24,15 +23,40 @@
   </ng-template>
   <ng-template pTemplate="body" let-doc>
     <tr>
-      <td>{{ doc.fileName }}</td>
-      <td>{{ doc.uploadDate | date:'short' }}</td>
       <td>
-        <button pButton type="button" icon="pi pi-file-pdf" label="Open"
-                (click)="openPdf(doc.fileUrl)"></button>
+        <div class="document-info">
+          <i class="pi pi-file-pdf text-red-500"></i>
+          <span class="ml-2">{{ doc.fileName }}</span>
+        </div>
+      </td>
+      <td>{{ doc.uploadDate | date:'short' }}</td>
+      
+      <td>
+        <div class="action-buttons">
+          
+          <button 
+            *ngIf="doc.id"
+            pButton 
+            type="button" 
+            icon="pi pi-shield" 
+            label="Open PDF"
+            pTooltip="Secure access"
+            tooltipPosition="top"
+            class="p-button-success p-button-sm mr-2"
+            (click)="openPdfSecure(doc)">
+          </button>
+       
+        </div>
       </td>
     </tr>
   </ng-template>
 </p-table>
+
+<!-- No documents message -->
+<div *ngIf="docList.length === 0" class="no-documents">
+  <i class="pi pi-info-circle"></i>
+  <p>No documents found for this patient.</p>
+</div>
 
 
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { DocumentService } from '../../services/document.service';
+import { SecureDocumentService } from '../../services/secure-document.service';
 import { Document } from '../../domain/documents.model';
 import { NotificationService } from '../../services/notification.service';
 import { FileUpload } from 'primeng/fileupload';
@@ -18,7 +18,7 @@ export class DocumentListComponent implements OnInit {
   isPdf: boolean = false;
 
   constructor(
-    private docserv: DocumentService,
+    private secureDocService: SecureDocumentService,
     private notificationService: NotificationService
   ) {}
 
@@ -26,27 +26,28 @@ export class DocumentListComponent implements OnInit {
     this.loadDocuments();
   }
 
-  /**
-   * Load documents for the current patient
-   */
+ 
   private loadDocuments(): void {
-    this.docserv.getDocumentsForPatient(this.patientId).subscribe(
-      (data) => {
+    this.secureDocService.getDocumentsForPatient(this.patientId).subscribe({
+      next: (data) => {
         this.docList = data;
-        console.log('Documents loaded:', this.docList);
+        console.log('Documents loaded securely:', this.docList);
       },
-      (error) => {
+      error: (error) => {
         console.error('Error loading documents:', error);
         this.notificationService.warning('Error', 'Failed to load documents');
       }
-    );
+    });
   }
 
-  openPdf(filePath: string): void {
-    this.docserv.getPdfDocument(filePath).subscribe((blob) => {
-      const fileURL = URL.createObjectURL(blob);
-      window.open(fileURL, '_blank');
-    });
+
+  openPdfSecure(document: Document): void {
+      this.secureDocService.openDocumentSecure(this.patientId, document.id!);
+  }
+
+
+  openPdf(document: Document): void {
+    this.openPdfSecure(document);
   }
 
   onUpload(event: any): void {
@@ -60,24 +61,24 @@ export class DocumentListComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', file);
 
-    this.docserv.uploadPdf(this.patientId, formData).subscribe({
+    this.secureDocService.uploadPdf(this.patientId, formData).subscribe({
       next: (response) => {
         this.notificationService.success(
-          'Succes',
-          'The file was succesfully uploaded'
+          'Success',
+          'The file was successfully uploaded'
         );
 
-        // Reload the document list to include the newly uploaded file
+        // Reload the document list
         this.loadDocuments();
 
-        // Clear the p-fileUpload component properly
+        // Clear the p-fileUpload component !!!!!!!@
         this.fileUpload.clear();
       },
       error: (error) => {
         console.error('Upload error:', error);
         this.notificationService.warning(
           'Error',
-          'There is an error on uploading file, try again later'
+          'There was an error uploading the file, try again later'
         );
       },
     });

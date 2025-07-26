@@ -17,7 +17,7 @@ export class SecretaryProfileComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private usersService: UsersService
+    
   ) {}
 
   ngOnInit(): void {
